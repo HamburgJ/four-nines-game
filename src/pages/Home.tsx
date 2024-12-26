@@ -1,73 +1,32 @@
-import { Container, Row, Col, Button, Card } from 'react-bootstrap';
+import React from 'react';
+import { Container, Button } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
-import { useGameState } from '../hooks/useGameState';
-import { getTodaysSeed } from '../utils/gameUtils';
 
-export const Home = () => {
-  const { gameState } = useGameState();
-  const { lastPlayed, streak, todayCompleted } = gameState;
-
-  // Get today's puzzle number
-  const puzzleNumber = Math.floor((getTodaysSeed() % 1000000) / 100);
-
+export const Home: React.FC = () => {
   return (
-    <Container className="py-5">
-      <Row className="justify-content-center text-center">
-        <Col md={8} lg={6}>
-          <h1 className="game-title mb-4">Game Title</h1>
-          
-          <div className="stats-display mb-4">
-            {todayCompleted ? (
-              <div>
-                Come back tomorrow for the next puzzle!
-                <br />
-                <small className="text-muted">
-                  {streak === 1 ? (
-                    "You've started your streak!"
-                  ) : (
-                    `${streak} day streak! Keep it going!`
-                  )}
-                </small>
-              </div>
-            ) : (
-              <div>
-                Daily Puzzle #{puzzleNumber} is ready!
-                <br />
-                <small className="text-muted">
-                  {streak > 0 && `${streak} day streak - don't break it!`}
-                </small>
-              </div>
-            )}
-          </div>
+    <Container className="py-4 text-center">
+      <h1 className="display-2 mb-4">Four Nines</h1>
+      
+      <p className="lead mb-5">
+        Welcome to Four Nines, a daily mathematical puzzle game!
+      </p>
 
-          <Card className="home-card">
-            <Card.Body>
-              <p className="mb-4">
-                A new puzzle every day. Complete it to maintain your streak!
-              </p>
+      <div className="mb-5">
+        <h2>Example</h2>
+        <p>
+          If the seed is 4 and the target is 24, some solutions might be:<br/>
+          <code className="lead">44/4+4</code> (score: 6)<br/>
+          <code className="lead">(4+4)*4-4</code> (score: 8)
+        </p>
+      </div>
 
-              {lastPlayed && (
-                <p className="text-muted small mb-4">
-                  Last played: {new Date(lastPlayed).toLocaleDateString()}
-                </p>
-              )}
-
-              <div className="d-grid">
-                <Link to="/play" className="d-grid">
-                  <Button
-                    variant="primary"
-                    size="lg"
-                    className="btn-game"
-                    disabled={todayCompleted}
-                  >
-                    {todayCompleted ? 'Come Back Tomorrow' : 'Play Today\'s Puzzle'}
-                  </Button>
-                </Link>
-              </div>
-            </Card.Body>
-          </Card>
-        </Col>
-      </Row>
+      <div className="d-grid gap-2 col-md-6 mx-auto">
+        <Link to="/play">
+          <Button variant="primary" size="lg" className="w-100">
+            Play Today's Puzzle
+          </Button>
+        </Link>
+      </div>
     </Container>
   );
 }; 

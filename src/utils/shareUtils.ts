@@ -10,6 +10,7 @@ interface ShareOptions {
   timeMs?: number;
   grid?: ResultEmoji[][];
   stats?: GameStats;
+  hintsUsed?: number;
 }
 
 interface GameStats {
@@ -43,56 +44,39 @@ const formatTime = (ms: number): string => {
 };
 
 /**
- * Generate a shareable text for the game results
- * @param options Share options including grid, stats, etc.
+ * Generate share text for the game result
+ * @param options Share options including score, stats, etc.
  * @returns Formatted share text
  */
-export const generateShareText = ({
-  title,
-  dayNumber = Math.floor((getTodaysSeed() % 1000000) / 100), // Generate puzzle number from seed
-  score,
-  streak,
-  timeMs,
-  grid,
-  stats,
-}: ShareOptions): string => {
+export const generateShareText = (options: ShareOptions): string => {
   const lines: string[] = [];
 
   // Title and day number
-  lines.push(`${title} #${dayNumber}`);
-  lines.push('');
+  lines.push(`${options.title}${options.dayNumber ? ` #${options.dayNumber}` : ''}`);
 
-  // Score and streak if provided
-  if (score !== undefined) {
-    lines.push(`Score: ${score}`);
-  }
-  if (streak !== undefined) {
-    lines.push(`Streak: ${streak}`);
-  }
-  if (timeMs !== undefined) {
-    lines.push(`Time: ${formatTime(timeMs)}`);
+  // Score
+  if (options.score !== undefined) {
+    lines.push(`Score: ${options.score}${options.hintsUsed ? ` (${options.hintsUsed} hints used)` : ''}`);
   }
 
-  // Add grid if provided
-  if (grid) {
+  // Grid
+  if (options.grid) {
     lines.push('');
-    lines.push(generateResultGrid(grid));
+    lines.push(generateResultGrid(options.grid));
   }
 
-  // Add stats comparison if provided
-  if (stats) {
+  // Time
+  if (options.timeMs) {
+    lines.push(`Time: ${formatTime(options.timeMs)}`);
+  }
+
+  // Stats
+  if (options.stats) {
     lines.push('');
-    lines.push('📊 Stats:');
-    lines.push(`Games Played: ${stats.gamesPlayed}`);
-    lines.push(`Win Rate: ${Math.round(stats.winRate * 100)}%`);
-    lines.push(`Current Streak: ${stats.currentStreak}`);
-    lines.push(`Max Streak: ${stats.maxStreak}`);
-    if (stats.averageScore !== undefined) {
-      lines.push(`Average Score: ${stats.averageScore.toFixed(1)}`);
-    }
-    if (stats.bestTime !== undefined) {
-      lines.push(`Best Time: ${formatTime(stats.bestTime)}`);
-    }
+    lines.push(`Played: ${options.stats.gamesPlayed}`);
+    lines.push(`Win Rate: ${Math.round(options.stats.winRate * 100)}%`);
+    lines.push(`Current Streak: ${options.stats.currentStreak}`);
+    lines.push(`Max Streak: ${options.stats.maxStreak}`);
   }
 
   return lines.join('\n');

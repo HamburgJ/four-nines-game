@@ -1,8 +1,6 @@
 export interface GameState {
   // Built-in state properties
-  currentLevel: number;
-  score: number;
-  highScores: number[];
+  currentExpression: string;
   lastPlayed: string | null;
   streak: number;
   settings: GameSettings;
@@ -13,6 +11,11 @@ export interface GameState {
   winRate: number;
   maxStreak: number;
   todayCompleted: boolean;
+
+  // Game specific properties
+  bestSolutions: { [date: string]: string };
+  bestScores: { [date: string]: number };
+  hintsUsed: { [date: string]: number };
 }
 
 export interface GameSettings {
@@ -28,9 +31,7 @@ const getInitialTheme = (): 'light' | 'dark' => {
 
 export const DEFAULT_GAME_STATE: GameState = {
   // Built-in defaults
-  currentLevel: 1,
-  score: 0,
-  highScores: [],
+  currentExpression: '',
   lastPlayed: null,
   streak: 0,
   settings: {
@@ -42,4 +43,8 @@ export const DEFAULT_GAME_STATE: GameState = {
   winRate: 0,
   maxStreak: 0,
   todayCompleted: false,
+  // Game specific defaults
+  bestSolutions: {},
+  bestScores: {},
+  hintsUsed: {},
 }; 

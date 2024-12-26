@@ -1,0 +1,2282 @@
+{
+  "1": {
+    "4": {
+      "expression": "((1 + 1) + (1 + 1))",
+      "complexity": 19,
+      "unique_operators": 1
+    },
+    "5": {
+      "expression": "(((1 + (1 + 1))!) - 1)",
+      "complexity": 22,
+      "unique_operators": 3
+    },
+    "11": {
+      "expression": "(11.1 - 0.1)",
+      "complexity": 12,
+      "unique_operators": 1
+    },
+    "13": {
+      "expression": "((11 + 1) + 1)",
+      "complexity": 14,
+      "unique_operators": 1
+    },
+    "22": {
+      "expression": "(11 * (1 + 1))",
+      "complexity": 14,
+      "unique_operators": 2
+    },
+    "24": {
+      "expression": "(((1 + 1) * (1 + 1))!)",
+      "complexity": 22,
+      "unique_operators": 3
+    },
+    "1": {
+      "expression": "((111 % 1)!)",
+      "complexity": 12,
+      "unique_operators": 2
+    },
+    "12": {
+      "expression": "((11 + 1) ^ 1)",
+      "complexity": 14,
+      "unique_operators": 2
+    },
+    "10": {
+      "expression": "(11 - (1 / 1))",
+      "complexity": 14,
+      "unique_operators": 2
+    },
+    "2": {
+      "expression": "(((11 % 1)!) + 1)",
+      "complexity": 17,
+      "unique_operators": 3
+    },
+    "3": {
+      "expression": "((1 + 1) + (1 / 1))",
+      "complexity": 19,
+      "unique_operators": 2
+    },
+    "9": {
+      "expression": "((11 - 1) - 1)",
+      "complexity": 14,
+      "unique_operators": 1
+    },
+    "6": {
+      "expression": "(((1 + (1 + 1))!) / 1)",
+      "complexity": 22,
+      "unique_operators": 3
+    },
+    "7": {
+      "expression": "((((1 + 1) + 1)!) + 1)",
+      "complexity": 22,
+      "unique_operators": 2
+    },
+    "100": {
+      "expression": "(0.1 ^ -(((1 * 1) + 1)))",
+      "complexity": 24,
+      "unique_operators": 4
+    },
+    "99": {
+      "expression": "((0.1 ^ -((1 + 1))) - 1)",
+      "complexity": 24,
+      "unique_operators": 3
+    },
+    "72": {
+      "expression": "(0.1 * (((1 + (1 + 1))!)!))",
+      "complexity": 27,
+      "unique_operators": 3
+    }
+  },
+  "2": {
+    "2": {
+      "expression": "(22 % (2 + 2))",
+      "complexity": 14,
+      "unique_operators": 2
+    },
+    "3": {
+      "expression": "(((22 % 2)!) + 2)",
+      "complexity": 17,
+      "unique_operators": 3
+    },
+    "5": {
+      "expression": "(2 + (2 + (2 / 2)))",
+      "complexity": 19,
+      "unique_operators": 2
+    },
+    "6": {
+      "expression": "(2 * (2 + (2 / 2)))",
+      "complexity": 19,
+      "unique_operators": 3
+    },
+    "8": {
+      "expression": "(((2 + 2) + 2) + 2)",
+      "complexity": 19,
+      "unique_operators": 1
+    },
+    "14": {
+      "expression": "((2 ^ (2 ^ 2)) - 2)",
+      "complexity": 19,
+      "unique_operators": 2
+    },
+    "15": {
+      "expression": "((2 + (0.2 / 0.2)) / 0.2)",
+      "complexity": 25,
+      "unique_operators": 2
+    },
+    "16": {
+      "expression": "((2 + 2) * (2 + 2))",
+      "complexity": 19,
+      "unique_operators": 2
+    },
+    "18": {
+      "expression": "(22 - (2 + 2))",
+      "complexity": 14,
+      "unique_operators": 2
+    },
+    "19": {
+      "expression": "(((2 * 2) - 0.2) / 0.2)",
+      "complexity": 23,
+      "unique_operators": 3
+    },
+    "20": {
+      "expression": "(22 - sqrt((2 * 2)))",
+      "complexity": 20,
+      "unique_operators": 3
+    },
+    "21": {
+      "expression": "(22 - (2 / 2))",
+      "complexity": 14,
+      "unique_operators": 2
+    },
+    "22": {
+      "expression": "(22.2 - 0.2)",
+      "complexity": 12,
+      "unique_operators": 1
+    },
+    "23": {
+      "expression": "(22 + (2 / 2))",
+      "complexity": 14,
+      "unique_operators": 2
+    },
+    "24": {
+      "expression": "(22 + sqrt((2 + 2)))",
+      "complexity": 20,
+      "unique_operators": 2
+    },
+    "25": {
+      "expression": "(0.2 ^ (2 - (2 + 2)))",
+      "complexity": 21,
+      "unique_operators": 3
+    },
+    "26": {
+      "expression": "(2 + (22 + 2))",
+      "complexity": 14,
+      "unique_operators": 1
+    },
+    "28": {
+      "expression": "((2 + ((2 + 2)!)) + 2)",
+      "complexity": 22,
+      "unique_operators": 2
+    },
+    "30": {
+      "expression": "(((2 + 2) + 2) / 0.2)",
+      "complexity": 21,
+      "unique_operators": 2
+    },
+    "32": {
+      "expression": "(2 * (2 ^ (2 + 2)))",
+      "complexity": 19,
+      "unique_operators": 3
+    },
+    "34": {
+      "expression": "((2 / 0.2) + ((2 + 2)!))",
+      "complexity": 24,
+      "unique_operators": 3
+    },
+    "36": {
+      "expression": "(((2 + 2) + 2) ^ 2)",
+      "complexity": 19,
+      "unique_operators": 2
+    },
+    "40": {
+      "expression": "((22 - 2) * 2)",
+      "complexity": 14,
+      "unique_operators": 2
+    },
+    "42": {
+      "expression": "((22 * 2) - 2)",
+      "complexity": 14,
+      "unique_operators": 2
+    },
+    "44": {
+      "expression": "(22 + 22)",
+      "complexity": 9,
+      "unique_operators": 1
+    },
+    "45": {
+      "expression": "((2 - 0.2) / (0.2 ^ 2))",
+      "complexity": 23,
+      "unique_operators": 3
+    },
+    "46": {
+      "expression": "((22 * 2) + 2)",
+      "complexity": 14,
+      "unique_operators": 2
+    },
+    "48": {
+      "expression": "((22 + 2) * 2)",
+      "complexity": 14,
+      "unique_operators": 2
+    },
+    "49": {
+      "expression": "(((2 / 0.2) - 0.2) / 0.2)",
+      "complexity": 25,
+      "unique_operators": 2
+    },
+    "50": {
+      "expression": "(2 + (((2 * 2)!) * 2))",
+      "complexity": 22,
+      "unique_operators": 3
+    },
+    "51": {
+      "expression": "(((2 / 0.2) + 0.2) / 0.2)",
+      "complexity": 25,
+      "unique_operators": 2
+    },
+    "52": {
+      "expression": "((2 + ((2 + 2)!)) * 2)",
+      "complexity": 22,
+      "unique_operators": 3
+    },
+    "55": {
+      "expression": "((22 / 2) / 0.2)",
+      "complexity": 16,
+      "unique_operators": 1
+    },
+    "60": {
+      "expression": "(((2 * 2)!) / (2 * 0.2))",
+      "complexity": 24,
+      "unique_operators": 3
+    },
+    "64": {
+      "expression": "((2 * (2 * 2)) ^ 2)",
+      "complexity": 19,
+      "unique_operators": 2
+    },
+    "80": {
+      "expression": "(((2 * 2) ^ 2) / 0.2)",
+      "complexity": 21,
+      "unique_operators": 3
+    },
+    "88": {
+      "expression": "((2 + 2) * 22)",
+      "complexity": 14,
+      "unique_operators": 2
+    },
+    "96": {
+      "expression": "(((2 + 2)!) * (2 + 2))",
+      "complexity": 22,
+      "unique_operators": 3
+    },
+    "98": {
+      "expression": "(((2 / 0.2) ^ 2) - 2)",
+      "complexity": 21,
+      "unique_operators": 3
+    },
+    "27": {
+      "expression": "((0.2 ^ -(sqrt((2 ^ 2)))) + 2)",
+      "complexity": 30,
+      "unique_operators": 4
+    },
+    "4": {
+      "seed": 2,
+      "expression": "(((2 * 2) - 2) + 2)",
+      "complexity": 19,
+      "unique_operators": 3
+    },
+    "9": {
+      "seed": 2,
+      "expression": "((22 / 2) - 2)",
+      "complexity": 14,
+      "unique_operators": 2
+    },
+    "13": {
+      "seed": 2,
+      "expression": "((22 / 2) + 2)",
+      "complexity": 14,
+      "unique_operators": 2
+    },
+    "1": {
+      "seed": 2,
+      "expression": "((222 % 2)!)",
+      "complexity": 12,
+      "unique_operators": 2
+    },
+    "10": {
+      "seed": 2,
+      "expression": "((22 - 2) / 2)",
+      "complexity": 14,
+      "unique_operators": 2
+    },
+    "11": {
+      "seed": 2,
+      "expression": "(22 / sqrt((2 ^ 2)))",
+      "complexity": 20,
+      "unique_operators": 3
+    },
+    "12": {
+      "seed": 2,
+      "expression": "((22 + 2) / 2)",
+      "complexity": 14,
+      "unique_operators": 2
+    },
+    "7": {
+      "seed": 2,
+      "expression": "((0.2 ^ -((2 / 2))) + 2)",
+      "complexity": 24,
+      "unique_operators": 4
+    },
+    "100": {
+      "seed": 2,
+      "expression": "((0.2 / 2) ^ -(sqrt((2 * 2))))",
+      "complexity": 30,
+      "unique_operators": 5
+    }
+  },
+  "3": {
+    "1": {
+      "expression": "((333 % 3)!)",
+      "complexity": 12,
+      "unique_operators": 2
+    },
+    "33": {
+      "expression": "(33.3 - 0.3)",
+      "complexity": 12,
+      "unique_operators": 1
+    },
+    "42": {
+      "expression": "(33 + (3 * 3))",
+      "complexity": 14,
+      "unique_operators": 2
+    },
+    "34": {
+      "expression": "(33 + (3 / 3))",
+      "complexity": 14,
+      "unique_operators": 2
+    },
+    "9": {
+      "expression": "((3 + (3 - 3)) * 3)",
+      "complexity": 19,
+      "unique_operators": 3
+    },
+    "10": {
+      "expression": "((33 - 3) / 3)",
+      "complexity": 14,
+      "unique_operators": 2
+    },
+    "6": {
+      "expression": "(33 - (3 ^ 3))",
+      "complexity": 14,
+      "unique_operators": 2
+    },
+    "12": {
+      "expression": "((33 + 3) / 3)",
+      "complexity": 14,
+      "unique_operators": 2
+    },
+    "3": {
+      "expression": "(33 % (3 + 3))",
+      "complexity": 14,
+      "unique_operators": 2
+    },
+    "2": {
+      "expression": "((33 / 3) % 3)",
+      "complexity": 14,
+      "unique_operators": 2
+    },
+    "32": {
+      "expression": "(33 - (3 / 3))",
+      "complexity": 14,
+      "unique_operators": 2
+    },
+    "27": {
+      "expression": "((33 - 3) - 3)",
+      "complexity": 14,
+      "unique_operators": 1
+    },
+    "14": {
+      "expression": "((33 / 3) + 3)",
+      "complexity": 14,
+      "unique_operators": 2
+    },
+    "39": {
+      "expression": "(33 + (3 + 3))",
+      "complexity": 14,
+      "unique_operators": 1
+    },
+    "90": {
+      "expression": "((33 - 3) * 3)",
+      "complexity": 14,
+      "unique_operators": 2
+    },
+    "60": {
+      "expression": "(33 + (3 ^ 3))",
+      "complexity": 14,
+      "unique_operators": 2
+    },
+    "24": {
+      "expression": "(33 - (3 * 3))",
+      "complexity": 14,
+      "unique_operators": 2
+    },
+    "5": {
+      "expression": "(3 - ((3 / 3) - 3))",
+      "complexity": 19,
+      "unique_operators": 2
+    },
+    "7": {
+      "expression": "((3 / 3) + (3 + 3))",
+      "complexity": 19,
+      "unique_operators": 2
+    },
+    "36": {
+      "expression": "(((3 * 3) + 3) * 3)",
+      "complexity": 19,
+      "unique_operators": 2
+    },
+    "96": {
+      "expression": "((33 * 3) - 3)",
+      "complexity": 14,
+      "unique_operators": 2
+    },
+    "4": {
+      "expression": "(((33 % 3)!) + 3)",
+      "complexity": 17,
+      "unique_operators": 3
+    },
+    "72": {
+      "expression": "(3 * ((3 ^ 3) - 3))",
+      "complexity": 19,
+      "unique_operators": 3
+    },
+    "18": {
+      "expression": "((3 ^ 3) - (3 * 3))",
+      "complexity": 19,
+      "unique_operators": 3
+    },
+    "15": {
+      "expression": "((3 + 3) + (3 * 3))",
+      "complexity": 19,
+      "unique_operators": 2
+    },
+    "26": {
+      "expression": "((3 ^ 3) - (3 / 3))",
+      "complexity": 19,
+      "unique_operators": 3
+    },
+    "54": {
+      "expression": "((3 + 3) * (3 * 3))",
+      "complexity": 19,
+      "unique_operators": 2
+    },
+    "99": {
+      "expression": "(33 * sqrt((3 * 3)))",
+      "complexity": 20,
+      "unique_operators": 2
+    },
+    "8": {
+      "expression": "((33 / 3) - 3)",
+      "complexity": 14,
+      "unique_operators": 2
+    },
+    "28": {
+      "expression": "((3 ^ 3) + (3 / 3))",
+      "complexity": 19,
+      "unique_operators": 3
+    },
+    "21": {
+      "expression": "((3 * (3 + 3)) + 3)",
+      "complexity": 19,
+      "unique_operators": 2
+    },
+    "84": {
+      "expression": "((3 * (3 ^ 3)) + 3)",
+      "complexity": 19,
+      "unique_operators": 3
+    },
+    "30": {
+      "expression": "(((3 * 3) * 3) + 3)",
+      "complexity": 19,
+      "unique_operators": 2
+    },
+    "11": {
+      "expression": "(33 / sqrt((3 * 3)))",
+      "complexity": 20,
+      "unique_operators": 3
+    },
+    "81": {
+      "expression": "((3 * 3) * (3 * 3))",
+      "complexity": 19,
+      "unique_operators": 1
+    },
+    "80": {
+      "expression": "((((3 + 3)!) / 3) / 3)",
+      "complexity": 22,
+      "unique_operators": 3
+    },
+    "78": {
+      "expression": "((3 * (3 ^ 3)) - 3)",
+      "complexity": 19,
+      "unique_operators": 3
+    },
+    "64": {
+      "expression": "(((3 / 3) + 3) ^ 3)",
+      "complexity": 19,
+      "unique_operators": 3
+    }
+  },
+  "4": {
+    "1": {
+      "expression": "((444 % 4)!)",
+      "complexity": 12,
+      "unique_operators": 2
+    },
+    "2": {
+      "expression": "(4 - ((4 + 4) / 4))",
+      "complexity": 19,
+      "unique_operators": 3
+    },
+    "3": {
+      "expression": "((44 / 4) % 4)",
+      "complexity": 14,
+      "unique_operators": 2
+    },
+    "4": {
+      "expression": "(44 % (4 + 4))",
+      "complexity": 14,
+      "unique_operators": 2
+    },
+    "5": {
+      "expression": "(((44 % 4)!) + 4)",
+      "complexity": 17,
+      "unique_operators": 3
+    },
+    "6": {
+      "expression": "(((44 / 4) % 4)!)",
+      "complexity": 17,
+      "unique_operators": 3
+    },
+    "7": {
+      "expression": "((44 / 4) - 4)",
+      "complexity": 14,
+      "unique_operators": 2
+    },
+    "8": {
+      "expression": "((4 + 4) - (4 - 4))",
+      "complexity": 19,
+      "unique_operators": 2
+    },
+    "9": {
+      "expression": "((4 + 4) + (4 / 4))",
+      "complexity": 19,
+      "unique_operators": 2
+    },
+    "10": {
+      "expression": "((44 - 4) / 4)",
+      "complexity": 14,
+      "unique_operators": 2
+    },
+    "11": {
+      "expression": "(44 / sqrt((4 * 4)))",
+      "complexity": 20,
+      "unique_operators": 3
+    },
+    "12": {
+      "expression": "((44 + 4) / 4)",
+      "complexity": 14,
+      "unique_operators": 2
+    },
+    "13": {
+      "expression": "((44 / 4) + sqrt(4))",
+      "complexity": 20,
+      "unique_operators": 3
+    },
+    "14": {
+      "expression": "((4 + 4) + (sqrt(4) + 4))",
+      "complexity": 25,
+      "unique_operators": 2
+    },
+    "15": {
+      "expression": "((44 / 4) + 4)",
+      "complexity": 14,
+      "unique_operators": 2
+    },
+    "16": {
+      "expression": "((4 - 4) + (4 * 4))",
+      "complexity": 19,
+      "unique_operators": 3
+    },
+    "17": {
+      "expression": "((4 * 4) + (4 / 4))",
+      "complexity": 19,
+      "unique_operators": 3
+    },
+    "18": {
+      "expression": "((44 - sqrt(4)) - (4!))",
+      "complexity": 23,
+      "unique_operators": 3
+    },
+    "19": {
+      "expression": "(((4 + 4) - 0.4) / 0.4)",
+      "complexity": 23,
+      "unique_operators": 3
+    },
+    "20": {
+      "expression": "(4 * (4 + (4 / 4)))",
+      "complexity": 19,
+      "unique_operators": 3
+    },
+    "21": {
+      "expression": "((44 - sqrt(4)) / sqrt(4))",
+      "complexity": 26,
+      "unique_operators": 3
+    },
+    "22": {
+      "expression": "sqrt((sqrt((44 ^ 4)) / 4))",
+      "complexity": 26,
+      "unique_operators": 3
+    },
+    "23": {
+      "expression": "((44 + sqrt(4)) / sqrt(4))",
+      "complexity": 26,
+      "unique_operators": 3
+    },
+    "24": {
+      "expression": "(((44 % 4) + 4)!)",
+      "complexity": 17,
+      "unique_operators": 3
+    },
+    "25": {
+      "expression": "sqrt(((4 + (4 / 4)) ^ 4))",
+      "complexity": 25,
+      "unique_operators": 4
+    },
+    "26": {
+      "expression": "((0.4 + (4 / 0.4)) / 0.4)",
+      "complexity": 25,
+      "unique_operators": 2
+    },
+    "27": {
+      "expression": "(((4!) + 4) - (4 / 4))",
+      "complexity": 22,
+      "unique_operators": 4
+    },
+    "28": {
+      "expression": "(44 - (4 * 4))",
+      "complexity": 14,
+      "unique_operators": 2
+    },
+    "29": {
+      "expression": "((4 + (4!)) + (4 / 4))",
+      "complexity": 22,
+      "unique_operators": 3
+    },
+    "30": {
+      "expression": "(((4 + (4 / 4))!) / 4)",
+      "complexity": 22,
+      "unique_operators": 3
+    },
+    "31": {
+      "expression": "((4!) + (((4!) + 4) / 4))",
+      "complexity": 25,
+      "unique_operators": 3
+    },
+    "32": {
+      "expression": "((4 ^ 4) / (4 + 4))",
+      "complexity": 19,
+      "unique_operators": 3
+    },
+    "33": {
+      "expression": "((4!) + ((4 - 0.4) / 0.4))",
+      "complexity": 26,
+      "unique_operators": 4
+    },
+    "34": {
+      "expression": "(((4 + 4) * 4) + sqrt(4))",
+      "complexity": 25,
+      "unique_operators": 3
+    },
+    "35": {
+      "expression": "((4 + (4 / 0.4)) / 0.4)",
+      "complexity": 23,
+      "unique_operators": 2
+    },
+    "36": {
+      "expression": "((44 - 4) - 4)",
+      "complexity": 14,
+      "unique_operators": 1
+    },
+    "38": {
+      "expression": "(44 - (4 + sqrt(4)))",
+      "complexity": 20,
+      "unique_operators": 3
+    },
+    "39": {
+      "expression": "(((4 * 4) - 0.4) / 0.4)",
+      "complexity": 23,
+      "unique_operators": 3
+    },
+    "40": {
+      "expression": "(44 - sqrt((4 * 4)))",
+      "complexity": 20,
+      "unique_operators": 3
+    },
+    "41": {
+      "expression": "(((4 * 4) + 0.4) / 0.4)",
+      "complexity": 23,
+      "unique_operators": 3
+    },
+    "42": {
+      "expression": "(44 - sqrt(sqrt((4 * 4))))",
+      "complexity": 26,
+      "unique_operators": 3
+    },
+    "43": {
+      "expression": "(44 - (4 / 4))",
+      "complexity": 14,
+      "unique_operators": 2
+    },
+    "44": {
+      "expression": "(44.4 - 0.4)",
+      "complexity": 12,
+      "unique_operators": 1
+    },
+    "45": {
+      "expression": "(44 + (4 / 4))",
+      "complexity": 14,
+      "unique_operators": 2
+    },
+    "46": {
+      "expression": "(44 + sqrt(sqrt((4 * 4))))",
+      "complexity": 26,
+      "unique_operators": 3
+    },
+    "47": {
+      "expression": "(((4!) + (4!)) - (4 / 4))",
+      "complexity": 25,
+      "unique_operators": 4
+    },
+    "48": {
+      "expression": "(((4 + 4) + 4) * 4)",
+      "complexity": 19,
+      "unique_operators": 2
+    },
+    "49": {
+      "expression": "(((4!) + (4!)) + (4 / 4))",
+      "complexity": 25,
+      "unique_operators": 3
+    },
+    "50": {
+      "expression": "(44 + (4 + sqrt(4)))",
+      "complexity": 20,
+      "unique_operators": 2
+    },
+    "52": {
+      "expression": "((44 + 4) + 4)",
+      "complexity": 14,
+      "unique_operators": 1
+    },
+    "54": {
+      "expression": "((((4!) + 4) + sqrt(4)) + (4!))",
+      "complexity": 31,
+      "unique_operators": 3
+    },
+    "55": {
+      "expression": "(((4!) / 0.4) - (sqrt(4) / 0.4))",
+      "complexity": 32,
+      "unique_operators": 4
+    },
+    "56": {
+      "expression": "((((4!) + 4) + 4) + (4!))",
+      "complexity": 25,
+      "unique_operators": 2
+    },
+    "57": {
+      "expression": "(sqrt(4) + (((4!) - sqrt(4)) / 0.4))",
+      "complexity": 36,
+      "unique_operators": 5
+    },
+    "58": {
+      "expression": "(((4!) + (4!)) + (4 / 0.4))",
+      "complexity": 27,
+      "unique_operators": 3
+    },
+    "59": {
+      "expression": "(((4!) / 0.4) - (sqrt(4) / sqrt(4)))",
+      "complexity": 36,
+      "unique_operators": 4
+    },
+    "60": {
+      "expression": "(44 + (4 * 4))",
+      "complexity": 14,
+      "unique_operators": 2
+    },
+    "61": {
+      "expression": "((4 / 4) + ((4!) / 0.4))",
+      "complexity": 24,
+      "unique_operators": 3
+    },
+    "62": {
+      "expression": "((4 * (4 * 4)) - sqrt(4))",
+      "complexity": 25,
+      "unique_operators": 3
+    },
+    "63": {
+      "expression": "(((4 ^ 4) - 4) / 4)",
+      "complexity": 19,
+      "unique_operators": 3
+    },
+    "64": {
+      "expression": "((4 + 4) * (4 + 4))",
+      "complexity": 19,
+      "unique_operators": 2
+    },
+    "65": {
+      "expression": "((4 + (4 ^ 4)) / 4)",
+      "complexity": 19,
+      "unique_operators": 3
+    },
+    "66": {
+      "expression": "((4 * (4 * 4)) + sqrt(4))",
+      "complexity": 25,
+      "unique_operators": 3
+    },
+    "68": {
+      "expression": "(((4 * 4) * 4) + 4)",
+      "complexity": 19,
+      "unique_operators": 2
+    },
+    "70": {
+      "expression": "(44 + (sqrt(4) + (4!)))",
+      "complexity": 23,
+      "unique_operators": 3
+    },
+    "72": {
+      "expression": "((44 + 4) + (4!))",
+      "complexity": 17,
+      "unique_operators": 2
+    },
+    "74": {
+      "expression": "((((4!) + (4!)) + sqrt(4)) + (4!))",
+      "complexity": 34,
+      "unique_operators": 3
+    },
+    "76": {
+      "expression": "(((4 + (4!)) + (4!)) + (4!))",
+      "complexity": 28,
+      "unique_operators": 2
+    },
+    "78": {
+      "expression": "((((4!) - 4) * 4) - sqrt(4))",
+      "complexity": 28,
+      "unique_operators": 4
+    },
+    "79": {
+      "expression": "((4!) + (((4!) - sqrt(4)) / 0.4))",
+      "complexity": 33,
+      "unique_operators": 5
+    },
+    "80": {
+      "expression": "(4 * (4 + (4 * 4)))",
+      "complexity": 19,
+      "unique_operators": 2
+    },
+    "81": {
+      "expression": "((4 - (4 / 4)) ^ 4)",
+      "complexity": 19,
+      "unique_operators": 3
+    },
+    "82": {
+      "expression": "((((4!) - 4) * 4) + sqrt(4))",
+      "complexity": 28,
+      "unique_operators": 5
+    },
+    "83": {
+      "expression": "((4!) + (((4!) - 0.4) / 0.4))",
+      "complexity": 29,
+      "unique_operators": 4
+    },
+    "84": {
+      "expression": "((44 - sqrt(4)) * sqrt(4))",
+      "complexity": 26,
+      "unique_operators": 3
+    },
+    "85": {
+      "expression": "((4!) + ((0.4 + (4!)) / 0.4))",
+      "complexity": 29,
+      "unique_operators": 3
+    },
+    "86": {
+      "expression": "((sqrt(4) * 44) - sqrt(4))",
+      "complexity": 26,
+      "unique_operators": 3
+    },
+    "88": {
+      "expression": "(44 + 44)",
+      "complexity": 9,
+      "unique_operators": 1
+    },
+    "90": {
+      "expression": "((sqrt(4) * 44) + sqrt(4))",
+      "complexity": 26,
+      "unique_operators": 3
+    },
+    "92": {
+      "expression": "((44 + sqrt(4)) * sqrt(4))",
+      "complexity": 26,
+      "unique_operators": 3
+    },
+    "94": {
+      "expression": "((4 * (4!)) - (4 - sqrt(4)))",
+      "complexity": 28,
+      "unique_operators": 4
+    },
+    "95": {
+      "expression": "((4 * (4!)) - (4 / 4))",
+      "complexity": 22,
+      "unique_operators": 4
+    },
+    "96": {
+      "expression": "(((4 - (4 % 4))!) * 4)",
+      "complexity": 22,
+      "unique_operators": 4
+    },
+    "97": {
+      "expression": "((4 * (4!)) + (4 / 4))",
+      "complexity": 22,
+      "unique_operators": 4
+    },
+    "98": {
+      "expression": "(((4 * (4!)) - sqrt(4)) + 4)",
+      "complexity": 28,
+      "unique_operators": 5
+    },
+    "100": {
+      "expression": "(4 + (4 * (sqrt((4 * 4))!)))",
+      "complexity": 28,
+      "unique_operators": 4
+    }
+  },
+  "5": {
+    "5": {
+      "expression": "(55 % (5 + 5))",
+      "complexity": 14,
+      "unique_operators": 2
+    },
+    "6": {
+      "expression": "((55 / 5) - 5)",
+      "complexity": 14,
+      "unique_operators": 2
+    },
+    "11": {
+      "expression": "(5 + (5 + (5 / 5)))",
+      "complexity": 19,
+      "unique_operators": 2
+    },
+    "16": {
+      "expression": "((55 / 5) + 5)",
+      "complexity": 14,
+      "unique_operators": 2
+    },
+    "19": {
+      "expression": "(((5 - (5 / 5))!) - 5)",
+      "complexity": 22,
+      "unique_operators": 3
+    },
+    "25": {
+      "expression": "(5 / (5 / (5 * 5)))",
+      "complexity": 19,
+      "unique_operators": 2
+    },
+    "26": {
+      "expression": "((5 / 5) + (5 * 5))",
+      "complexity": 19,
+      "unique_operators": 3
+    },
+    "30": {
+      "expression": "(55 - (5 * 5))",
+      "complexity": 14,
+      "unique_operators": 2
+    },
+    "35": {
+      "expression": "((5 + 5) + (5 * 5))",
+      "complexity": 19,
+      "unique_operators": 2
+    },
+    "50": {
+      "expression": "((5 * 5) + (5 * 5))",
+      "complexity": 19,
+      "unique_operators": 2
+    },
+    "51": {
+      "expression": "(((5 * 5) + 0.5) / 0.5)",
+      "complexity": 23,
+      "unique_operators": 3
+    },
+    "54": {
+      "expression": "(55 - (5 / 5))",
+      "complexity": 14,
+      "unique_operators": 2
+    },
+    "55": {
+      "expression": "(55.5 - 0.5)",
+      "complexity": 12,
+      "unique_operators": 1
+    },
+    "56": {
+      "expression": "(55.5 + 0.5)",
+      "complexity": 12,
+      "unique_operators": 1
+    },
+    "65": {
+      "expression": "(55 + (5 + 5))",
+      "complexity": 14,
+      "unique_operators": 1
+    },
+    "75": {
+      "expression": "((5 + (5 + 5)) * 5)",
+      "complexity": 19,
+      "unique_operators": 2
+    },
+    "80": {
+      "expression": "(55 + (5 * 5))",
+      "complexity": 14,
+      "unique_operators": 2
+    },
+    "91": {
+      "expression": "(((5!) - ((5!) / 5)) - 5)",
+      "complexity": 25,
+      "unique_operators": 3
+    },
+    "100": {
+      "expression": "(5 * ((5 * 5) - 5))",
+      "complexity": 19,
+      "unique_operators": 2
+    },
+    "37": {
+      "expression": "(sqrt((0.5 ^ -((5 + 5)))) + 5)",
+      "complexity": 30,
+      "unique_operators": 4
+    },
+    "1": {
+      "expression": "((555 % 5)!)",
+      "complexity": 12,
+      "unique_operators": 2
+    },
+    "2": {
+      "expression": "((5 / 5) + (5 / 5))",
+      "complexity": 19,
+      "unique_operators": 2
+    },
+    "3": {
+      "expression": "((5 + (5 + 5)) / 5)",
+      "complexity": 19,
+      "unique_operators": 2
+    },
+    "4": {
+      "expression": "(((5 * 5) - 5) / 5)",
+      "complexity": 19,
+      "unique_operators": 3
+    },
+    "9": {
+      "expression": "((5 + 5) - (5 / 5))",
+      "complexity": 19,
+      "unique_operators": 3
+    },
+    "10": {
+      "expression": "((55 - 5) / 5)",
+      "complexity": 14,
+      "unique_operators": 2
+    },
+    "12": {
+      "expression": "((55 + 5) / 5)",
+      "complexity": 14,
+      "unique_operators": 2
+    },
+    "14": {
+      "expression": "(((5 - 0.5) / 0.5) + 5)",
+      "complexity": 23,
+      "unique_operators": 3
+    },
+    "15": {
+      "expression": "(((5 * 5) - 5) - 5)",
+      "complexity": 19,
+      "unique_operators": 2
+    },
+    "20": {
+      "expression": "((5 + (5 + 5)) + 5)",
+      "complexity": 19,
+      "unique_operators": 1
+    },
+    "21": {
+      "expression": "((0.5 + (5 + 5)) / 0.5)",
+      "complexity": 23,
+      "unique_operators": 2
+    },
+    "22": {
+      "expression": "((55 / 5) / 0.5)",
+      "complexity": 16,
+      "unique_operators": 1
+    },
+    "24": {
+      "expression": "((5 * 5) - (5 / 5))",
+      "complexity": 19,
+      "unique_operators": 3
+    },
+    "46": {
+      "expression": "((((5!) - 5) / 5) / 0.5)",
+      "complexity": 24,
+      "unique_operators": 3
+    },
+    "60": {
+      "expression": "(55 + sqrt((5 * 5)))",
+      "complexity": 20,
+      "unique_operators": 3
+    },
+    "70": {
+      "expression": "(((5!) - 55) + 5)",
+      "complexity": 17,
+      "unique_operators": 3
+    },
+    "96": {
+      "expression": "(((5!) - ((5!) / 5)) % (5!))",
+      "complexity": 28,
+      "unique_operators": 4
+    },
+    "23": {
+      "expression": "(((5 - 0.5) * 5) + 0.5)",
+      "complexity": 23,
+      "unique_operators": 3
+    },
+    "27": {
+      "expression": "((55 * 0.5) - 0.5)",
+      "complexity": 18,
+      "unique_operators": 2
+    },
+    "28": {
+      "expression": "(5 + (((5!) - 5) / 5))",
+      "complexity": 22,
+      "unique_operators": 4
+    },
+    "29": {
+      "expression": "(((5!) + (5 * 5)) / 5)",
+      "complexity": 22,
+      "unique_operators": 4
+    },
+    "31": {
+      "expression": "(55 - ((5!) / 5))",
+      "complexity": 17,
+      "unique_operators": 3
+    },
+    "32": {
+      "expression": "(((5 + 5) / 5) ^ 5)",
+      "complexity": 19,
+      "unique_operators": 3
+    },
+    "34": {
+      "expression": "((5 + 5) + ((5!) / 5))",
+      "complexity": 22,
+      "unique_operators": 3
+    },
+    "40": {
+      "expression": "(((5 * 5) - 5) / 0.5)",
+      "complexity": 21,
+      "unique_operators": 3
+    },
+    "45": {
+      "expression": "((55 - 5) - 5)",
+      "complexity": 14,
+      "unique_operators": 1
+    },
+    "47": {
+      "expression": "(((5!) + ((5!) - 5)) / 5)",
+      "complexity": 25,
+      "unique_operators": 4
+    },
+    "49": {
+      "expression": "(((5 * 5) - 0.5) / 0.5)",
+      "complexity": 23,
+      "unique_operators": 3
+    },
+    "79": {
+      "expression": "(55 + ((5!) / 5))",
+      "complexity": 17,
+      "unique_operators": 3
+    },
+    "90": {
+      "expression": "(((5!) - (5 * 5)) - 5)",
+      "complexity": 22,
+      "unique_operators": 3
+    },
+    "95": {
+      "expression": "(((5!) - (5 * 5)) % (5!))",
+      "complexity": 25,
+      "unique_operators": 4
+    },
+    "7": {
+      "seed": 5,
+      "expression": "(((5 + 5) / 5) + 5)",
+      "complexity": 19,
+      "unique_operators": 2
+    },
+    "64": {
+      "seed": 5,
+      "expression": "(0.5 ^ -((5 + (5 / 5))))",
+      "complexity": 24,
+      "unique_operators": 4
+    },
+    "66": {
+      "seed": 5,
+      "expression": "(0.55 * (sqrt((5 * 5))!))",
+      "complexity": 25,
+      "unique_operators": 3
+    },
+    "8": {
+      "seed": 5,
+      "expression": "sqrt((0.5 ^ -(((5 / 5) + 5))))",
+      "complexity": 30,
+      "unique_operators": 5
+    }
+  },
+  "6": {
+    "7": {
+      "expression": "(((66 % 6)!) + 6)",
+      "complexity": 17,
+      "unique_operators": 3
+    },
+    "8": {
+      "expression": "(((6 + 6) / 6) + 6)",
+      "complexity": 19,
+      "unique_operators": 2
+    },
+    "13": {
+      "expression": "((6 + (6 / 6)) + 6)",
+      "complexity": 19,
+      "unique_operators": 2
+    },
+    "17": {
+      "expression": "((66 / 6) + 6)",
+      "complexity": 14,
+      "unique_operators": 2
+    },
+    "18": {
+      "expression": "(0.6 * ((6 * 6) - 6))",
+      "complexity": 21,
+      "unique_operators": 2
+    },
+    "33": {
+      "expression": "(((6 - 0.6) * 6) + 0.6)",
+      "complexity": 23,
+      "unique_operators": 3
+    },
+    "36": {
+      "expression": "(((6 * 6) - 6) + 6)",
+      "complexity": 19,
+      "unique_operators": 3
+    },
+    "37": {
+      "expression": "((6 / 6) + (6 * 6))",
+      "complexity": 19,
+      "unique_operators": 3
+    },
+    "39": {
+      "expression": "((0.6 * 66) - 0.6)",
+      "complexity": 18,
+      "unique_operators": 2
+    },
+    "42": {
+      "expression": "(6 * ((6 / 6) + 6))",
+      "complexity": 19,
+      "unique_operators": 3
+    },
+    "48": {
+      "expression": "((6 + 6) + (6 * 6))",
+      "complexity": 19,
+      "unique_operators": 2
+    },
+    "59": {
+      "expression": "(((6 * 6) - 0.6) / 0.6)",
+      "complexity": 23,
+      "unique_operators": 3
+    },
+    "61": {
+      "expression": "(((6 * 6) + 0.6) / 0.6)",
+      "complexity": 23,
+      "unique_operators": 3
+    },
+    "64": {
+      "expression": "(((6 + 6) / 6) ^ 6)",
+      "complexity": 19,
+      "unique_operators": 3
+    },
+    "66": {
+      "expression": "(66.6 - 0.6)",
+      "complexity": 12,
+      "unique_operators": 1
+    },
+    "67": {
+      "expression": "(66 + (6 / 6))",
+      "complexity": 14,
+      "unique_operators": 2
+    },
+    "72": {
+      "expression": "((6 * 6) + (6 * 6))",
+      "complexity": 19,
+      "unique_operators": 2
+    },
+    "76": {
+      "expression": "(66 + (6 / 0.6))",
+      "complexity": 16,
+      "unique_operators": 2
+    },
+    "78": {
+      "expression": "(6 + (66 + 6))",
+      "complexity": 14,
+      "unique_operators": 1
+    },
+    "6": {
+      "seed": 6,
+      "expression": "(66 % (6 + 6))",
+      "complexity": 14,
+      "unique_operators": 2
+    },
+    "1": {
+      "seed": 6,
+      "expression": "((666 % 6)!)",
+      "complexity": 12,
+      "unique_operators": 2
+    },
+    "10": {
+      "seed": 6,
+      "expression": "((66 - 6) / 6)",
+      "complexity": 14,
+      "unique_operators": 2
+    },
+    "54": {
+      "seed": 6,
+      "expression": "(66 - (6 + 6))",
+      "complexity": 14,
+      "unique_operators": 2
+    },
+    "12": {
+      "seed": 6,
+      "expression": "((66 + 6) / 6)",
+      "complexity": 14,
+      "unique_operators": 2
+    },
+    "30": {
+      "seed": 6,
+      "expression": "(66 - (6 * 6))",
+      "complexity": 14,
+      "unique_operators": 2
+    },
+    "24": {
+      "seed": 6,
+      "expression": "((6 * 6) - (6 + 6))",
+      "complexity": 19,
+      "unique_operators": 3
+    },
+    "5": {
+      "seed": 6,
+      "expression": "((66 / 6) - 6)",
+      "complexity": 14,
+      "unique_operators": 2
+    },
+    "3": {
+      "seed": 6,
+      "expression": "((6 + (6 + 6)) / 6)",
+      "complexity": 19,
+      "unique_operators": 2
+    },
+    "65": {
+      "seed": 6,
+      "expression": "(66 - (6 / 6))",
+      "complexity": 14,
+      "unique_operators": 2
+    },
+    "35": {
+      "seed": 6,
+      "expression": "((6 * 6) - (6 / 6))",
+      "complexity": 19,
+      "unique_operators": 3
+    },
+    "11": {
+      "seed": 6,
+      "expression": "(6 + (6 - (6 / 6)))",
+      "complexity": 19,
+      "unique_operators": 3
+    },
+    "2": {
+      "seed": 6,
+      "expression": "((6 / 6) + (6 / 6))",
+      "complexity": 19,
+      "unique_operators": 2
+    },
+    "60": {
+      "seed": 6,
+      "expression": "(66 - sqrt((6 * 6)))",
+      "complexity": 20,
+      "unique_operators": 3
+    },
+    "4": {
+      "seed": 6,
+      "expression": "(6 - ((6 + 6) / 6))",
+      "complexity": 19,
+      "unique_operators": 3
+    },
+    "20": {
+      "seed": 6,
+      "expression": "(((6 - (6 / 6))!) / 6)",
+      "complexity": 22,
+      "unique_operators": 3
+    }
+  },
+  "7": {
+    "1": {
+      "expression": "((777 % 7)!)",
+      "complexity": 12,
+      "unique_operators": 2
+    },
+    "2": {
+      "expression": "((7 / 7) + (7 / 7))",
+      "complexity": 19,
+      "unique_operators": 2
+    },
+    "3": {
+      "expression": "(((7 + 7) + 7) / 7)",
+      "complexity": 19,
+      "unique_operators": 2
+    },
+    "4": {
+      "expression": "((77 / 7) - 7)",
+      "complexity": 14,
+      "unique_operators": 2
+    },
+    "5": {
+      "expression": "(7 - ((7 + 7) / 7))",
+      "complexity": 19,
+      "unique_operators": 3
+    },
+    "6": {
+      "expression": "(((7 * 7) - 7) / 7)",
+      "complexity": 19,
+      "unique_operators": 3
+    },
+    "7": {
+      "expression": "((77 % 7) + 7)",
+      "complexity": 14,
+      "unique_operators": 2
+    },
+    "8": {
+      "expression": "(((77 % 7)!) + 7)",
+      "complexity": 17,
+      "unique_operators": 3
+    },
+    "9": {
+      "expression": "(7 + ((7 + 7) / 7))",
+      "complexity": 19,
+      "unique_operators": 2
+    },
+    "10": {
+      "expression": "((77 - 7) / 7)",
+      "complexity": 14,
+      "unique_operators": 2
+    },
+    "11": {
+      "expression": "(77 / sqrt((7 * 7)))",
+      "complexity": 20,
+      "unique_operators": 3
+    },
+    "12": {
+      "expression": "((77 + 7) / 7)",
+      "complexity": 14,
+      "unique_operators": 2
+    },
+    "13": {
+      "expression": "(7 + (7 - (7 / 7)))",
+      "complexity": 19,
+      "unique_operators": 3
+    },
+    "14": {
+      "expression": "(7 + ((7 - 7) + 7))",
+      "complexity": 19,
+      "unique_operators": 2
+    },
+    "15": {
+      "expression": "(7 + ((7 / 7) + 7))",
+      "complexity": 19,
+      "unique_operators": 2
+    },
+    "16": {
+      "expression": "(((7 - 0.7) / 0.7) + 7)",
+      "complexity": 23,
+      "unique_operators": 3
+    },
+    "17": {
+      "expression": "(((0.7 * 7) + 7) / 0.7)",
+      "complexity": 23,
+      "unique_operators": 3
+    },
+    "18": {
+      "expression": "(7 + (77 / 7))",
+      "complexity": 14,
+      "unique_operators": 2
+    },
+    "19": {
+      "expression": "(((7 - 0.7) + 7) / 0.7)",
+      "complexity": 23,
+      "unique_operators": 3
+    },
+    "20": {
+      "expression": "((7 / 0.7) + (7 / 0.7))",
+      "complexity": 23,
+      "unique_operators": 2
+    },
+    "21": {
+      "expression": "(7 + (sqrt((7 * 7)) + 7))",
+      "complexity": 25,
+      "unique_operators": 3
+    },
+    "24": {
+      "expression": "(((77 / 7) % 7)!)",
+      "complexity": 17,
+      "unique_operators": 3
+    },
+    "27": {
+      "expression": "(((7 + 7) / 0.7) + 7)",
+      "complexity": 21,
+      "unique_operators": 2
+    },
+    "28": {
+      "expression": "(77 - (7 * 7))",
+      "complexity": 14,
+      "unique_operators": 2
+    },
+    "30": {
+      "expression": "(((7 + 7) + 7) / 0.7)",
+      "complexity": 21,
+      "unique_operators": 2
+    },
+    "35": {
+      "expression": "(((7 * 7) - 7) - 7)",
+      "complexity": 19,
+      "unique_operators": 2
+    },
+    "39": {
+      "expression": "((7 * 7) - (7 / 0.7))",
+      "complexity": 21,
+      "unique_operators": 3
+    },
+    "42": {
+      "expression": "(7 * (7 - (7 / 7)))",
+      "complexity": 19,
+      "unique_operators": 3
+    },
+    "48": {
+      "expression": "((7 * 7) - (7 / 7))",
+      "complexity": 19,
+      "unique_operators": 3
+    },
+    "49": {
+      "expression": "(7 * ((7 - 7) + 7))",
+      "complexity": 19,
+      "unique_operators": 3
+    },
+    "50": {
+      "expression": "((7 * 7) + (7 / 7))",
+      "complexity": 19,
+      "unique_operators": 3
+    },
+    "55": {
+      "expression": "(77 / (0.7 + 0.7))",
+      "complexity": 18,
+      "unique_operators": 2
+    },
+    "56": {
+      "expression": "(((7 / 7) + 7) * 7)",
+      "complexity": 19,
+      "unique_operators": 3
+    },
+    "59": {
+      "expression": "((7 / 0.7) + (7 * 7))",
+      "complexity": 21,
+      "unique_operators": 3
+    },
+    "60": {
+      "expression": "(((7 * 7) - 7) / 0.7)",
+      "complexity": 21,
+      "unique_operators": 3
+    },
+    "63": {
+      "expression": "(77 - (7 + 7))",
+      "complexity": 14,
+      "unique_operators": 2
+    },
+    "67": {
+      "expression": "(77 - (7 / 0.7))",
+      "complexity": 16,
+      "unique_operators": 2
+    },
+    "69": {
+      "expression": "(((7 * 7) - 0.7) / 0.7)",
+      "complexity": 23,
+      "unique_operators": 3
+    },
+    "70": {
+      "expression": "(77 - sqrt((7 * 7)))",
+      "complexity": 20,
+      "unique_operators": 3
+    },
+    "71": {
+      "expression": "(((7 * 7) + 0.7) / 0.7)",
+      "complexity": 23,
+      "unique_operators": 3
+    },
+    "76": {
+      "expression": "(77 - (7 / 7))",
+      "complexity": 14,
+      "unique_operators": 2
+    },
+    "77": {
+      "expression": "(77.7 - 0.7)",
+      "complexity": 12,
+      "unique_operators": 1
+    },
+    "78": {
+      "expression": "(77 + (7 / 7))",
+      "complexity": 14,
+      "unique_operators": 2
+    },
+    "80": {
+      "expression": "(((7 * 7) + 7) / 0.7)",
+      "complexity": 21,
+      "unique_operators": 3
+    },
+    "84": {
+      "expression": "(77 + sqrt((7 * 7)))",
+      "complexity": 20,
+      "unique_operators": 3
+    },
+    "87": {
+      "expression": "(77 + (7 / 0.7))",
+      "complexity": 16,
+      "unique_operators": 2
+    },
+    "91": {
+      "expression": "(7 + (77 + 7))",
+      "complexity": 14,
+      "unique_operators": 1
+    },
+    "98": {
+      "expression": "((7 * 7) + (7 * 7))",
+      "complexity": 19,
+      "unique_operators": 2
+    },
+    "100": {
+      "expression": "((7 / 0.7) * (7 / 0.7))",
+      "complexity": 23,
+      "unique_operators": 2
+    }
+  },
+  "8": {
+    "1": {
+      "expression": "((888 % 8)!)",
+      "complexity": 12,
+      "unique_operators": 2
+    },
+    "2": {
+      "expression": "((8 / 8) + (8 / 8))",
+      "complexity": 19,
+      "unique_operators": 2
+    },
+    "3": {
+      "expression": "((88 / 8) - 8)",
+      "complexity": 14,
+      "unique_operators": 2
+    },
+    "4": {
+      "expression": "((8 * 8) / (8 + 8))",
+      "complexity": 19,
+      "unique_operators": 3
+    },
+    "5": {
+      "expression": "((8 / 8) + sqrt((8 + 8)))",
+      "complexity": 25,
+      "unique_operators": 3
+    },
+    "6": {
+      "expression": "(((88 / 8) - 8)!)",
+      "complexity": 17,
+      "unique_operators": 3
+    },
+    "7": {
+      "expression": "(((8 * 8) - 8) / 8)",
+      "complexity": 19,
+      "unique_operators": 3
+    },
+    "8": {
+      "expression": "(88 % (8 + 8))",
+      "complexity": 14,
+      "unique_operators": 2
+    },
+    "9": {
+      "expression": "(((88 % 8)!) + 8)",
+      "complexity": 17,
+      "unique_operators": 3
+    },
+    "10": {
+      "expression": "((88 - 8) / 8)",
+      "complexity": 14,
+      "unique_operators": 2
+    },
+    "11": {
+      "expression": "(88 / sqrt((8 * 8)))",
+      "complexity": 20,
+      "unique_operators": 3
+    },
+    "12": {
+      "expression": "((88 + 8) / 8)",
+      "complexity": 14,
+      "unique_operators": 2
+    },
+    "14": {
+      "expression": "(8 + (sqrt((8 + (8 / 8)))!))",
+      "complexity": 28,
+      "unique_operators": 4
+    },
+    "15": {
+      "expression": "((8 - (8 / 8)) + 8)",
+      "complexity": 19,
+      "unique_operators": 3
+    },
+    "16": {
+      "expression": "((8 + (8 + 8)) - 8)",
+      "complexity": 19,
+      "unique_operators": 2
+    },
+    "17": {
+      "expression": "((8 + (8 / 8)) + 8)",
+      "complexity": 19,
+      "unique_operators": 2
+    },
+    "18": {
+      "expression": "((8 + 8) + sqrt(sqrt((8 + 8))))",
+      "complexity": 31,
+      "unique_operators": 2
+    },
+    "19": {
+      "expression": "((88 / 8) + 8)",
+      "complexity": 14,
+      "unique_operators": 2
+    },
+    "20": {
+      "expression": "((8 + sqrt((8 + 8))) + 8)",
+      "complexity": 25,
+      "unique_operators": 2
+    },
+    "21": {
+      "expression": "((8 + (0.8 + 8)) / 0.8)",
+      "complexity": 23,
+      "unique_operators": 2
+    },
+    "22": {
+      "expression": "(88 / sqrt((8 + 8)))",
+      "complexity": 20,
+      "unique_operators": 3
+    },
+    "23": {
+      "expression": "((sqrt((8 + 8))!) - (8 / 8))",
+      "complexity": 28,
+      "unique_operators": 5
+    },
+    "24": {
+      "expression": "(88 - (8 * 8))",
+      "complexity": 14,
+      "unique_operators": 2
+    },
+    "25": {
+      "expression": "((sqrt((8 + 8))!) + (8 / 8))",
+      "complexity": 28,
+      "unique_operators": 4
+    },
+    "26": {
+      "expression": "((sqrt((8 + 8))!) + sqrt(sqrt((8 + 8))))",
+      "complexity": 40,
+      "unique_operators": 3
+    },
+    "28": {
+      "expression": "(sqrt((8 + 8)) + (sqrt((8 + 8))!))",
+      "complexity": 34,
+      "unique_operators": 3
+    },
+    "30": {
+      "expression": "((8 + (8 + 8)) / 0.8)",
+      "complexity": 21,
+      "unique_operators": 2
+    },
+    "32": {
+      "expression": "((8 + (8 + 8)) + 8)",
+      "complexity": 19,
+      "unique_operators": 1
+    },
+    "34": {
+      "expression": "((8 / 0.8) + (sqrt((8 + 8))!))",
+      "complexity": 30,
+      "unique_operators": 4
+    },
+    "36": {
+      "expression": "sqrt((sqrt((sqrt(((8 / 8) + 8))!)) ^ 8))",
+      "complexity": 40,
+      "unique_operators": 5
+    },
+    "40": {
+      "expression": "(8 + (8 * sqrt((8 + 8))))",
+      "complexity": 25,
+      "unique_operators": 3
+    },
+    "44": {
+      "expression": "(88 / sqrt(sqrt((8 + 8))))",
+      "complexity": 26,
+      "unique_operators": 3
+    },
+    "48": {
+      "expression": "((8 * 8) - (8 + 8))",
+      "complexity": 19,
+      "unique_operators": 3
+    },
+    "49": {
+      "expression": "sqrt(sqrt(((8 - (8 / 8)) ^ 8)))",
+      "complexity": 31,
+      "unique_operators": 4
+    },
+    "50": {
+      "expression": "(8 / (0.8 - (0.8 * 0.8)))",
+      "complexity": 25,
+      "unique_operators": 3
+    },
+    "52": {
+      "expression": "((0.8 * (8 * 8)) + 0.8)",
+      "complexity": 23,
+      "unique_operators": 2
+    },
+    "54": {
+      "expression": "((8 * 8) - (8 / 0.8))",
+      "complexity": 21,
+      "unique_operators": 3
+    },
+    "55": {
+      "expression": "(88 / (0.8 + 0.8))",
+      "complexity": 18,
+      "unique_operators": 2
+    },
+    "56": {
+      "expression": "(8 * (8 - (8 / 8)))",
+      "complexity": 19,
+      "unique_operators": 3
+    },
+    "60": {
+      "expression": "((8 * 8) - sqrt((8 + 8)))",
+      "complexity": 25,
+      "unique_operators": 4
+    },
+    "62": {
+      "expression": "((8 * 8) - sqrt(sqrt((8 + 8))))",
+      "complexity": 31,
+      "unique_operators": 4
+    },
+    "63": {
+      "expression": "((8 * 8) - (8 / 8))",
+      "complexity": 19,
+      "unique_operators": 3
+    },
+    "64": {
+      "expression": "((8 + (8 * 8)) - 8)",
+      "complexity": 19,
+      "unique_operators": 3
+    },
+    "65": {
+      "expression": "((8 * 8) + (8 / 8))",
+      "complexity": 19,
+      "unique_operators": 3
+    },
+    "66": {
+      "expression": "((8 * 8) + sqrt(sqrt((8 + 8))))",
+      "complexity": 31,
+      "unique_operators": 3
+    },
+    "68": {
+      "expression": "((8 * 8) + sqrt((8 + 8)))",
+      "complexity": 25,
+      "unique_operators": 3
+    },
+    "70": {
+      "expression": "(((8 * 8) - 8) / 0.8)",
+      "complexity": 21,
+      "unique_operators": 3
+    },
+    "71": {
+      "expression": "sqrt((((sqrt((8 * 8))!) + 8) / 8))",
+      "complexity": 34,
+      "unique_operators": 5
+    },
+    "72": {
+      "expression": "((88 - 8) - 8)",
+      "complexity": 14,
+      "unique_operators": 1
+    },
+    "74": {
+      "expression": "((8 / 0.8) + (8 * 8))",
+      "complexity": 21,
+      "unique_operators": 3
+    },
+    "78": {
+      "expression": "(88 - (8 / 0.8))",
+      "complexity": 16,
+      "unique_operators": 2
+    },
+    "79": {
+      "expression": "(((8 * 8) - 0.8) / 0.8)",
+      "complexity": 23,
+      "unique_operators": 3
+    },
+    "80": {
+      "expression": "((8 + (8 * 8)) + 8)",
+      "complexity": 19,
+      "unique_operators": 2
+    },
+    "81": {
+      "expression": "((0.8 + (8 * 8)) / 0.8)",
+      "complexity": 23,
+      "unique_operators": 3
+    },
+    "84": {
+      "expression": "(88 - sqrt((8 + 8)))",
+      "complexity": 20,
+      "unique_operators": 3
+    },
+    "86": {
+      "expression": "(88 - sqrt(sqrt((8 + 8))))",
+      "complexity": 26,
+      "unique_operators": 3
+    },
+    "87": {
+      "expression": "(88 - (8 / 8))",
+      "complexity": 14,
+      "unique_operators": 2
+    },
+    "88": {
+      "expression": "(88.8 - 0.8)",
+      "complexity": 12,
+      "unique_operators": 1
+    },
+    "89": {
+      "expression": "(88 + (8 / 8))",
+      "complexity": 14,
+      "unique_operators": 2
+    },
+    "90": {
+      "expression": "(88 + sqrt(sqrt((8 + 8))))",
+      "complexity": 26,
+      "unique_operators": 2
+    },
+    "92": {
+      "expression": "(88 + sqrt((8 + 8)))",
+      "complexity": 20,
+      "unique_operators": 2
+    },
+    "96": {
+      "expression": "(88 + sqrt((8 * 8)))",
+      "complexity": 20,
+      "unique_operators": 3
+    },
+    "98": {
+      "expression": "(88 + (8 / 0.8))",
+      "complexity": 16,
+      "unique_operators": 2
+    },
+    "100": {
+      "expression": "((8 / 0.8) * (8 / 0.8))",
+      "complexity": 23,
+      "unique_operators": 2
+    }
+  },
+  "9": {
+    "13": {
+      "expression": "((9 / 0.9) + (sqrt(9) % 9))",
+      "complexity": 27,
+      "unique_operators": 4
+    },
+    "27": {
+      "expression": "(9 + (sqrt((9 * 9)) + 9))",
+      "complexity": 25,
+      "unique_operators": 3
+    },
+    "29": {
+      "expression": "(9 + ((9 + 9) / 0.9))",
+      "complexity": 21,
+      "unique_operators": 2
+    },
+    "33": {
+      "expression": "(99 / sqrt(sqrt((9 * 9))))",
+      "complexity": 26,
+      "unique_operators": 3
+    },
+    "37": {
+      "expression": "((9 * sqrt(9)) + (9 / 0.9))",
+      "complexity": 27,
+      "unique_operators": 4
+    },
+    "39": {
+      "expression": "(((sqrt(9) * 9) / 0.9) + 9)",
+      "complexity": 27,
+      "unique_operators": 4
+    },
+    "45": {
+      "expression": "((9 - (sqrt(9) - 9)) * sqrt(9))",
+      "complexity": 31,
+      "unique_operators": 3
+    },
+    "51": {
+      "expression": "(((sqrt(9)!) + (9!)) % 99)",
+      "complexity": 26,
+      "unique_operators": 4
+    },
+    "69": {
+      "expression": "((9 * 9) - (9 + sqrt(9)))",
+      "complexity": 25,
+      "unique_operators": 4
+    },
+    "75": {
+      "expression": "((sqrt(9) - 9) + (9 * 9))",
+      "complexity": 25,
+      "unique_operators": 4
+    },
+    "82": {
+      "expression": "((9 / 9) + (9 * 9))",
+      "complexity": 19,
+      "unique_operators": 3
+    },
+    "91": {
+      "expression": "((9 * 9) + (9 / 0.9))",
+      "complexity": 21,
+      "unique_operators": 3
+    },
+    "93": {
+      "expression": "(((9 * 9) / 0.9) + sqrt(9))",
+      "complexity": 27,
+      "unique_operators": 4
+    },
+    "99": {
+      "expression": "(99.9 - 0.9)",
+      "complexity": 12,
+      "unique_operators": 1
+    },
+    "18": {
+      "seed": 9,
+      "expression": "(99 - (9 * 9))",
+      "complexity": 14,
+      "unique_operators": 2
+    },
+    "100": {
+      "seed": 9,
+      "expression": "(99 + (9 / 9))",
+      "complexity": 14,
+      "unique_operators": 2
+    },
+    "2": {
+      "seed": 9,
+      "expression": "((99 / 9) % 9)",
+      "complexity": 14,
+      "unique_operators": 2
+    },
+    "81": {
+      "seed": 9,
+      "expression": "((99 - 9) - 9)",
+      "complexity": 14,
+      "unique_operators": 1
+    },
+    "1": {
+      "seed": 9,
+      "expression": "((999 % 9)!)",
+      "complexity": 12,
+      "unique_operators": 2
+    },
+    "80": {
+      "seed": 9,
+      "expression": "((9 * 9) - (9 / 9))",
+      "complexity": 19,
+      "unique_operators": 3
+    },
+    "12": {
+      "seed": 9,
+      "expression": "((99 + 9) / 9)",
+      "complexity": 14,
+      "unique_operators": 2
+    },
+    "20": {
+      "seed": 9,
+      "expression": "((99 / 9) + 9)",
+      "complexity": 14,
+      "unique_operators": 2
+    },
+    "10": {
+      "seed": 9,
+      "expression": "((99 - 9) / 9)",
+      "complexity": 14,
+      "unique_operators": 2
+    },
+    "17": {
+      "seed": 9,
+      "expression": "((9 + 9) - (9 / 9))",
+      "complexity": 19,
+      "unique_operators": 3
+    },
+    "9": {
+      "seed": 9,
+      "expression": "((99 % 9) + 9)",
+      "complexity": 14,
+      "unique_operators": 2
+    },
+    "98": {
+      "seed": 9,
+      "expression": "(99 - (9 / 9))",
+      "complexity": 14,
+      "unique_operators": 2
+    },
+    "72": {
+      "seed": 9,
+      "expression": "(9 * (9 - (9 / 9)))",
+      "complexity": 19,
+      "unique_operators": 3
+    },
+    "90": {
+      "seed": 9,
+      "expression": "((9 + (9 / 9)) * 9)",
+      "complexity": 19,
+      "unique_operators": 3
+    },
+    "63": {
+      "seed": 9,
+      "expression": "((9 * 9) - (9 + 9))",
+      "complexity": 19,
+      "unique_operators": 3
+    },
+    "8": {
+      "seed": 9,
+      "expression": "(9 - ((9 / 9) ^ 9))",
+      "complexity": 19,
+      "unique_operators": 3
+    },
+    "3": {
+      "seed": 9,
+      "expression": "((9 + (9 + 9)) / 9)",
+      "complexity": 19,
+      "unique_operators": 2
+    },
+    "36": {
+      "seed": 9,
+      "expression": "((9 + 9) + (9 + 9))",
+      "complexity": 19,
+      "unique_operators": 1
+    },
+    "19": {
+      "seed": 9,
+      "expression": "((9 + (9 / 9)) + 9)",
+      "complexity": 19,
+      "unique_operators": 2
+    },
+    "11": {
+      "seed": 9,
+      "expression": "(9 + ((9 + 9) / 9))",
+      "complexity": 19,
+      "unique_operators": 2
+    },
+    "7": {
+      "seed": 9,
+      "expression": "(9 - ((9 + 9) / 9))",
+      "complexity": 19,
+      "unique_operators": 3
+    },
+    "30": {
+      "seed": 9,
+      "expression": "sqrt(((99 * 9) + 9))",
+      "complexity": 20,
+      "unique_operators": 3
+    },
+    "6": {
+      "seed": 9,
+      "expression": "((((9 + 9) + 9) / 9)!)",
+      "complexity": 22,
+      "unique_operators": 3
+    },
+    "96": {
+      "seed": 9,
+      "expression": "(99 - sqrt(sqrt((9 * 9))))",
+      "complexity": 26,
+      "unique_operators": 3
+    },
+    "15": {
+      "seed": 9,
+      "expression": "((sqrt((9 - (9 % 9)))!) + 9)",
+      "complexity": 28,
+      "unique_operators": 5
+    },
+    "54": {
+      "seed": 9,
+      "expression": "((sqrt((9 * (9 / 9)))!) * 9)",
+      "complexity": 28,
+      "unique_operators": 4
+    },
+    "21": {
+      "seed": 9,
+      "expression": "(9 + (9 + sqrt(sqrt((9 * 9)))))",
+      "complexity": 31,
+      "unique_operators": 3
+    },
+    "78": {
+      "seed": 9,
+      "expression": "((9 * 9) - sqrt(sqrt((9 * 9))))",
+      "complexity": 31,
+      "unique_operators": 3
+    },
+    "4": {
+      "seed": 9,
+      "expression": "((9 / 9) + sqrt(sqrt((9 * 9))))",
+      "complexity": 31,
+      "unique_operators": 4
+    },
+    "84": {
+      "seed": 9,
+      "expression": "(sqrt(sqrt((9 * 9))) + (9 * 9))",
+      "complexity": 31,
+      "unique_operators": 3
+    },
+    "24": {
+      "seed": 9,
+      "expression": "((sqrt(sqrt((9 * 9)))!) + (9 + 9))",
+      "complexity": 34,
+      "unique_operators": 4
+    },
+    "87": {
+      "seed": 9,
+      "expression": "((9 * 9) + (sqrt(sqrt((9 * 9)))!))",
+      "complexity": 34,
+      "unique_operators": 4
+    },
+    "5": {
+      "seed": 9,
+      "expression": "(-((9 / 9)) + (sqrt(sqrt((9 * 9)))!))",
+      "complexity": 37,
+      "unique_operators": 6
+    }
+  }
+}

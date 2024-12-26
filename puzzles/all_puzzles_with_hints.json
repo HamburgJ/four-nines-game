@@ -1,0 +1,9306 @@
+{
+  "1": {
+    "4": {
+      "expression": "((1 + 1) + (1 + 1))",
+      "complexity": 19,
+      "unique_operators": 1,
+      "hints": {
+        "leaf_values": [
+          "1",
+          "1",
+          "1",
+          "1"
+        ],
+        "operators": [
+          "+"
+        ],
+        "subtrees": [
+          "(1 + 1)"
+        ]
+      }
+    },
+    "5": {
+      "expression": "(((1 + (1 + 1))!) - 1)",
+      "complexity": 22,
+      "unique_operators": 3,
+      "hints": {
+        "leaf_values": [
+          "1",
+          "1",
+          "1",
+          "1"
+        ],
+        "operators": [
+          "!",
+          "+",
+          "-"
+        ],
+        "subtrees": [
+          "(1 + 1)",
+          "(1 + (1 + 1))",
+          "((1 + (1 + 1))!)"
+        ]
+      }
+    },
+    "11": {
+      "expression": "(11.1 - 0.1)",
+      "complexity": 12,
+      "unique_operators": 1,
+      "hints": {
+        "leaf_values": [
+          "0.1",
+          "11.1"
+        ],
+        "operators": [
+          "-"
+        ],
+        "subtrees": []
+      }
+    },
+    "13": {
+      "expression": "((11 + 1) + 1)",
+      "complexity": 14,
+      "unique_operators": 1,
+      "hints": {
+        "leaf_values": [
+          "1",
+          "1",
+          "11"
+        ],
+        "operators": [
+          "+"
+        ],
+        "subtrees": [
+          "(11 + 1)"
+        ]
+      }
+    },
+    "22": {
+      "expression": "(11 * (1 + 1))",
+      "complexity": 14,
+      "unique_operators": 2,
+      "hints": {
+        "leaf_values": [
+          "1",
+          "1",
+          "11"
+        ],
+        "operators": [
+          "*",
+          "+"
+        ],
+        "subtrees": [
+          "(1 + 1)"
+        ]
+      }
+    },
+    "24": {
+      "expression": "(((1 + 1) * (1 + 1))!)",
+      "complexity": 22,
+      "unique_operators": 3,
+      "hints": {
+        "leaf_values": [
+          "1",
+          "1",
+          "1",
+          "1"
+        ],
+        "operators": [
+          "!",
+          "*",
+          "+"
+        ],
+        "subtrees": [
+          "(1 + 1)",
+          "((1 + 1) * (1 + 1))"
+        ]
+      }
+    },
+    "1": {
+      "expression": "((111 % 1)!)",
+      "complexity": 12,
+      "unique_operators": 2,
+      "hints": {
+        "leaf_values": [
+          "1",
+          "111"
+        ],
+        "operators": [
+          "!",
+          "%"
+        ],
+        "subtrees": [
+          "(111 % 1)"
+        ]
+      }
+    },
+    "12": {
+      "expression": "((11 + 1) ^ 1)",
+      "complexity": 14,
+      "unique_operators": 2,
+      "hints": {
+        "leaf_values": [
+          "1",
+          "1",
+          "11"
+        ],
+        "operators": [
+          "+",
+          "^"
+        ],
+        "subtrees": [
+          "(11 + 1)"
+        ]
+      }
+    },
+    "10": {
+      "expression": "(11 - (1 / 1))",
+      "complexity": 14,
+      "unique_operators": 2,
+      "hints": {
+        "leaf_values": [
+          "1",
+          "1",
+          "11"
+        ],
+        "operators": [
+          "-",
+          "/"
+        ],
+        "subtrees": [
+          "(1 / 1)"
+        ]
+      }
+    },
+    "2": {
+      "expression": "(((11 % 1)!) + 1)",
+      "complexity": 17,
+      "unique_operators": 3,
+      "hints": {
+        "leaf_values": [
+          "1",
+          "1",
+          "11"
+        ],
+        "operators": [
+          "!",
+          "%",
+          "+"
+        ],
+        "subtrees": [
+          "(11 % 1)",
+          "((11 % 1)!)"
+        ]
+      }
+    },
+    "3": {
+      "expression": "((1 + 1) + (1 / 1))",
+      "complexity": 19,
+      "unique_operators": 2,
+      "hints": {
+        "leaf_values": [
+          "1",
+          "1",
+          "1",
+          "1"
+        ],
+        "operators": [
+          "+",
+          "/"
+        ],
+        "subtrees": [
+          "(1 + 1)",
+          "(1 / 1)"
+        ]
+      }
+    },
+    "9": {
+      "expression": "((11 - 1) - 1)",
+      "complexity": 14,
+      "unique_operators": 1,
+      "hints": {
+        "leaf_values": [
+          "1",
+          "1",
+          "11"
+        ],
+        "operators": [
+          "-"
+        ],
+        "subtrees": [
+          "(11 - 1)"
+        ]
+      }
+    },
+    "6": {
+      "expression": "(((1 + (1 + 1))!) / 1)",
+      "complexity": 22,
+      "unique_operators": 3,
+      "hints": {
+        "leaf_values": [
+          "1",
+          "1",
+          "1",
+          "1"
+        ],
+        "operators": [
+          "!",
+          "+",
+          "/"
+        ],
+        "subtrees": [
+          "(1 + 1)",
+          "(1 + (1 + 1))",
+          "((1 + (1 + 1))!)"
+        ]
+      }
+    },
+    "7": {
+      "expression": "((((1 + 1) + 1)!) + 1)",
+      "complexity": 22,
+      "unique_operators": 2,
+      "hints": {
+        "leaf_values": [
+          "1",
+          "1",
+          "1",
+          "1"
+        ],
+        "operators": [
+          "!",
+          "+"
+        ],
+        "subtrees": [
+          "(1 + 1)",
+          "((1 + 1) + 1)",
+          "(((1 + 1) + 1)!)"
+        ]
+      }
+    },
+    "100": {
+      "expression": "(0.1 ^ -(((1 * 1) + 1)))",
+      "complexity": 24,
+      "unique_operators": 4,
+      "hints": {
+        "leaf_values": [
+          "0.1",
+          "1",
+          "1",
+          "1"
+        ],
+        "operators": [
+          "*",
+          "+",
+          "^",
+          "neg"
+        ],
+        "subtrees": [
+          "(1 * 1)",
+          "((1 * 1) + 1)",
+          "-(((1 * 1) + 1))"
+        ]
+      }
+    },
+    "99": {
+      "expression": "((0.1 ^ -((1 + 1))) - 1)",
+      "complexity": 24,
+      "unique_operators": 3,
+      "hints": {
+        "leaf_values": [
+          "0.1",
+          "1",
+          "1",
+          "1"
+        ],
+        "operators": [
+          "+",
+          "-",
+          "^",
+          "neg"
+        ],
+        "subtrees": [
+          "(1 + 1)",
+          "-((1 + 1))",
+          "(0.1 ^ -((1 + 1)))"
+        ]
+      }
+    },
+    "72": {
+      "expression": "(0.1 * (((1 + (1 + 1))!)!))",
+      "complexity": 27,
+      "unique_operators": 3,
+      "hints": {
+        "leaf_values": [
+          "0.1",
+          "1",
+          "1",
+          "1"
+        ],
+        "operators": [
+          "!",
+          "*",
+          "+"
+        ],
+        "subtrees": [
+          "(1 + 1)",
+          "(1 + (1 + 1))",
+          "((1 + (1 + 1))!)",
+          "(((1 + (1 + 1))!)!)"
+        ]
+      }
+    }
+  },
+  "2": {
+    "2": {
+      "expression": "(22 % (2 + 2))",
+      "complexity": 14,
+      "unique_operators": 2,
+      "hints": {
+        "leaf_values": [
+          "2",
+          "2",
+          "22"
+        ],
+        "operators": [
+          "%",
+          "+"
+        ],
+        "subtrees": [
+          "(2 + 2)"
+        ]
+      }
+    },
+    "3": {
+      "expression": "(((22 % 2)!) + 2)",
+      "complexity": 17,
+      "unique_operators": 3,
+      "hints": {
+        "leaf_values": [
+          "2",
+          "2",
+          "22"
+        ],
+        "operators": [
+          "!",
+          "%",
+          "+"
+        ],
+        "subtrees": [
+          "(22 % 2)",
+          "((22 % 2)!)"
+        ]
+      }
+    },
+    "5": {
+      "expression": "(2 + (2 + (2 / 2)))",
+      "complexity": 19,
+      "unique_operators": 2,
+      "hints": {
+        "leaf_values": [
+          "2",
+          "2",
+          "2",
+          "2"
+        ],
+        "operators": [
+          "+",
+          "/"
+        ],
+        "subtrees": [
+          "(2 / 2)",
+          "(2 + (2 / 2))"
+        ]
+      }
+    },
+    "6": {
+      "expression": "(2 * (2 + (2 / 2)))",
+      "complexity": 19,
+      "unique_operators": 3,
+      "hints": {
+        "leaf_values": [
+          "2",
+          "2",
+          "2",
+          "2"
+        ],
+        "operators": [
+          "*",
+          "+",
+          "/"
+        ],
+        "subtrees": [
+          "(2 / 2)",
+          "(2 + (2 / 2))"
+        ]
+      }
+    },
+    "8": {
+      "expression": "(((2 + 2) + 2) + 2)",
+      "complexity": 19,
+      "unique_operators": 1,
+      "hints": {
+        "leaf_values": [
+          "2",
+          "2",
+          "2",
+          "2"
+        ],
+        "operators": [
+          "+"
+        ],
+        "subtrees": [
+          "(2 + 2)",
+          "((2 + 2) + 2)"
+        ]
+      }
+    },
+    "14": {
+      "expression": "((2 ^ (2 ^ 2)) - 2)",
+      "complexity": 19,
+      "unique_operators": 2,
+      "hints": {
+        "leaf_values": [
+          "2",
+          "2",
+          "2",
+          "2"
+        ],
+        "operators": [
+          "-",
+          "^"
+        ],
+        "subtrees": [
+          "(2 ^ 2)",
+          "(2 ^ (2 ^ 2))"
+        ]
+      }
+    },
+    "15": {
+      "expression": "((2 + (0.2 / 0.2)) / 0.2)",
+      "complexity": 25,
+      "unique_operators": 2,
+      "hints": {
+        "leaf_values": [
+          "0.2",
+          "0.2",
+          "0.2",
+          "2"
+        ],
+        "operators": [
+          "+",
+          "/"
+        ],
+        "subtrees": [
+          "(0.2 / 0.2)",
+          "(2 + (0.2 / 0.2))"
+        ]
+      }
+    },
+    "16": {
+      "expression": "((2 + 2) * (2 + 2))",
+      "complexity": 19,
+      "unique_operators": 2,
+      "hints": {
+        "leaf_values": [
+          "2",
+          "2",
+          "2",
+          "2"
+        ],
+        "operators": [
+          "*",
+          "+"
+        ],
+        "subtrees": [
+          "(2 + 2)"
+        ]
+      }
+    },
+    "18": {
+      "expression": "(22 - (2 + 2))",
+      "complexity": 14,
+      "unique_operators": 2,
+      "hints": {
+        "leaf_values": [
+          "2",
+          "2",
+          "22"
+        ],
+        "operators": [
+          "+",
+          "-"
+        ],
+        "subtrees": [
+          "(2 + 2)"
+        ]
+      }
+    },
+    "19": {
+      "expression": "(((2 * 2) - 0.2) / 0.2)",
+      "complexity": 23,
+      "unique_operators": 3,
+      "hints": {
+        "leaf_values": [
+          "0.2",
+          "0.2",
+          "2",
+          "2"
+        ],
+        "operators": [
+          "*",
+          "-",
+          "/"
+        ],
+        "subtrees": [
+          "(2 * 2)",
+          "((2 * 2) - 0.2)"
+        ]
+      }
+    },
+    "20": {
+      "expression": "(22 - sqrt((2 * 2)))",
+      "complexity": 20,
+      "unique_operators": 3,
+      "hints": {
+        "leaf_values": [
+          "2",
+          "2",
+          "22"
+        ],
+        "operators": [
+          "*",
+          "-",
+          "sqrt"
+        ],
+        "subtrees": [
+          "(2 * 2)",
+          "sqrt((2 * 2))"
+        ]
+      }
+    },
+    "21": {
+      "expression": "(22 - (2 / 2))",
+      "complexity": 14,
+      "unique_operators": 2,
+      "hints": {
+        "leaf_values": [
+          "2",
+          "2",
+          "22"
+        ],
+        "operators": [
+          "-",
+          "/"
+        ],
+        "subtrees": [
+          "(2 / 2)"
+        ]
+      }
+    },
+    "22": {
+      "expression": "(22.2 - 0.2)",
+      "complexity": 12,
+      "unique_operators": 1,
+      "hints": {
+        "leaf_values": [
+          "0.2",
+          "22.2"
+        ],
+        "operators": [
+          "-"
+        ],
+        "subtrees": []
+      }
+    },
+    "23": {
+      "expression": "(22 + (2 / 2))",
+      "complexity": 14,
+      "unique_operators": 2,
+      "hints": {
+        "leaf_values": [
+          "2",
+          "2",
+          "22"
+        ],
+        "operators": [
+          "+",
+          "/"
+        ],
+        "subtrees": [
+          "(2 / 2)"
+        ]
+      }
+    },
+    "24": {
+      "expression": "(22 + sqrt((2 + 2)))",
+      "complexity": 20,
+      "unique_operators": 2,
+      "hints": {
+        "leaf_values": [
+          "2",
+          "2",
+          "22"
+        ],
+        "operators": [
+          "+",
+          "sqrt"
+        ],
+        "subtrees": [
+          "(2 + 2)",
+          "sqrt((2 + 2))"
+        ]
+      }
+    },
+    "25": {
+      "expression": "(0.2 ^ (2 - (2 + 2)))",
+      "complexity": 21,
+      "unique_operators": 3,
+      "hints": {
+        "leaf_values": [
+          "0.2",
+          "2",
+          "2",
+          "2"
+        ],
+        "operators": [
+          "+",
+          "-",
+          "^"
+        ],
+        "subtrees": [
+          "(2 + 2)",
+          "(2 - (2 + 2))"
+        ]
+      }
+    },
+    "26": {
+      "expression": "(2 + (22 + 2))",
+      "complexity": 14,
+      "unique_operators": 1,
+      "hints": {
+        "leaf_values": [
+          "2",
+          "2",
+          "22"
+        ],
+        "operators": [
+          "+"
+        ],
+        "subtrees": [
+          "(22 + 2)"
+        ]
+      }
+    },
+    "28": {
+      "expression": "((2 + ((2 + 2)!)) + 2)",
+      "complexity": 22,
+      "unique_operators": 2,
+      "hints": {
+        "leaf_values": [
+          "2",
+          "2",
+          "2",
+          "2"
+        ],
+        "operators": [
+          "!",
+          "+"
+        ],
+        "subtrees": [
+          "(2 + 2)",
+          "((2 + 2)!)",
+          "(2 + ((2 + 2)!))"
+        ]
+      }
+    },
+    "30": {
+      "expression": "(((2 + 2) + 2) / 0.2)",
+      "complexity": 21,
+      "unique_operators": 2,
+      "hints": {
+        "leaf_values": [
+          "0.2",
+          "2",
+          "2",
+          "2"
+        ],
+        "operators": [
+          "+",
+          "/"
+        ],
+        "subtrees": [
+          "(2 + 2)",
+          "((2 + 2) + 2)"
+        ]
+      }
+    },
+    "32": {
+      "expression": "(2 * (2 ^ (2 + 2)))",
+      "complexity": 19,
+      "unique_operators": 3,
+      "hints": {
+        "leaf_values": [
+          "2",
+          "2",
+          "2",
+          "2"
+        ],
+        "operators": [
+          "*",
+          "+",
+          "^"
+        ],
+        "subtrees": [
+          "(2 + 2)",
+          "(2 ^ (2 + 2))"
+        ]
+      }
+    },
+    "34": {
+      "expression": "((2 / 0.2) + ((2 + 2)!))",
+      "complexity": 24,
+      "unique_operators": 3,
+      "hints": {
+        "leaf_values": [
+          "0.2",
+          "2",
+          "2",
+          "2"
+        ],
+        "operators": [
+          "!",
+          "+",
+          "/"
+        ],
+        "subtrees": [
+          "(2 + 2)",
+          "(2 / 0.2)",
+          "((2 + 2)!)"
+        ]
+      }
+    },
+    "36": {
+      "expression": "(((2 + 2) + 2) ^ 2)",
+      "complexity": 19,
+      "unique_operators": 2,
+      "hints": {
+        "leaf_values": [
+          "2",
+          "2",
+          "2",
+          "2"
+        ],
+        "operators": [
+          "+",
+          "^"
+        ],
+        "subtrees": [
+          "(2 + 2)",
+          "((2 + 2) + 2)"
+        ]
+      }
+    },
+    "40": {
+      "expression": "((22 - 2) * 2)",
+      "complexity": 14,
+      "unique_operators": 2,
+      "hints": {
+        "leaf_values": [
+          "2",
+          "2",
+          "22"
+        ],
+        "operators": [
+          "*",
+          "-"
+        ],
+        "subtrees": [
+          "(22 - 2)"
+        ]
+      }
+    },
+    "42": {
+      "expression": "((22 * 2) - 2)",
+      "complexity": 14,
+      "unique_operators": 2,
+      "hints": {
+        "leaf_values": [
+          "2",
+          "2",
+          "22"
+        ],
+        "operators": [
+          "*",
+          "-"
+        ],
+        "subtrees": [
+          "(22 * 2)"
+        ]
+      }
+    },
+    "44": {
+      "expression": "(22 + 22)",
+      "complexity": 9,
+      "unique_operators": 1,
+      "hints": {
+        "leaf_values": [
+          "22",
+          "22"
+        ],
+        "operators": [
+          "+"
+        ],
+        "subtrees": []
+      }
+    },
+    "45": {
+      "expression": "((2 - 0.2) / (0.2 ^ 2))",
+      "complexity": 23,
+      "unique_operators": 3,
+      "hints": {
+        "leaf_values": [
+          "0.2",
+          "0.2",
+          "2",
+          "2"
+        ],
+        "operators": [
+          "-",
+          "/",
+          "^"
+        ],
+        "subtrees": [
+          "(0.2 ^ 2)",
+          "(2 - 0.2)"
+        ]
+      }
+    },
+    "46": {
+      "expression": "((22 * 2) + 2)",
+      "complexity": 14,
+      "unique_operators": 2,
+      "hints": {
+        "leaf_values": [
+          "2",
+          "2",
+          "22"
+        ],
+        "operators": [
+          "*",
+          "+"
+        ],
+        "subtrees": [
+          "(22 * 2)"
+        ]
+      }
+    },
+    "48": {
+      "expression": "((22 + 2) * 2)",
+      "complexity": 14,
+      "unique_operators": 2,
+      "hints": {
+        "leaf_values": [
+          "2",
+          "2",
+          "22"
+        ],
+        "operators": [
+          "*",
+          "+"
+        ],
+        "subtrees": [
+          "(22 + 2)"
+        ]
+      }
+    },
+    "49": {
+      "expression": "(((2 / 0.2) - 0.2) / 0.2)",
+      "complexity": 25,
+      "unique_operators": 2,
+      "hints": {
+        "leaf_values": [
+          "0.2",
+          "0.2",
+          "0.2",
+          "2"
+        ],
+        "operators": [
+          "-",
+          "/"
+        ],
+        "subtrees": [
+          "(2 / 0.2)",
+          "((2 / 0.2) - 0.2)"
+        ]
+      }
+    },
+    "50": {
+      "expression": "(2 + (((2 * 2)!) * 2))",
+      "complexity": 22,
+      "unique_operators": 3,
+      "hints": {
+        "leaf_values": [
+          "2",
+          "2",
+          "2",
+          "2"
+        ],
+        "operators": [
+          "!",
+          "*",
+          "+"
+        ],
+        "subtrees": [
+          "(2 * 2)",
+          "((2 * 2)!)",
+          "(((2 * 2)!) * 2)"
+        ]
+      }
+    },
+    "51": {
+      "expression": "(((2 / 0.2) + 0.2) / 0.2)",
+      "complexity": 25,
+      "unique_operators": 2,
+      "hints": {
+        "leaf_values": [
+          "0.2",
+          "0.2",
+          "0.2",
+          "2"
+        ],
+        "operators": [
+          "+",
+          "/"
+        ],
+        "subtrees": [
+          "(2 / 0.2)",
+          "((2 / 0.2) + 0.2)"
+        ]
+      }
+    },
+    "52": {
+      "expression": "((2 + ((2 + 2)!)) * 2)",
+      "complexity": 22,
+      "unique_operators": 3,
+      "hints": {
+        "leaf_values": [
+          "2",
+          "2",
+          "2",
+          "2"
+        ],
+        "operators": [
+          "!",
+          "*",
+          "+"
+        ],
+        "subtrees": [
+          "(2 + 2)",
+          "((2 + 2)!)",
+          "(2 + ((2 + 2)!))"
+        ]
+      }
+    },
+    "55": {
+      "expression": "((22 / 2) / 0.2)",
+      "complexity": 16,
+      "unique_operators": 1,
+      "hints": {
+        "leaf_values": [
+          "0.2",
+          "2",
+          "22"
+        ],
+        "operators": [
+          "/"
+        ],
+        "subtrees": [
+          "(22 / 2)"
+        ]
+      }
+    },
+    "60": {
+      "expression": "(((2 * 2)!) / (2 * 0.2))",
+      "complexity": 24,
+      "unique_operators": 3,
+      "hints": {
+        "leaf_values": [
+          "0.2",
+          "2",
+          "2",
+          "2"
+        ],
+        "operators": [
+          "!",
+          "*",
+          "/"
+        ],
+        "subtrees": [
+          "(2 * 2)",
+          "(2 * 0.2)",
+          "((2 * 2)!)"
+        ]
+      }
+    },
+    "64": {
+      "expression": "((2 * (2 * 2)) ^ 2)",
+      "complexity": 19,
+      "unique_operators": 2,
+      "hints": {
+        "leaf_values": [
+          "2",
+          "2",
+          "2",
+          "2"
+        ],
+        "operators": [
+          "*",
+          "^"
+        ],
+        "subtrees": [
+          "(2 * 2)",
+          "(2 * (2 * 2))"
+        ]
+      }
+    },
+    "80": {
+      "expression": "(((2 * 2) ^ 2) / 0.2)",
+      "complexity": 21,
+      "unique_operators": 3,
+      "hints": {
+        "leaf_values": [
+          "0.2",
+          "2",
+          "2",
+          "2"
+        ],
+        "operators": [
+          "*",
+          "/",
+          "^"
+        ],
+        "subtrees": [
+          "(2 * 2)",
+          "((2 * 2) ^ 2)"
+        ]
+      }
+    },
+    "88": {
+      "expression": "((2 + 2) * 22)",
+      "complexity": 14,
+      "unique_operators": 2,
+      "hints": {
+        "leaf_values": [
+          "2",
+          "2",
+          "22"
+        ],
+        "operators": [
+          "*",
+          "+"
+        ],
+        "subtrees": [
+          "(2 + 2)"
+        ]
+      }
+    },
+    "96": {
+      "expression": "(((2 + 2)!) * (2 + 2))",
+      "complexity": 22,
+      "unique_operators": 3,
+      "hints": {
+        "leaf_values": [
+          "2",
+          "2",
+          "2",
+          "2"
+        ],
+        "operators": [
+          "!",
+          "*",
+          "+"
+        ],
+        "subtrees": [
+          "(2 + 2)",
+          "((2 + 2)!)"
+        ]
+      }
+    },
+    "98": {
+      "expression": "(((2 / 0.2) ^ 2) - 2)",
+      "complexity": 21,
+      "unique_operators": 3,
+      "hints": {
+        "leaf_values": [
+          "0.2",
+          "2",
+          "2",
+          "2"
+        ],
+        "operators": [
+          "-",
+          "/",
+          "^"
+        ],
+        "subtrees": [
+          "(2 / 0.2)",
+          "((2 / 0.2) ^ 2)"
+        ]
+      }
+    },
+    "27": {
+      "expression": "((0.2 ^ -(sqrt((2 ^ 2)))) + 2)",
+      "complexity": 30,
+      "unique_operators": 4,
+      "hints": {
+        "leaf_values": [
+          "0.2",
+          "2",
+          "2",
+          "2"
+        ],
+        "operators": [
+          "+",
+          "^",
+          "neg",
+          "sqrt"
+        ],
+        "subtrees": [
+          "(2 ^ 2)",
+          "sqrt((2 ^ 2))",
+          "-(sqrt((2 ^ 2)))",
+          "(0.2 ^ -(sqrt((2 ^ 2))))"
+        ]
+      }
+    },
+    "4": {
+      "seed": 2,
+      "expression": "(((2 * 2) - 2) + 2)",
+      "complexity": 19,
+      "unique_operators": 3,
+      "hints": {
+        "leaf_values": [
+          "2",
+          "2",
+          "2",
+          "2"
+        ],
+        "operators": [
+          "*",
+          "+",
+          "-"
+        ],
+        "subtrees": [
+          "(2 * 2)",
+          "((2 * 2) - 2)"
+        ]
+      }
+    },
+    "9": {
+      "seed": 2,
+      "expression": "((22 / 2) - 2)",
+      "complexity": 14,
+      "unique_operators": 2,
+      "hints": {
+        "leaf_values": [
+          "2",
+          "2",
+          "22"
+        ],
+        "operators": [
+          "-",
+          "/"
+        ],
+        "subtrees": [
+          "(22 / 2)"
+        ]
+      }
+    },
+    "13": {
+      "seed": 2,
+      "expression": "((22 / 2) + 2)",
+      "complexity": 14,
+      "unique_operators": 2,
+      "hints": {
+        "leaf_values": [
+          "2",
+          "2",
+          "22"
+        ],
+        "operators": [
+          "+",
+          "/"
+        ],
+        "subtrees": [
+          "(22 / 2)"
+        ]
+      }
+    },
+    "1": {
+      "seed": 2,
+      "expression": "((222 % 2)!)",
+      "complexity": 12,
+      "unique_operators": 2,
+      "hints": {
+        "leaf_values": [
+          "2",
+          "222"
+        ],
+        "operators": [
+          "!",
+          "%"
+        ],
+        "subtrees": [
+          "(222 % 2)"
+        ]
+      }
+    },
+    "10": {
+      "seed": 2,
+      "expression": "((22 - 2) / 2)",
+      "complexity": 14,
+      "unique_operators": 2,
+      "hints": {
+        "leaf_values": [
+          "2",
+          "2",
+          "22"
+        ],
+        "operators": [
+          "-",
+          "/"
+        ],
+        "subtrees": [
+          "(22 - 2)"
+        ]
+      }
+    },
+    "11": {
+      "seed": 2,
+      "expression": "(22 / sqrt((2 ^ 2)))",
+      "complexity": 20,
+      "unique_operators": 3,
+      "hints": {
+        "leaf_values": [
+          "2",
+          "2",
+          "22"
+        ],
+        "operators": [
+          "/",
+          "^",
+          "sqrt"
+        ],
+        "subtrees": [
+          "(2 ^ 2)",
+          "sqrt((2 ^ 2))"
+        ]
+      }
+    },
+    "12": {
+      "seed": 2,
+      "expression": "((22 + 2) / 2)",
+      "complexity": 14,
+      "unique_operators": 2,
+      "hints": {
+        "leaf_values": [
+          "2",
+          "2",
+          "22"
+        ],
+        "operators": [
+          "+",
+          "/"
+        ],
+        "subtrees": [
+          "(22 + 2)"
+        ]
+      }
+    },
+    "7": {
+      "seed": 2,
+      "expression": "((0.2 ^ -((2 / 2))) + 2)",
+      "complexity": 24,
+      "unique_operators": 4,
+      "hints": {
+        "leaf_values": [
+          "0.2",
+          "2",
+          "2",
+          "2"
+        ],
+        "operators": [
+          "+",
+          "/",
+          "^",
+          "neg"
+        ],
+        "subtrees": [
+          "(2 / 2)",
+          "-((2 / 2))",
+          "(0.2 ^ -((2 / 2)))"
+        ]
+      }
+    },
+    "100": {
+      "seed": 2,
+      "expression": "((0.2 / 2) ^ -(sqrt((2 * 2))))",
+      "complexity": 30,
+      "unique_operators": 5,
+      "hints": {
+        "leaf_values": [
+          "0.2",
+          "2",
+          "2",
+          "2"
+        ],
+        "operators": [
+          "*",
+          "/",
+          "^",
+          "neg",
+          "sqrt"
+        ],
+        "subtrees": [
+          "(2 * 2)",
+          "(0.2 / 2)",
+          "sqrt((2 * 2))",
+          "-(sqrt((2 * 2)))"
+        ]
+      }
+    }
+  },
+  "3": {
+    "1": {
+      "expression": "((333 % 3)!)",
+      "complexity": 12,
+      "unique_operators": 2,
+      "hints": {
+        "leaf_values": [
+          "3",
+          "333"
+        ],
+        "operators": [
+          "!",
+          "%"
+        ],
+        "subtrees": [
+          "(333 % 3)"
+        ]
+      }
+    },
+    "33": {
+      "expression": "(33.3 - 0.3)",
+      "complexity": 12,
+      "unique_operators": 1,
+      "hints": {
+        "leaf_values": [
+          "0.3",
+          "33.3"
+        ],
+        "operators": [
+          "-"
+        ],
+        "subtrees": []
+      }
+    },
+    "42": {
+      "expression": "(33 + (3 * 3))",
+      "complexity": 14,
+      "unique_operators": 2,
+      "hints": {
+        "leaf_values": [
+          "3",
+          "3",
+          "33"
+        ],
+        "operators": [
+          "*",
+          "+"
+        ],
+        "subtrees": [
+          "(3 * 3)"
+        ]
+      }
+    },
+    "34": {
+      "expression": "(33 + (3 / 3))",
+      "complexity": 14,
+      "unique_operators": 2,
+      "hints": {
+        "leaf_values": [
+          "3",
+          "3",
+          "33"
+        ],
+        "operators": [
+          "+",
+          "/"
+        ],
+        "subtrees": [
+          "(3 / 3)"
+        ]
+      }
+    },
+    "9": {
+      "expression": "((3 + (3 - 3)) * 3)",
+      "complexity": 19,
+      "unique_operators": 3,
+      "hints": {
+        "leaf_values": [
+          "3",
+          "3",
+          "3",
+          "3"
+        ],
+        "operators": [
+          "*",
+          "+",
+          "-"
+        ],
+        "subtrees": [
+          "(3 - 3)",
+          "(3 + (3 - 3))"
+        ]
+      }
+    },
+    "10": {
+      "expression": "((33 - 3) / 3)",
+      "complexity": 14,
+      "unique_operators": 2,
+      "hints": {
+        "leaf_values": [
+          "3",
+          "3",
+          "33"
+        ],
+        "operators": [
+          "-",
+          "/"
+        ],
+        "subtrees": [
+          "(33 - 3)"
+        ]
+      }
+    },
+    "6": {
+      "expression": "(33 - (3 ^ 3))",
+      "complexity": 14,
+      "unique_operators": 2,
+      "hints": {
+        "leaf_values": [
+          "3",
+          "3",
+          "33"
+        ],
+        "operators": [
+          "-",
+          "^"
+        ],
+        "subtrees": [
+          "(3 ^ 3)"
+        ]
+      }
+    },
+    "12": {
+      "expression": "((33 + 3) / 3)",
+      "complexity": 14,
+      "unique_operators": 2,
+      "hints": {
+        "leaf_values": [
+          "3",
+          "3",
+          "33"
+        ],
+        "operators": [
+          "+",
+          "/"
+        ],
+        "subtrees": [
+          "(33 + 3)"
+        ]
+      }
+    },
+    "3": {
+      "expression": "(33 % (3 + 3))",
+      "complexity": 14,
+      "unique_operators": 2,
+      "hints": {
+        "leaf_values": [
+          "3",
+          "3",
+          "33"
+        ],
+        "operators": [
+          "%",
+          "+"
+        ],
+        "subtrees": [
+          "(3 + 3)"
+        ]
+      }
+    },
+    "2": {
+      "expression": "((33 / 3) % 3)",
+      "complexity": 14,
+      "unique_operators": 2,
+      "hints": {
+        "leaf_values": [
+          "3",
+          "3",
+          "33"
+        ],
+        "operators": [
+          "%",
+          "/"
+        ],
+        "subtrees": [
+          "(33 / 3)"
+        ]
+      }
+    },
+    "32": {
+      "expression": "(33 - (3 / 3))",
+      "complexity": 14,
+      "unique_operators": 2,
+      "hints": {
+        "leaf_values": [
+          "3",
+          "3",
+          "33"
+        ],
+        "operators": [
+          "-",
+          "/"
+        ],
+        "subtrees": [
+          "(3 / 3)"
+        ]
+      }
+    },
+    "27": {
+      "expression": "((33 - 3) - 3)",
+      "complexity": 14,
+      "unique_operators": 1,
+      "hints": {
+        "leaf_values": [
+          "3",
+          "3",
+          "33"
+        ],
+        "operators": [
+          "-"
+        ],
+        "subtrees": [
+          "(33 - 3)"
+        ]
+      }
+    },
+    "14": {
+      "expression": "((33 / 3) + 3)",
+      "complexity": 14,
+      "unique_operators": 2,
+      "hints": {
+        "leaf_values": [
+          "3",
+          "3",
+          "33"
+        ],
+        "operators": [
+          "+",
+          "/"
+        ],
+        "subtrees": [
+          "(33 / 3)"
+        ]
+      }
+    },
+    "39": {
+      "expression": "(33 + (3 + 3))",
+      "complexity": 14,
+      "unique_operators": 1,
+      "hints": {
+        "leaf_values": [
+          "3",
+          "3",
+          "33"
+        ],
+        "operators": [
+          "+"
+        ],
+        "subtrees": [
+          "(3 + 3)"
+        ]
+      }
+    },
+    "90": {
+      "expression": "((33 - 3) * 3)",
+      "complexity": 14,
+      "unique_operators": 2,
+      "hints": {
+        "leaf_values": [
+          "3",
+          "3",
+          "33"
+        ],
+        "operators": [
+          "*",
+          "-"
+        ],
+        "subtrees": [
+          "(33 - 3)"
+        ]
+      }
+    },
+    "60": {
+      "expression": "(33 + (3 ^ 3))",
+      "complexity": 14,
+      "unique_operators": 2,
+      "hints": {
+        "leaf_values": [
+          "3",
+          "3",
+          "33"
+        ],
+        "operators": [
+          "+",
+          "^"
+        ],
+        "subtrees": [
+          "(3 ^ 3)"
+        ]
+      }
+    },
+    "24": {
+      "expression": "(33 - (3 * 3))",
+      "complexity": 14,
+      "unique_operators": 2,
+      "hints": {
+        "leaf_values": [
+          "3",
+          "3",
+          "33"
+        ],
+        "operators": [
+          "*",
+          "-"
+        ],
+        "subtrees": [
+          "(3 * 3)"
+        ]
+      }
+    },
+    "5": {
+      "expression": "(3 - ((3 / 3) - 3))",
+      "complexity": 19,
+      "unique_operators": 2,
+      "hints": {
+        "leaf_values": [
+          "3",
+          "3",
+          "3",
+          "3"
+        ],
+        "operators": [
+          "-",
+          "/"
+        ],
+        "subtrees": [
+          "(3 / 3)",
+          "((3 / 3) - 3)"
+        ]
+      }
+    },
+    "7": {
+      "expression": "((3 / 3) + (3 + 3))",
+      "complexity": 19,
+      "unique_operators": 2,
+      "hints": {
+        "leaf_values": [
+          "3",
+          "3",
+          "3",
+          "3"
+        ],
+        "operators": [
+          "+",
+          "/"
+        ],
+        "subtrees": [
+          "(3 + 3)",
+          "(3 / 3)"
+        ]
+      }
+    },
+    "36": {
+      "expression": "(((3 * 3) + 3) * 3)",
+      "complexity": 19,
+      "unique_operators": 2,
+      "hints": {
+        "leaf_values": [
+          "3",
+          "3",
+          "3",
+          "3"
+        ],
+        "operators": [
+          "*",
+          "+"
+        ],
+        "subtrees": [
+          "(3 * 3)",
+          "((3 * 3) + 3)"
+        ]
+      }
+    },
+    "96": {
+      "expression": "((33 * 3) - 3)",
+      "complexity": 14,
+      "unique_operators": 2,
+      "hints": {
+        "leaf_values": [
+          "3",
+          "3",
+          "33"
+        ],
+        "operators": [
+          "*",
+          "-"
+        ],
+        "subtrees": [
+          "(33 * 3)"
+        ]
+      }
+    },
+    "4": {
+      "expression": "(((33 % 3)!) + 3)",
+      "complexity": 17,
+      "unique_operators": 3,
+      "hints": {
+        "leaf_values": [
+          "3",
+          "3",
+          "33"
+        ],
+        "operators": [
+          "!",
+          "%",
+          "+"
+        ],
+        "subtrees": [
+          "(33 % 3)",
+          "((33 % 3)!)"
+        ]
+      }
+    },
+    "72": {
+      "expression": "(3 * ((3 ^ 3) - 3))",
+      "complexity": 19,
+      "unique_operators": 3,
+      "hints": {
+        "leaf_values": [
+          "3",
+          "3",
+          "3",
+          "3"
+        ],
+        "operators": [
+          "*",
+          "-",
+          "^"
+        ],
+        "subtrees": [
+          "(3 ^ 3)",
+          "((3 ^ 3) - 3)"
+        ]
+      }
+    },
+    "18": {
+      "expression": "((3 ^ 3) - (3 * 3))",
+      "complexity": 19,
+      "unique_operators": 3,
+      "hints": {
+        "leaf_values": [
+          "3",
+          "3",
+          "3",
+          "3"
+        ],
+        "operators": [
+          "*",
+          "-",
+          "^"
+        ],
+        "subtrees": [
+          "(3 ^ 3)",
+          "(3 * 3)"
+        ]
+      }
+    },
+    "15": {
+      "expression": "((3 + 3) + (3 * 3))",
+      "complexity": 19,
+      "unique_operators": 2,
+      "hints": {
+        "leaf_values": [
+          "3",
+          "3",
+          "3",
+          "3"
+        ],
+        "operators": [
+          "*",
+          "+"
+        ],
+        "subtrees": [
+          "(3 + 3)",
+          "(3 * 3)"
+        ]
+      }
+    },
+    "26": {
+      "expression": "((3 ^ 3) - (3 / 3))",
+      "complexity": 19,
+      "unique_operators": 3,
+      "hints": {
+        "leaf_values": [
+          "3",
+          "3",
+          "3",
+          "3"
+        ],
+        "operators": [
+          "-",
+          "/",
+          "^"
+        ],
+        "subtrees": [
+          "(3 / 3)",
+          "(3 ^ 3)"
+        ]
+      }
+    },
+    "54": {
+      "expression": "((3 + 3) * (3 * 3))",
+      "complexity": 19,
+      "unique_operators": 2,
+      "hints": {
+        "leaf_values": [
+          "3",
+          "3",
+          "3",
+          "3"
+        ],
+        "operators": [
+          "*",
+          "+"
+        ],
+        "subtrees": [
+          "(3 + 3)",
+          "(3 * 3)"
+        ]
+      }
+    },
+    "99": {
+      "expression": "(33 * sqrt((3 * 3)))",
+      "complexity": 20,
+      "unique_operators": 2,
+      "hints": {
+        "leaf_values": [
+          "3",
+          "3",
+          "33"
+        ],
+        "operators": [
+          "*",
+          "sqrt"
+        ],
+        "subtrees": [
+          "(3 * 3)",
+          "sqrt((3 * 3))"
+        ]
+      }
+    },
+    "8": {
+      "expression": "((33 / 3) - 3)",
+      "complexity": 14,
+      "unique_operators": 2,
+      "hints": {
+        "leaf_values": [
+          "3",
+          "3",
+          "33"
+        ],
+        "operators": [
+          "-",
+          "/"
+        ],
+        "subtrees": [
+          "(33 / 3)"
+        ]
+      }
+    },
+    "28": {
+      "expression": "((3 ^ 3) + (3 / 3))",
+      "complexity": 19,
+      "unique_operators": 3,
+      "hints": {
+        "leaf_values": [
+          "3",
+          "3",
+          "3",
+          "3"
+        ],
+        "operators": [
+          "+",
+          "/",
+          "^"
+        ],
+        "subtrees": [
+          "(3 / 3)",
+          "(3 ^ 3)"
+        ]
+      }
+    },
+    "21": {
+      "expression": "((3 * (3 + 3)) + 3)",
+      "complexity": 19,
+      "unique_operators": 2,
+      "hints": {
+        "leaf_values": [
+          "3",
+          "3",
+          "3",
+          "3"
+        ],
+        "operators": [
+          "*",
+          "+"
+        ],
+        "subtrees": [
+          "(3 + 3)",
+          "(3 * (3 + 3))"
+        ]
+      }
+    },
+    "84": {
+      "expression": "((3 * (3 ^ 3)) + 3)",
+      "complexity": 19,
+      "unique_operators": 3,
+      "hints": {
+        "leaf_values": [
+          "3",
+          "3",
+          "3",
+          "3"
+        ],
+        "operators": [
+          "*",
+          "+",
+          "^"
+        ],
+        "subtrees": [
+          "(3 ^ 3)",
+          "(3 * (3 ^ 3))"
+        ]
+      }
+    },
+    "30": {
+      "expression": "(((3 * 3) * 3) + 3)",
+      "complexity": 19,
+      "unique_operators": 2,
+      "hints": {
+        "leaf_values": [
+          "3",
+          "3",
+          "3",
+          "3"
+        ],
+        "operators": [
+          "*",
+          "+"
+        ],
+        "subtrees": [
+          "(3 * 3)",
+          "((3 * 3) * 3)"
+        ]
+      }
+    },
+    "11": {
+      "expression": "(33 / sqrt((3 * 3)))",
+      "complexity": 20,
+      "unique_operators": 3,
+      "hints": {
+        "leaf_values": [
+          "3",
+          "3",
+          "33"
+        ],
+        "operators": [
+          "*",
+          "/",
+          "sqrt"
+        ],
+        "subtrees": [
+          "(3 * 3)",
+          "sqrt((3 * 3))"
+        ]
+      }
+    },
+    "81": {
+      "expression": "((3 * 3) * (3 * 3))",
+      "complexity": 19,
+      "unique_operators": 1,
+      "hints": {
+        "leaf_values": [
+          "3",
+          "3",
+          "3",
+          "3"
+        ],
+        "operators": [
+          "*"
+        ],
+        "subtrees": [
+          "(3 * 3)"
+        ]
+      }
+    },
+    "80": {
+      "expression": "((((3 + 3)!) / 3) / 3)",
+      "complexity": 22,
+      "unique_operators": 3,
+      "hints": {
+        "leaf_values": [
+          "3",
+          "3",
+          "3",
+          "3"
+        ],
+        "operators": [
+          "!",
+          "+",
+          "/"
+        ],
+        "subtrees": [
+          "(3 + 3)",
+          "((3 + 3)!)",
+          "(((3 + 3)!) / 3)"
+        ]
+      }
+    },
+    "78": {
+      "expression": "((3 * (3 ^ 3)) - 3)",
+      "complexity": 19,
+      "unique_operators": 3,
+      "hints": {
+        "leaf_values": [
+          "3",
+          "3",
+          "3",
+          "3"
+        ],
+        "operators": [
+          "*",
+          "-",
+          "^"
+        ],
+        "subtrees": [
+          "(3 ^ 3)",
+          "(3 * (3 ^ 3))"
+        ]
+      }
+    },
+    "64": {
+      "expression": "(((3 / 3) + 3) ^ 3)",
+      "complexity": 19,
+      "unique_operators": 3,
+      "hints": {
+        "leaf_values": [
+          "3",
+          "3",
+          "3",
+          "3"
+        ],
+        "operators": [
+          "+",
+          "/",
+          "^"
+        ],
+        "subtrees": [
+          "(3 / 3)",
+          "((3 / 3) + 3)"
+        ]
+      }
+    }
+  },
+  "4": {
+    "1": {
+      "expression": "((444 % 4)!)",
+      "complexity": 12,
+      "unique_operators": 2,
+      "hints": {
+        "leaf_values": [
+          "4",
+          "444"
+        ],
+        "operators": [
+          "!",
+          "%"
+        ],
+        "subtrees": [
+          "(444 % 4)"
+        ]
+      }
+    },
+    "2": {
+      "expression": "(4 - ((4 + 4) / 4))",
+      "complexity": 19,
+      "unique_operators": 3,
+      "hints": {
+        "leaf_values": [
+          "4",
+          "4",
+          "4",
+          "4"
+        ],
+        "operators": [
+          "+",
+          "-",
+          "/"
+        ],
+        "subtrees": [
+          "(4 + 4)",
+          "((4 + 4) / 4)"
+        ]
+      }
+    },
+    "3": {
+      "expression": "((44 / 4) % 4)",
+      "complexity": 14,
+      "unique_operators": 2,
+      "hints": {
+        "leaf_values": [
+          "4",
+          "4",
+          "44"
+        ],
+        "operators": [
+          "%",
+          "/"
+        ],
+        "subtrees": [
+          "(44 / 4)"
+        ]
+      }
+    },
+    "4": {
+      "expression": "(44 % (4 + 4))",
+      "complexity": 14,
+      "unique_operators": 2,
+      "hints": {
+        "leaf_values": [
+          "4",
+          "4",
+          "44"
+        ],
+        "operators": [
+          "%",
+          "+"
+        ],
+        "subtrees": [
+          "(4 + 4)"
+        ]
+      }
+    },
+    "5": {
+      "expression": "(((44 % 4)!) + 4)",
+      "complexity": 17,
+      "unique_operators": 3,
+      "hints": {
+        "leaf_values": [
+          "4",
+          "4",
+          "44"
+        ],
+        "operators": [
+          "!",
+          "%",
+          "+"
+        ],
+        "subtrees": [
+          "(44 % 4)",
+          "((44 % 4)!)"
+        ]
+      }
+    },
+    "6": {
+      "expression": "(((44 / 4) % 4)!)",
+      "complexity": 17,
+      "unique_operators": 3,
+      "hints": {
+        "leaf_values": [
+          "4",
+          "4",
+          "44"
+        ],
+        "operators": [
+          "!",
+          "%",
+          "/"
+        ],
+        "subtrees": [
+          "(44 / 4)",
+          "((44 / 4) % 4)"
+        ]
+      }
+    },
+    "7": {
+      "expression": "((44 / 4) - 4)",
+      "complexity": 14,
+      "unique_operators": 2,
+      "hints": {
+        "leaf_values": [
+          "4",
+          "4",
+          "44"
+        ],
+        "operators": [
+          "-",
+          "/"
+        ],
+        "subtrees": [
+          "(44 / 4)"
+        ]
+      }
+    },
+    "8": {
+      "expression": "((4 + 4) - (4 - 4))",
+      "complexity": 19,
+      "unique_operators": 2,
+      "hints": {
+        "leaf_values": [
+          "4",
+          "4",
+          "4",
+          "4"
+        ],
+        "operators": [
+          "+",
+          "-"
+        ],
+        "subtrees": [
+          "(4 + 4)",
+          "(4 - 4)"
+        ]
+      }
+    },
+    "9": {
+      "expression": "((4 + 4) + (4 / 4))",
+      "complexity": 19,
+      "unique_operators": 2,
+      "hints": {
+        "leaf_values": [
+          "4",
+          "4",
+          "4",
+          "4"
+        ],
+        "operators": [
+          "+",
+          "/"
+        ],
+        "subtrees": [
+          "(4 + 4)",
+          "(4 / 4)"
+        ]
+      }
+    },
+    "10": {
+      "expression": "((44 - 4) / 4)",
+      "complexity": 14,
+      "unique_operators": 2,
+      "hints": {
+        "leaf_values": [
+          "4",
+          "4",
+          "44"
+        ],
+        "operators": [
+          "-",
+          "/"
+        ],
+        "subtrees": [
+          "(44 - 4)"
+        ]
+      }
+    },
+    "11": {
+      "expression": "(44 / sqrt((4 * 4)))",
+      "complexity": 20,
+      "unique_operators": 3,
+      "hints": {
+        "leaf_values": [
+          "4",
+          "4",
+          "44"
+        ],
+        "operators": [
+          "*",
+          "/",
+          "sqrt"
+        ],
+        "subtrees": [
+          "(4 * 4)",
+          "sqrt((4 * 4))"
+        ]
+      }
+    },
+    "12": {
+      "expression": "((44 + 4) / 4)",
+      "complexity": 14,
+      "unique_operators": 2,
+      "hints": {
+        "leaf_values": [
+          "4",
+          "4",
+          "44"
+        ],
+        "operators": [
+          "+",
+          "/"
+        ],
+        "subtrees": [
+          "(44 + 4)"
+        ]
+      }
+    },
+    "13": {
+      "expression": "((44 / 4) + sqrt(4))",
+      "complexity": 20,
+      "unique_operators": 3,
+      "hints": {
+        "leaf_values": [
+          "4",
+          "4",
+          "44"
+        ],
+        "operators": [
+          "+",
+          "/",
+          "sqrt"
+        ],
+        "subtrees": [
+          "sqrt(4)",
+          "(44 / 4)"
+        ]
+      }
+    },
+    "14": {
+      "expression": "((4 + 4) + (sqrt(4) + 4))",
+      "complexity": 25,
+      "unique_operators": 2,
+      "hints": {
+        "leaf_values": [
+          "4",
+          "4",
+          "4"
+        ],
+        "operators": [
+          "+",
+          "sqrt"
+        ],
+        "subtrees": [
+          "sqrt(4)",
+          "(4 + 4)",
+          "((4 + 4) + sqrt(4))"
+        ]
+      }
+    },
+    "15": {
+      "expression": "((44 / 4) + 4)",
+      "complexity": 14,
+      "unique_operators": 2,
+      "hints": {
+        "leaf_values": [
+          "4",
+          "4",
+          "44"
+        ],
+        "operators": [
+          "+",
+          "/"
+        ],
+        "subtrees": [
+          "(44 / 4)"
+        ]
+      }
+    },
+    "16": {
+      "expression": "((4 - 4) + (4 * 4))",
+      "complexity": 19,
+      "unique_operators": 3,
+      "hints": {
+        "leaf_values": [
+          "4",
+          "4",
+          "4",
+          "4"
+        ],
+        "operators": [
+          "*",
+          "+",
+          "-"
+        ],
+        "subtrees": [
+          "(4 * 4)",
+          "(4 - 4)"
+        ]
+      }
+    },
+    "17": {
+      "expression": "((4 * 4) + (4 / 4))",
+      "complexity": 19,
+      "unique_operators": 3,
+      "hints": {
+        "leaf_values": [
+          "4",
+          "4",
+          "4",
+          "4"
+        ],
+        "operators": [
+          "*",
+          "+",
+          "/"
+        ],
+        "subtrees": [
+          "(4 * 4)",
+          "(4 / 4)"
+        ]
+      }
+    },
+    "18": {
+      "expression": "((44 - sqrt(4)) - (4!))",
+      "complexity": 23,
+      "unique_operators": 3,
+      "hints": {
+        "leaf_values": [
+          "4",
+          "4",
+          "44"
+        ],
+        "operators": [
+          "!",
+          "-",
+          "sqrt"
+        ],
+        "subtrees": [
+          "(4!)",
+          "sqrt(4)",
+          "(44 - sqrt(4))"
+        ]
+      }
+    },
+    "19": {
+      "expression": "(((4 + 4) - 0.4) / 0.4)",
+      "complexity": 23,
+      "unique_operators": 3,
+      "hints": {
+        "leaf_values": [
+          "0.4",
+          "0.4",
+          "4",
+          "4"
+        ],
+        "operators": [
+          "+",
+          "-",
+          "/"
+        ],
+        "subtrees": [
+          "(4 + 4)",
+          "((4 + 4) - 0.4)"
+        ]
+      }
+    },
+    "20": {
+      "expression": "(4 * (4 + (4 / 4)))",
+      "complexity": 19,
+      "unique_operators": 3,
+      "hints": {
+        "leaf_values": [
+          "4",
+          "4",
+          "4",
+          "4"
+        ],
+        "operators": [
+          "*",
+          "+",
+          "/"
+        ],
+        "subtrees": [
+          "(4 / 4)",
+          "(4 + (4 / 4))"
+        ]
+      }
+    },
+    "21": {
+      "expression": "((44 - sqrt(4)) / sqrt(4))",
+      "complexity": 26,
+      "unique_operators": 3,
+      "hints": {
+        "leaf_values": [
+          "4",
+          "4",
+          "44"
+        ],
+        "operators": [
+          "-",
+          "/",
+          "sqrt"
+        ],
+        "subtrees": [
+          "sqrt(4)",
+          "(44 - sqrt(4))"
+        ]
+      }
+    },
+    "22": {
+      "expression": "sqrt((sqrt((44 ^ 4)) / 4))",
+      "complexity": 26,
+      "unique_operators": 3,
+      "hints": {
+        "leaf_values": [
+          "4",
+          "44"
+        ],
+        "operators": [
+          "^",
+          "sqrt"
+        ],
+        "subtrees": [
+          "(44 ^ 4)",
+          "sqrt((44 ^ 4))",
+          "sqrt(sqrt((44 ^ 4)))"
+        ]
+      }
+    },
+    "23": {
+      "expression": "((44 + sqrt(4)) / sqrt(4))",
+      "complexity": 26,
+      "unique_operators": 3,
+      "hints": {
+        "leaf_values": [
+          "4",
+          "4",
+          "44"
+        ],
+        "operators": [
+          "+",
+          "/",
+          "sqrt"
+        ],
+        "subtrees": [
+          "sqrt(4)",
+          "(44 + sqrt(4))"
+        ]
+      }
+    },
+    "24": {
+      "expression": "(((44 % 4) + 4)!)",
+      "complexity": 17,
+      "unique_operators": 3,
+      "hints": {
+        "leaf_values": [
+          "4",
+          "4",
+          "44"
+        ],
+        "operators": [
+          "!",
+          "%",
+          "+"
+        ],
+        "subtrees": [
+          "(44 % 4)",
+          "((44 % 4) + 4)"
+        ]
+      }
+    },
+    "25": {
+      "expression": "sqrt(((4 + (4 / 4)) ^ 4))",
+      "complexity": 25,
+      "unique_operators": 4,
+      "hints": {
+        "leaf_values": [
+          "4",
+          "4",
+          "4",
+          "4"
+        ],
+        "operators": [
+          "+",
+          "/",
+          "^",
+          "sqrt"
+        ],
+        "subtrees": [
+          "(4 / 4)",
+          "(4 + (4 / 4))",
+          "((4 + (4 / 4)) ^ 4)"
+        ]
+      }
+    },
+    "26": {
+      "expression": "((0.4 + (4 / 0.4)) / 0.4)",
+      "complexity": 25,
+      "unique_operators": 2,
+      "hints": {
+        "leaf_values": [
+          "0.4",
+          "0.4",
+          "0.4",
+          "4"
+        ],
+        "operators": [
+          "+",
+          "/"
+        ],
+        "subtrees": [
+          "(4 / 0.4)",
+          "(0.4 + (4 / 0.4))"
+        ]
+      }
+    },
+    "27": {
+      "expression": "(((4!) + 4) - (4 / 4))",
+      "complexity": 22,
+      "unique_operators": 4,
+      "hints": {
+        "leaf_values": [
+          "4",
+          "4",
+          "4",
+          "4"
+        ],
+        "operators": [
+          "!",
+          "+",
+          "-",
+          "/"
+        ],
+        "subtrees": [
+          "(4!)",
+          "(4 / 4)",
+          "((4!) + 4)"
+        ]
+      }
+    },
+    "28": {
+      "expression": "(44 - (4 * 4))",
+      "complexity": 14,
+      "unique_operators": 2,
+      "hints": {
+        "leaf_values": [
+          "4",
+          "4",
+          "44"
+        ],
+        "operators": [
+          "*",
+          "-"
+        ],
+        "subtrees": [
+          "(4 * 4)"
+        ]
+      }
+    },
+    "29": {
+      "expression": "((4 + (4!)) + (4 / 4))",
+      "complexity": 22,
+      "unique_operators": 3,
+      "hints": {
+        "leaf_values": [
+          "4",
+          "4",
+          "4",
+          "4"
+        ],
+        "operators": [
+          "!",
+          "+",
+          "/"
+        ],
+        "subtrees": [
+          "(4!)",
+          "(4 / 4)",
+          "(4 + (4!))"
+        ]
+      }
+    },
+    "30": {
+      "expression": "(((4 + (4 / 4))!) / 4)",
+      "complexity": 22,
+      "unique_operators": 3,
+      "hints": {
+        "leaf_values": [
+          "4",
+          "4",
+          "4",
+          "4"
+        ],
+        "operators": [
+          "!",
+          "+",
+          "/"
+        ],
+        "subtrees": [
+          "(4 / 4)",
+          "(4 + (4 / 4))",
+          "((4 + (4 / 4))!)"
+        ]
+      }
+    },
+    "31": {
+      "expression": "((4!) + (((4!) + 4) / 4))",
+      "complexity": 25,
+      "unique_operators": 3,
+      "hints": {
+        "leaf_values": [
+          "4",
+          "4",
+          "4",
+          "4"
+        ],
+        "operators": [
+          "!",
+          "+",
+          "/"
+        ],
+        "subtrees": [
+          "(4!)",
+          "((4!) + 4)",
+          "(((4!) + 4) / 4)"
+        ]
+      }
+    },
+    "32": {
+      "expression": "((4 ^ 4) / (4 + 4))",
+      "complexity": 19,
+      "unique_operators": 3,
+      "hints": {
+        "leaf_values": [
+          "4",
+          "4",
+          "4",
+          "4"
+        ],
+        "operators": [
+          "+",
+          "/",
+          "^"
+        ],
+        "subtrees": [
+          "(4 ^ 4)",
+          "(4 + 4)"
+        ]
+      }
+    },
+    "33": {
+      "expression": "((4!) + ((4 - 0.4) / 0.4))",
+      "complexity": 26,
+      "unique_operators": 4,
+      "hints": {
+        "leaf_values": [
+          "0.4",
+          "0.4",
+          "4",
+          "4"
+        ],
+        "operators": [
+          "!",
+          "+",
+          "-",
+          "/"
+        ],
+        "subtrees": [
+          "(4!)",
+          "(4 - 0.4)",
+          "((4 - 0.4) / 0.4)"
+        ]
+      }
+    },
+    "34": {
+      "expression": "(((4 + 4) * 4) + sqrt(4))",
+      "complexity": 25,
+      "unique_operators": 3,
+      "hints": {
+        "leaf_values": [
+          "4",
+          "4",
+          "4",
+          "4"
+        ],
+        "operators": [
+          "*",
+          "+",
+          "sqrt"
+        ],
+        "subtrees": [
+          "sqrt(4)",
+          "(4 + 4)",
+          "((4 + 4) * 4)"
+        ]
+      }
+    },
+    "35": {
+      "expression": "((4 + (4 / 0.4)) / 0.4)",
+      "complexity": 23,
+      "unique_operators": 2,
+      "hints": {
+        "leaf_values": [
+          "0.4",
+          "0.4",
+          "4",
+          "4"
+        ],
+        "operators": [
+          "+",
+          "/"
+        ],
+        "subtrees": [
+          "(4 / 0.4)",
+          "(4 + (4 / 0.4))"
+        ]
+      }
+    },
+    "36": {
+      "expression": "((44 - 4) - 4)",
+      "complexity": 14,
+      "unique_operators": 1,
+      "hints": {
+        "leaf_values": [
+          "4",
+          "4",
+          "44"
+        ],
+        "operators": [
+          "-"
+        ],
+        "subtrees": [
+          "(44 - 4)"
+        ]
+      }
+    },
+    "38": {
+      "expression": "(44 - (4 + sqrt(4)))",
+      "complexity": 20,
+      "unique_operators": 3,
+      "hints": {
+        "leaf_values": [
+          "4",
+          "4",
+          "44"
+        ],
+        "operators": [
+          "+",
+          "-",
+          "sqrt"
+        ],
+        "subtrees": [
+          "sqrt(4)",
+          "(4 + sqrt(4))"
+        ]
+      }
+    },
+    "39": {
+      "expression": "(((4 * 4) - 0.4) / 0.4)",
+      "complexity": 23,
+      "unique_operators": 3,
+      "hints": {
+        "leaf_values": [
+          "0.4",
+          "0.4",
+          "4",
+          "4"
+        ],
+        "operators": [
+          "*",
+          "-",
+          "/"
+        ],
+        "subtrees": [
+          "(4 * 4)",
+          "((4 * 4) - 0.4)"
+        ]
+      }
+    },
+    "40": {
+      "expression": "(44 - sqrt((4 * 4)))",
+      "complexity": 20,
+      "unique_operators": 3,
+      "hints": {
+        "leaf_values": [
+          "4",
+          "4",
+          "44"
+        ],
+        "operators": [
+          "*",
+          "-",
+          "sqrt"
+        ],
+        "subtrees": [
+          "(4 * 4)",
+          "sqrt((4 * 4))"
+        ]
+      }
+    },
+    "41": {
+      "expression": "(((4 * 4) + 0.4) / 0.4)",
+      "complexity": 23,
+      "unique_operators": 3,
+      "hints": {
+        "leaf_values": [
+          "0.4",
+          "0.4",
+          "4",
+          "4"
+        ],
+        "operators": [
+          "*",
+          "+",
+          "/"
+        ],
+        "subtrees": [
+          "(4 * 4)",
+          "((4 * 4) + 0.4)"
+        ]
+      }
+    },
+    "42": {
+      "expression": "(44 - sqrt(sqrt((4 * 4))))",
+      "complexity": 26,
+      "unique_operators": 3,
+      "hints": {
+        "leaf_values": [
+          "4",
+          "4",
+          "44"
+        ],
+        "operators": [
+          "*",
+          "-",
+          "sqrt"
+        ],
+        "subtrees": [
+          "(4 * 4)",
+          "sqrt((4 * 4))",
+          "sqrt(sqrt((4 * 4)))"
+        ]
+      }
+    },
+    "43": {
+      "expression": "(44 - (4 / 4))",
+      "complexity": 14,
+      "unique_operators": 2,
+      "hints": {
+        "leaf_values": [
+          "4",
+          "4",
+          "44"
+        ],
+        "operators": [
+          "-",
+          "/"
+        ],
+        "subtrees": [
+          "(4 / 4)"
+        ]
+      }
+    },
+    "44": {
+      "expression": "(44.4 - 0.4)",
+      "complexity": 12,
+      "unique_operators": 1,
+      "hints": {
+        "leaf_values": [
+          "0.4",
+          "44.4"
+        ],
+        "operators": [
+          "-"
+        ],
+        "subtrees": []
+      }
+    },
+    "45": {
+      "expression": "(44 + (4 / 4))",
+      "complexity": 14,
+      "unique_operators": 2,
+      "hints": {
+        "leaf_values": [
+          "4",
+          "4",
+          "44"
+        ],
+        "operators": [
+          "+",
+          "/"
+        ],
+        "subtrees": [
+          "(4 / 4)"
+        ]
+      }
+    },
+    "46": {
+      "expression": "(44 + sqrt(sqrt((4 * 4))))",
+      "complexity": 26,
+      "unique_operators": 3,
+      "hints": {
+        "leaf_values": [
+          "4",
+          "4",
+          "44"
+        ],
+        "operators": [
+          "*",
+          "+",
+          "sqrt"
+        ],
+        "subtrees": [
+          "(4 * 4)",
+          "sqrt((4 * 4))",
+          "sqrt(sqrt((4 * 4)))"
+        ]
+      }
+    },
+    "47": {
+      "expression": "(((4!) + (4!)) - (4 / 4))",
+      "complexity": 25,
+      "unique_operators": 4,
+      "hints": {
+        "leaf_values": [
+          "4",
+          "4",
+          "4",
+          "4"
+        ],
+        "operators": [
+          "!",
+          "+",
+          "-",
+          "/"
+        ],
+        "subtrees": [
+          "(4!)",
+          "(4 / 4)",
+          "((4!) + (4!))"
+        ]
+      }
+    },
+    "48": {
+      "expression": "(((4 + 4) + 4) * 4)",
+      "complexity": 19,
+      "unique_operators": 2,
+      "hints": {
+        "leaf_values": [
+          "4",
+          "4",
+          "4",
+          "4"
+        ],
+        "operators": [
+          "*",
+          "+"
+        ],
+        "subtrees": [
+          "(4 + 4)",
+          "((4 + 4) + 4)"
+        ]
+      }
+    },
+    "49": {
+      "expression": "(((4!) + (4!)) + (4 / 4))",
+      "complexity": 25,
+      "unique_operators": 3,
+      "hints": {
+        "leaf_values": [
+          "4",
+          "4",
+          "4",
+          "4"
+        ],
+        "operators": [
+          "!",
+          "+",
+          "/"
+        ],
+        "subtrees": [
+          "(4!)",
+          "(4 / 4)",
+          "((4!) + (4!))"
+        ]
+      }
+    },
+    "50": {
+      "expression": "(44 + (4 + sqrt(4)))",
+      "complexity": 20,
+      "unique_operators": 2,
+      "hints": {
+        "leaf_values": [
+          "4",
+          "4",
+          "44"
+        ],
+        "operators": [
+          "+",
+          "sqrt"
+        ],
+        "subtrees": [
+          "sqrt(4)",
+          "(4 + sqrt(4))"
+        ]
+      }
+    },
+    "52": {
+      "expression": "((44 + 4) + 4)",
+      "complexity": 14,
+      "unique_operators": 1,
+      "hints": {
+        "leaf_values": [
+          "4",
+          "4",
+          "44"
+        ],
+        "operators": [
+          "+"
+        ],
+        "subtrees": [
+          "(44 + 4)"
+        ]
+      }
+    },
+    "54": {
+      "expression": "((((4!) + 4) + sqrt(4)) + (4!))",
+      "complexity": 31,
+      "unique_operators": 3,
+      "hints": {
+        "leaf_values": [
+          "4",
+          "4",
+          "4",
+          "4"
+        ],
+        "operators": [
+          "!",
+          "+",
+          "sqrt"
+        ],
+        "subtrees": [
+          "(4!)",
+          "sqrt(4)",
+          "((4!) + 4)",
+          "(((4!) + 4) + sqrt(4))"
+        ]
+      }
+    },
+    "55": {
+      "expression": "(((4!) / 0.4) - (sqrt(4) / 0.4))",
+      "complexity": 32,
+      "unique_operators": 4,
+      "hints": {
+        "leaf_values": [
+          "0.4",
+          "4",
+          "4"
+        ],
+        "operators": [
+          "!",
+          "-",
+          "/",
+          "sqrt"
+        ],
+        "subtrees": [
+          "(4!)",
+          "sqrt(4)",
+          "((4!) / 0.4)",
+          "(((4!) / 0.4) - sqrt(4))"
+        ]
+      }
+    },
+    "56": {
+      "expression": "((((4!) + 4) + 4) + (4!))",
+      "complexity": 25,
+      "unique_operators": 2,
+      "hints": {
+        "leaf_values": [
+          "4",
+          "4",
+          "4",
+          "4"
+        ],
+        "operators": [
+          "!",
+          "+"
+        ],
+        "subtrees": [
+          "(4!)",
+          "((4!) + 4)",
+          "(((4!) + 4) + 4)"
+        ]
+      }
+    },
+    "57": {
+      "expression": "(sqrt(4) + (((4!) - sqrt(4)) / 0.4))",
+      "complexity": 36,
+      "unique_operators": 5,
+      "hints": {
+        "leaf_values": [
+          "4"
+        ],
+        "operators": [
+          "sqrt"
+        ],
+        "subtrees": [
+          "sqrt(4)"
+        ]
+      }
+    },
+    "58": {
+      "expression": "(((4!) + (4!)) + (4 / 0.4))",
+      "complexity": 27,
+      "unique_operators": 3,
+      "hints": {
+        "leaf_values": [
+          "0.4",
+          "4",
+          "4",
+          "4"
+        ],
+        "operators": [
+          "!",
+          "+",
+          "/"
+        ],
+        "subtrees": [
+          "(4!)",
+          "(4 / 0.4)",
+          "((4!) + (4!))"
+        ]
+      }
+    },
+    "59": {
+      "expression": "(((4!) / 0.4) - (sqrt(4) / sqrt(4)))",
+      "complexity": 36,
+      "unique_operators": 4,
+      "hints": {
+        "leaf_values": [
+          "0.4",
+          "4",
+          "4"
+        ],
+        "operators": [
+          "!",
+          "-",
+          "/",
+          "sqrt"
+        ],
+        "subtrees": [
+          "(4!)",
+          "sqrt(4)",
+          "((4!) / 0.4)",
+          "(((4!) / 0.4) - sqrt(4))"
+        ]
+      }
+    },
+    "60": {
+      "expression": "(44 + (4 * 4))",
+      "complexity": 14,
+      "unique_operators": 2,
+      "hints": {
+        "leaf_values": [
+          "4",
+          "4",
+          "44"
+        ],
+        "operators": [
+          "*",
+          "+"
+        ],
+        "subtrees": [
+          "(4 * 4)"
+        ]
+      }
+    },
+    "61": {
+      "expression": "((4 / 4) + ((4!) / 0.4))",
+      "complexity": 24,
+      "unique_operators": 3,
+      "hints": {
+        "leaf_values": [
+          "0.4",
+          "4",
+          "4",
+          "4"
+        ],
+        "operators": [
+          "!",
+          "+",
+          "/"
+        ],
+        "subtrees": [
+          "(4!)",
+          "(4 / 4)",
+          "((4!) / 0.4)"
+        ]
+      }
+    },
+    "62": {
+      "expression": "((4 * (4 * 4)) - sqrt(4))",
+      "complexity": 25,
+      "unique_operators": 3,
+      "hints": {
+        "leaf_values": [
+          "4",
+          "4",
+          "4",
+          "4"
+        ],
+        "operators": [
+          "*",
+          "-",
+          "sqrt"
+        ],
+        "subtrees": [
+          "sqrt(4)",
+          "(4 * 4)",
+          "(4 * (4 * 4))"
+        ]
+      }
+    },
+    "63": {
+      "expression": "(((4 ^ 4) - 4) / 4)",
+      "complexity": 19,
+      "unique_operators": 3,
+      "hints": {
+        "leaf_values": [
+          "4",
+          "4",
+          "4",
+          "4"
+        ],
+        "operators": [
+          "-",
+          "/",
+          "^"
+        ],
+        "subtrees": [
+          "(4 ^ 4)",
+          "((4 ^ 4) - 4)"
+        ]
+      }
+    },
+    "64": {
+      "expression": "((4 + 4) * (4 + 4))",
+      "complexity": 19,
+      "unique_operators": 2,
+      "hints": {
+        "leaf_values": [
+          "4",
+          "4",
+          "4",
+          "4"
+        ],
+        "operators": [
+          "*",
+          "+"
+        ],
+        "subtrees": [
+          "(4 + 4)"
+        ]
+      }
+    },
+    "65": {
+      "expression": "((4 + (4 ^ 4)) / 4)",
+      "complexity": 19,
+      "unique_operators": 3,
+      "hints": {
+        "leaf_values": [
+          "4",
+          "4",
+          "4",
+          "4"
+        ],
+        "operators": [
+          "+",
+          "/",
+          "^"
+        ],
+        "subtrees": [
+          "(4 ^ 4)",
+          "(4 + (4 ^ 4))"
+        ]
+      }
+    },
+    "66": {
+      "expression": "((4 * (4 * 4)) + sqrt(4))",
+      "complexity": 25,
+      "unique_operators": 3,
+      "hints": {
+        "leaf_values": [
+          "4",
+          "4",
+          "4",
+          "4"
+        ],
+        "operators": [
+          "*",
+          "+",
+          "sqrt"
+        ],
+        "subtrees": [
+          "sqrt(4)",
+          "(4 * 4)",
+          "(4 * (4 * 4))"
+        ]
+      }
+    },
+    "68": {
+      "expression": "(((4 * 4) * 4) + 4)",
+      "complexity": 19,
+      "unique_operators": 2,
+      "hints": {
+        "leaf_values": [
+          "4",
+          "4",
+          "4",
+          "4"
+        ],
+        "operators": [
+          "*",
+          "+"
+        ],
+        "subtrees": [
+          "(4 * 4)",
+          "((4 * 4) * 4)"
+        ]
+      }
+    },
+    "70": {
+      "expression": "(44 + (sqrt(4) + (4!)))",
+      "complexity": 23,
+      "unique_operators": 3,
+      "hints": {
+        "leaf_values": [
+          "4",
+          "44"
+        ],
+        "operators": [
+          "+",
+          "sqrt"
+        ],
+        "subtrees": [
+          "sqrt(4)",
+          "(44 + sqrt(4))"
+        ]
+      }
+    },
+    "72": {
+      "expression": "((44 + 4) + (4!))",
+      "complexity": 17,
+      "unique_operators": 2,
+      "hints": {
+        "leaf_values": [
+          "4",
+          "4",
+          "44"
+        ],
+        "operators": [
+          "!",
+          "+"
+        ],
+        "subtrees": [
+          "(4!)",
+          "(44 + 4)"
+        ]
+      }
+    },
+    "74": {
+      "expression": "((((4!) + (4!)) + sqrt(4)) + (4!))",
+      "complexity": 34,
+      "unique_operators": 3,
+      "hints": {
+        "leaf_values": [
+          "4",
+          "4",
+          "4",
+          "4"
+        ],
+        "operators": [
+          "!",
+          "+",
+          "sqrt"
+        ],
+        "subtrees": [
+          "(4!)",
+          "sqrt(4)",
+          "((4!) + (4!))",
+          "(((4!) + (4!)) + sqrt(4))"
+        ]
+      }
+    },
+    "76": {
+      "expression": "(((4 + (4!)) + (4!)) + (4!))",
+      "complexity": 28,
+      "unique_operators": 2,
+      "hints": {
+        "leaf_values": [
+          "4",
+          "4",
+          "4",
+          "4"
+        ],
+        "operators": [
+          "!",
+          "+"
+        ],
+        "subtrees": [
+          "(4!)",
+          "(4 + (4!))",
+          "((4 + (4!)) + (4!))"
+        ]
+      }
+    },
+    "78": {
+      "expression": "((((4!) - 4) * 4) - sqrt(4))",
+      "complexity": 28,
+      "unique_operators": 4,
+      "hints": {
+        "leaf_values": [
+          "4",
+          "4",
+          "4",
+          "4"
+        ],
+        "operators": [
+          "!",
+          "*",
+          "-",
+          "sqrt"
+        ],
+        "subtrees": [
+          "(4!)",
+          "sqrt(4)",
+          "((4!) - 4)",
+          "(((4!) - 4) * 4)"
+        ]
+      }
+    },
+    "79": {
+      "expression": "((4!) + (((4!) - sqrt(4)) / 0.4))",
+      "complexity": 33,
+      "unique_operators": 5,
+      "hints": {
+        "leaf_values": [
+          "0.4",
+          "4",
+          "4",
+          "4"
+        ],
+        "operators": [
+          "!",
+          "+",
+          "-",
+          "/",
+          "sqrt"
+        ],
+        "subtrees": [
+          "(4!)",
+          "sqrt(4)",
+          "((4!) - sqrt(4))",
+          "(((4!) - sqrt(4)) / 0.4)"
+        ]
+      }
+    },
+    "80": {
+      "expression": "(4 * (4 + (4 * 4)))",
+      "complexity": 19,
+      "unique_operators": 2,
+      "hints": {
+        "leaf_values": [
+          "4",
+          "4",
+          "4",
+          "4"
+        ],
+        "operators": [
+          "*",
+          "+"
+        ],
+        "subtrees": [
+          "(4 * 4)",
+          "(4 + (4 * 4))"
+        ]
+      }
+    },
+    "81": {
+      "expression": "((4 - (4 / 4)) ^ 4)",
+      "complexity": 19,
+      "unique_operators": 3,
+      "hints": {
+        "leaf_values": [
+          "4",
+          "4",
+          "4",
+          "4"
+        ],
+        "operators": [
+          "-",
+          "/",
+          "^"
+        ],
+        "subtrees": [
+          "(4 / 4)",
+          "(4 - (4 / 4))"
+        ]
+      }
+    },
+    "82": {
+      "expression": "((((4!) - 4) * 4) + sqrt(4))",
+      "complexity": 28,
+      "unique_operators": 5,
+      "hints": {
+        "leaf_values": [
+          "4",
+          "4",
+          "4",
+          "4"
+        ],
+        "operators": [
+          "!",
+          "*",
+          "+",
+          "-",
+          "sqrt"
+        ],
+        "subtrees": [
+          "(4!)",
+          "sqrt(4)",
+          "((4!) - 4)",
+          "(((4!) - 4) * 4)"
+        ]
+      }
+    },
+    "83": {
+      "expression": "((4!) + (((4!) - 0.4) / 0.4))",
+      "complexity": 29,
+      "unique_operators": 4,
+      "hints": {
+        "leaf_values": [
+          "0.4",
+          "0.4",
+          "4",
+          "4"
+        ],
+        "operators": [
+          "!",
+          "+",
+          "-",
+          "/"
+        ],
+        "subtrees": [
+          "(4!)",
+          "((4!) - 0.4)",
+          "(((4!) - 0.4) / 0.4)"
+        ]
+      }
+    },
+    "84": {
+      "expression": "((44 - sqrt(4)) * sqrt(4))",
+      "complexity": 26,
+      "unique_operators": 3,
+      "hints": {
+        "leaf_values": [
+          "4",
+          "4",
+          "44"
+        ],
+        "operators": [
+          "*",
+          "-",
+          "sqrt"
+        ],
+        "subtrees": [
+          "sqrt(4)",
+          "(44 - sqrt(4))"
+        ]
+      }
+    },
+    "85": {
+      "expression": "((4!) + ((0.4 + (4!)) / 0.4))",
+      "complexity": 29,
+      "unique_operators": 3,
+      "hints": {
+        "leaf_values": [
+          "0.4",
+          "0.4",
+          "4",
+          "4"
+        ],
+        "operators": [
+          "!",
+          "+",
+          "/"
+        ],
+        "subtrees": [
+          "(4!)",
+          "(0.4 + (4!))",
+          "((0.4 + (4!)) / 0.4)"
+        ]
+      }
+    },
+    "86": {
+      "expression": "((sqrt(4) * 44) - sqrt(4))",
+      "complexity": 26,
+      "unique_operators": 3,
+      "hints": {
+        "leaf_values": [
+          "4",
+          "4"
+        ],
+        "operators": [
+          "-",
+          "sqrt"
+        ],
+        "subtrees": [
+          "sqrt(4)",
+          "(sqrt(4) - sqrt(4))"
+        ]
+      }
+    },
+    "88": {
+      "expression": "(44 + 44)",
+      "complexity": 9,
+      "unique_operators": 1,
+      "hints": {
+        "leaf_values": [
+          "44",
+          "44"
+        ],
+        "operators": [
+          "+"
+        ],
+        "subtrees": []
+      }
+    },
+    "90": {
+      "expression": "((sqrt(4) * 44) + sqrt(4))",
+      "complexity": 26,
+      "unique_operators": 3,
+      "hints": {
+        "leaf_values": [
+          "4",
+          "4"
+        ],
+        "operators": [
+          "+",
+          "sqrt"
+        ],
+        "subtrees": [
+          "sqrt(4)",
+          "(sqrt(4) + sqrt(4))"
+        ]
+      }
+    },
+    "92": {
+      "expression": "((44 + sqrt(4)) * sqrt(4))",
+      "complexity": 26,
+      "unique_operators": 3,
+      "hints": {
+        "leaf_values": [
+          "4",
+          "4",
+          "44"
+        ],
+        "operators": [
+          "*",
+          "+",
+          "sqrt"
+        ],
+        "subtrees": [
+          "sqrt(4)",
+          "(44 + sqrt(4))"
+        ]
+      }
+    },
+    "94": {
+      "expression": "((4 * (4!)) - (4 - sqrt(4)))",
+      "complexity": 28,
+      "unique_operators": 4,
+      "hints": {
+        "leaf_values": [
+          "4",
+          "4",
+          "4",
+          "4"
+        ],
+        "operators": [
+          "!",
+          "*",
+          "-",
+          "sqrt"
+        ],
+        "subtrees": [
+          "(4!)",
+          "sqrt(4)",
+          "(4 * (4!))",
+          "(4 - sqrt(4))"
+        ]
+      }
+    },
+    "95": {
+      "expression": "((4 * (4!)) - (4 / 4))",
+      "complexity": 22,
+      "unique_operators": 4,
+      "hints": {
+        "leaf_values": [
+          "4",
+          "4",
+          "4",
+          "4"
+        ],
+        "operators": [
+          "!",
+          "*",
+          "-",
+          "/"
+        ],
+        "subtrees": [
+          "(4!)",
+          "(4 / 4)",
+          "(4 * (4!))"
+        ]
+      }
+    },
+    "96": {
+      "expression": "(((4 - (4 % 4))!) * 4)",
+      "complexity": 22,
+      "unique_operators": 4,
+      "hints": {
+        "leaf_values": [
+          "4",
+          "4",
+          "4",
+          "4"
+        ],
+        "operators": [
+          "!",
+          "%",
+          "*",
+          "-"
+        ],
+        "subtrees": [
+          "(4 % 4)",
+          "(4 - (4 % 4))",
+          "((4 - (4 % 4))!)"
+        ]
+      }
+    },
+    "97": {
+      "expression": "((4 * (4!)) + (4 / 4))",
+      "complexity": 22,
+      "unique_operators": 4,
+      "hints": {
+        "leaf_values": [
+          "4",
+          "4",
+          "4",
+          "4"
+        ],
+        "operators": [
+          "!",
+          "*",
+          "+",
+          "/"
+        ],
+        "subtrees": [
+          "(4!)",
+          "(4 / 4)",
+          "(4 * (4!))"
+        ]
+      }
+    },
+    "98": {
+      "expression": "(((4 * (4!)) - sqrt(4)) + 4)",
+      "complexity": 28,
+      "unique_operators": 5,
+      "hints": {
+        "leaf_values": [
+          "4",
+          "4",
+          "4",
+          "4"
+        ],
+        "operators": [
+          "!",
+          "*",
+          "+",
+          "-",
+          "sqrt"
+        ],
+        "subtrees": [
+          "(4!)",
+          "sqrt(4)",
+          "(4 * (4!))",
+          "((4 * (4!)) - sqrt(4))"
+        ]
+      }
+    },
+    "100": {
+      "expression": "(4 + (4 * (sqrt((4 * 4))!)))",
+      "complexity": 28,
+      "unique_operators": 4,
+      "hints": {
+        "leaf_values": [
+          "4",
+          "4",
+          "4",
+          "4"
+        ],
+        "operators": [
+          "*",
+          "+",
+          "sqrt"
+        ],
+        "subtrees": [
+          "(4 * 4)",
+          "sqrt((4 * 4))",
+          "(4 * sqrt((4 * 4)))",
+          "(4 + (4 * sqrt((4 * 4))))"
+        ]
+      }
+    }
+  },
+  "5": {
+    "5": {
+      "expression": "(55 % (5 + 5))",
+      "complexity": 14,
+      "unique_operators": 2,
+      "hints": {
+        "leaf_values": [
+          "5",
+          "5",
+          "55"
+        ],
+        "operators": [
+          "%",
+          "+"
+        ],
+        "subtrees": [
+          "(5 + 5)"
+        ]
+      }
+    },
+    "6": {
+      "expression": "((55 / 5) - 5)",
+      "complexity": 14,
+      "unique_operators": 2,
+      "hints": {
+        "leaf_values": [
+          "5",
+          "5",
+          "55"
+        ],
+        "operators": [
+          "-",
+          "/"
+        ],
+        "subtrees": [
+          "(55 / 5)"
+        ]
+      }
+    },
+    "11": {
+      "expression": "(5 + (5 + (5 / 5)))",
+      "complexity": 19,
+      "unique_operators": 2,
+      "hints": {
+        "leaf_values": [
+          "5",
+          "5",
+          "5",
+          "5"
+        ],
+        "operators": [
+          "+",
+          "/"
+        ],
+        "subtrees": [
+          "(5 / 5)",
+          "(5 + (5 / 5))"
+        ]
+      }
+    },
+    "16": {
+      "expression": "((55 / 5) + 5)",
+      "complexity": 14,
+      "unique_operators": 2,
+      "hints": {
+        "leaf_values": [
+          "5",
+          "5",
+          "55"
+        ],
+        "operators": [
+          "+",
+          "/"
+        ],
+        "subtrees": [
+          "(55 / 5)"
+        ]
+      }
+    },
+    "19": {
+      "expression": "(((5 - (5 / 5))!) - 5)",
+      "complexity": 22,
+      "unique_operators": 3,
+      "hints": {
+        "leaf_values": [
+          "5",
+          "5",
+          "5",
+          "5"
+        ],
+        "operators": [
+          "!",
+          "-",
+          "/"
+        ],
+        "subtrees": [
+          "(5 / 5)",
+          "(5 - (5 / 5))",
+          "((5 - (5 / 5))!)"
+        ]
+      }
+    },
+    "25": {
+      "expression": "(5 / (5 / (5 * 5)))",
+      "complexity": 19,
+      "unique_operators": 2,
+      "hints": {
+        "leaf_values": [
+          "5",
+          "5",
+          "5",
+          "5"
+        ],
+        "operators": [
+          "*",
+          "/"
+        ],
+        "subtrees": [
+          "(5 * 5)",
+          "(5 / (5 * 5))"
+        ]
+      }
+    },
+    "26": {
+      "expression": "((5 / 5) + (5 * 5))",
+      "complexity": 19,
+      "unique_operators": 3,
+      "hints": {
+        "leaf_values": [
+          "5",
+          "5",
+          "5",
+          "5"
+        ],
+        "operators": [
+          "*",
+          "+",
+          "/"
+        ],
+        "subtrees": [
+          "(5 / 5)",
+          "(5 * 5)"
+        ]
+      }
+    },
+    "30": {
+      "expression": "(55 - (5 * 5))",
+      "complexity": 14,
+      "unique_operators": 2,
+      "hints": {
+        "leaf_values": [
+          "5",
+          "5",
+          "55"
+        ],
+        "operators": [
+          "*",
+          "-"
+        ],
+        "subtrees": [
+          "(5 * 5)"
+        ]
+      }
+    },
+    "35": {
+      "expression": "((5 + 5) + (5 * 5))",
+      "complexity": 19,
+      "unique_operators": 2,
+      "hints": {
+        "leaf_values": [
+          "5",
+          "5",
+          "5",
+          "5"
+        ],
+        "operators": [
+          "*",
+          "+"
+        ],
+        "subtrees": [
+          "(5 + 5)",
+          "(5 * 5)"
+        ]
+      }
+    },
+    "50": {
+      "expression": "((5 * 5) + (5 * 5))",
+      "complexity": 19,
+      "unique_operators": 2,
+      "hints": {
+        "leaf_values": [
+          "5",
+          "5",
+          "5",
+          "5"
+        ],
+        "operators": [
+          "*",
+          "+"
+        ],
+        "subtrees": [
+          "(5 * 5)"
+        ]
+      }
+    },
+    "51": {
+      "expression": "(((5 * 5) + 0.5) / 0.5)",
+      "complexity": 23,
+      "unique_operators": 3,
+      "hints": {
+        "leaf_values": [
+          "0.5",
+          "0.5",
+          "5",
+          "5"
+        ],
+        "operators": [
+          "*",
+          "+",
+          "/"
+        ],
+        "subtrees": [
+          "(5 * 5)",
+          "((5 * 5) + 0.5)"
+        ]
+      }
+    },
+    "54": {
+      "expression": "(55 - (5 / 5))",
+      "complexity": 14,
+      "unique_operators": 2,
+      "hints": {
+        "leaf_values": [
+          "5",
+          "5",
+          "55"
+        ],
+        "operators": [
+          "-",
+          "/"
+        ],
+        "subtrees": [
+          "(5 / 5)"
+        ]
+      }
+    },
+    "55": {
+      "expression": "(55.5 - 0.5)",
+      "complexity": 12,
+      "unique_operators": 1,
+      "hints": {
+        "leaf_values": [
+          "0.5",
+          "55.5"
+        ],
+        "operators": [
+          "-"
+        ],
+        "subtrees": []
+      }
+    },
+    "56": {
+      "expression": "(55.5 + 0.5)",
+      "complexity": 12,
+      "unique_operators": 1,
+      "hints": {
+        "leaf_values": [
+          "0.5",
+          "55.5"
+        ],
+        "operators": [
+          "+"
+        ],
+        "subtrees": []
+      }
+    },
+    "65": {
+      "expression": "(55 + (5 + 5))",
+      "complexity": 14,
+      "unique_operators": 1,
+      "hints": {
+        "leaf_values": [
+          "5",
+          "5",
+          "55"
+        ],
+        "operators": [
+          "+"
+        ],
+        "subtrees": [
+          "(5 + 5)"
+        ]
+      }
+    },
+    "75": {
+      "expression": "((5 + (5 + 5)) * 5)",
+      "complexity": 19,
+      "unique_operators": 2,
+      "hints": {
+        "leaf_values": [
+          "5",
+          "5",
+          "5",
+          "5"
+        ],
+        "operators": [
+          "*",
+          "+"
+        ],
+        "subtrees": [
+          "(5 + 5)",
+          "(5 + (5 + 5))"
+        ]
+      }
+    },
+    "80": {
+      "expression": "(55 + (5 * 5))",
+      "complexity": 14,
+      "unique_operators": 2,
+      "hints": {
+        "leaf_values": [
+          "5",
+          "5",
+          "55"
+        ],
+        "operators": [
+          "*",
+          "+"
+        ],
+        "subtrees": [
+          "(5 * 5)"
+        ]
+      }
+    },
+    "91": {
+      "expression": "(((5!) - ((5!) / 5)) - 5)",
+      "complexity": 25,
+      "unique_operators": 3,
+      "hints": {
+        "leaf_values": [
+          "5",
+          "5",
+          "5",
+          "5"
+        ],
+        "operators": [
+          "!",
+          "-",
+          "/"
+        ],
+        "subtrees": [
+          "(5!)",
+          "((5!) / 5)",
+          "((5!) - ((5!) / 5))"
+        ]
+      }
+    },
+    "100": {
+      "expression": "(5 * ((5 * 5) - 5))",
+      "complexity": 19,
+      "unique_operators": 2,
+      "hints": {
+        "leaf_values": [
+          "5",
+          "5",
+          "5",
+          "5"
+        ],
+        "operators": [
+          "*",
+          "-"
+        ],
+        "subtrees": [
+          "(5 * 5)",
+          "((5 * 5) - 5)"
+        ]
+      }
+    },
+    "37": {
+      "expression": "(sqrt((0.5 ^ -((5 + 5)))) + 5)",
+      "complexity": 30,
+      "unique_operators": 4,
+      "hints": {
+        "leaf_values": [
+          "0.5",
+          "5",
+          "5"
+        ],
+        "operators": [
+          "+",
+          "^",
+          "neg",
+          "sqrt"
+        ],
+        "subtrees": [
+          "(5 + 5)",
+          "-((5 + 5))",
+          "(0.5 ^ -((5 + 5)))",
+          "sqrt((0.5 ^ -((5 + 5))))"
+        ]
+      }
+    },
+    "1": {
+      "expression": "((555 % 5)!)",
+      "complexity": 12,
+      "unique_operators": 2,
+      "hints": {
+        "leaf_values": [
+          "5",
+          "555"
+        ],
+        "operators": [
+          "!",
+          "%"
+        ],
+        "subtrees": [
+          "(555 % 5)"
+        ]
+      }
+    },
+    "2": {
+      "expression": "((5 / 5) + (5 / 5))",
+      "complexity": 19,
+      "unique_operators": 2,
+      "hints": {
+        "leaf_values": [
+          "5",
+          "5",
+          "5",
+          "5"
+        ],
+        "operators": [
+          "+",
+          "/"
+        ],
+        "subtrees": [
+          "(5 / 5)"
+        ]
+      }
+    },
+    "3": {
+      "expression": "((5 + (5 + 5)) / 5)",
+      "complexity": 19,
+      "unique_operators": 2,
+      "hints": {
+        "leaf_values": [
+          "5",
+          "5",
+          "5",
+          "5"
+        ],
+        "operators": [
+          "+",
+          "/"
+        ],
+        "subtrees": [
+          "(5 + 5)",
+          "(5 + (5 + 5))"
+        ]
+      }
+    },
+    "4": {
+      "expression": "(((5 * 5) - 5) / 5)",
+      "complexity": 19,
+      "unique_operators": 3,
+      "hints": {
+        "leaf_values": [
+          "5",
+          "5",
+          "5",
+          "5"
+        ],
+        "operators": [
+          "*",
+          "-",
+          "/"
+        ],
+        "subtrees": [
+          "(5 * 5)",
+          "((5 * 5) - 5)"
+        ]
+      }
+    },
+    "9": {
+      "expression": "((5 + 5) - (5 / 5))",
+      "complexity": 19,
+      "unique_operators": 3,
+      "hints": {
+        "leaf_values": [
+          "5",
+          "5",
+          "5",
+          "5"
+        ],
+        "operators": [
+          "+",
+          "-",
+          "/"
+        ],
+        "subtrees": [
+          "(5 / 5)",
+          "(5 + 5)"
+        ]
+      }
+    },
+    "10": {
+      "expression": "((55 - 5) / 5)",
+      "complexity": 14,
+      "unique_operators": 2,
+      "hints": {
+        "leaf_values": [
+          "5",
+          "5",
+          "55"
+        ],
+        "operators": [
+          "-",
+          "/"
+        ],
+        "subtrees": [
+          "(55 - 5)"
+        ]
+      }
+    },
+    "12": {
+      "expression": "((55 + 5) / 5)",
+      "complexity": 14,
+      "unique_operators": 2,
+      "hints": {
+        "leaf_values": [
+          "5",
+          "5",
+          "55"
+        ],
+        "operators": [
+          "+",
+          "/"
+        ],
+        "subtrees": [
+          "(55 + 5)"
+        ]
+      }
+    },
+    "14": {
+      "expression": "(((5 - 0.5) / 0.5) + 5)",
+      "complexity": 23,
+      "unique_operators": 3,
+      "hints": {
+        "leaf_values": [
+          "0.5",
+          "0.5",
+          "5",
+          "5"
+        ],
+        "operators": [
+          "+",
+          "-",
+          "/"
+        ],
+        "subtrees": [
+          "(5 - 0.5)",
+          "((5 - 0.5) / 0.5)"
+        ]
+      }
+    },
+    "15": {
+      "expression": "(((5 * 5) - 5) - 5)",
+      "complexity": 19,
+      "unique_operators": 2,
+      "hints": {
+        "leaf_values": [
+          "5",
+          "5",
+          "5",
+          "5"
+        ],
+        "operators": [
+          "*",
+          "-"
+        ],
+        "subtrees": [
+          "(5 * 5)",
+          "((5 * 5) - 5)"
+        ]
+      }
+    },
+    "20": {
+      "expression": "((5 + (5 + 5)) + 5)",
+      "complexity": 19,
+      "unique_operators": 1,
+      "hints": {
+        "leaf_values": [
+          "5",
+          "5",
+          "5",
+          "5"
+        ],
+        "operators": [
+          "+"
+        ],
+        "subtrees": [
+          "(5 + 5)",
+          "(5 + (5 + 5))"
+        ]
+      }
+    },
+    "21": {
+      "expression": "((0.5 + (5 + 5)) / 0.5)",
+      "complexity": 23,
+      "unique_operators": 2,
+      "hints": {
+        "leaf_values": [
+          "0.5",
+          "0.5",
+          "5",
+          "5"
+        ],
+        "operators": [
+          "+",
+          "/"
+        ],
+        "subtrees": [
+          "(5 + 5)",
+          "(0.5 + (5 + 5))"
+        ]
+      }
+    },
+    "22": {
+      "expression": "((55 / 5) / 0.5)",
+      "complexity": 16,
+      "unique_operators": 1,
+      "hints": {
+        "leaf_values": [
+          "0.5",
+          "5",
+          "55"
+        ],
+        "operators": [
+          "/"
+        ],
+        "subtrees": [
+          "(55 / 5)"
+        ]
+      }
+    },
+    "24": {
+      "expression": "((5 * 5) - (5 / 5))",
+      "complexity": 19,
+      "unique_operators": 3,
+      "hints": {
+        "leaf_values": [
+          "5",
+          "5",
+          "5",
+          "5"
+        ],
+        "operators": [
+          "*",
+          "-",
+          "/"
+        ],
+        "subtrees": [
+          "(5 / 5)",
+          "(5 * 5)"
+        ]
+      }
+    },
+    "46": {
+      "expression": "((((5!) - 5) / 5) / 0.5)",
+      "complexity": 24,
+      "unique_operators": 3,
+      "hints": {
+        "leaf_values": [
+          "0.5",
+          "5",
+          "5",
+          "5"
+        ],
+        "operators": [
+          "!",
+          "-",
+          "/"
+        ],
+        "subtrees": [
+          "(5!)",
+          "((5!) - 5)",
+          "(((5!) - 5) / 5)"
+        ]
+      }
+    },
+    "60": {
+      "expression": "(55 + sqrt((5 * 5)))",
+      "complexity": 20,
+      "unique_operators": 3,
+      "hints": {
+        "leaf_values": [
+          "5",
+          "5",
+          "55"
+        ],
+        "operators": [
+          "*",
+          "+",
+          "sqrt"
+        ],
+        "subtrees": [
+          "(5 * 5)",
+          "sqrt((5 * 5))"
+        ]
+      }
+    },
+    "70": {
+      "expression": "(((5!) - 55) + 5)",
+      "complexity": 17,
+      "unique_operators": 3,
+      "hints": {
+        "leaf_values": [
+          "5",
+          "5",
+          "55"
+        ],
+        "operators": [
+          "!",
+          "+",
+          "-"
+        ],
+        "subtrees": [
+          "(5!)",
+          "((5!) - 55)"
+        ]
+      }
+    },
+    "96": {
+      "expression": "(((5!) - ((5!) / 5)) % (5!))",
+      "complexity": 28,
+      "unique_operators": 4,
+      "hints": {
+        "leaf_values": [
+          "5",
+          "5",
+          "5",
+          "5"
+        ],
+        "operators": [
+          "!",
+          "%",
+          "-",
+          "/"
+        ],
+        "subtrees": [
+          "(5!)",
+          "((5!) / 5)",
+          "((5!) - ((5!) / 5))"
+        ]
+      }
+    },
+    "23": {
+      "expression": "(((5 - 0.5) * 5) + 0.5)",
+      "complexity": 23,
+      "unique_operators": 3,
+      "hints": {
+        "leaf_values": [
+          "0.5",
+          "0.5",
+          "5",
+          "5"
+        ],
+        "operators": [
+          "*",
+          "+",
+          "-"
+        ],
+        "subtrees": [
+          "(5 - 0.5)",
+          "((5 - 0.5) * 5)"
+        ]
+      }
+    },
+    "27": {
+      "expression": "((55 * 0.5) - 0.5)",
+      "complexity": 18,
+      "unique_operators": 2,
+      "hints": {
+        "leaf_values": [
+          "0.5",
+          "0.5",
+          "55"
+        ],
+        "operators": [
+          "*",
+          "-"
+        ],
+        "subtrees": [
+          "(55 * 0.5)"
+        ]
+      }
+    },
+    "28": {
+      "expression": "(5 + (((5!) - 5) / 5))",
+      "complexity": 22,
+      "unique_operators": 4,
+      "hints": {
+        "leaf_values": [
+          "5",
+          "5",
+          "5",
+          "5"
+        ],
+        "operators": [
+          "!",
+          "+",
+          "-",
+          "/"
+        ],
+        "subtrees": [
+          "(5!)",
+          "((5!) - 5)",
+          "(((5!) - 5) / 5)"
+        ]
+      }
+    },
+    "29": {
+      "expression": "(((5!) + (5 * 5)) / 5)",
+      "complexity": 22,
+      "unique_operators": 4,
+      "hints": {
+        "leaf_values": [
+          "5",
+          "5",
+          "5",
+          "5"
+        ],
+        "operators": [
+          "!",
+          "*",
+          "+",
+          "/"
+        ],
+        "subtrees": [
+          "(5!)",
+          "(5 * 5)",
+          "((5!) + (5 * 5))"
+        ]
+      }
+    },
+    "31": {
+      "expression": "(55 - ((5!) / 5))",
+      "complexity": 17,
+      "unique_operators": 3,
+      "hints": {
+        "leaf_values": [
+          "5",
+          "5",
+          "55"
+        ],
+        "operators": [
+          "!",
+          "-",
+          "/"
+        ],
+        "subtrees": [
+          "(5!)",
+          "((5!) / 5)"
+        ]
+      }
+    },
+    "32": {
+      "expression": "(((5 + 5) / 5) ^ 5)",
+      "complexity": 19,
+      "unique_operators": 3,
+      "hints": {
+        "leaf_values": [
+          "5",
+          "5",
+          "5",
+          "5"
+        ],
+        "operators": [
+          "+",
+          "/",
+          "^"
+        ],
+        "subtrees": [
+          "(5 + 5)",
+          "((5 + 5) / 5)"
+        ]
+      }
+    },
+    "34": {
+      "expression": "((5 + 5) + ((5!) / 5))",
+      "complexity": 22,
+      "unique_operators": 3,
+      "hints": {
+        "leaf_values": [
+          "5",
+          "5",
+          "5",
+          "5"
+        ],
+        "operators": [
+          "!",
+          "+",
+          "/"
+        ],
+        "subtrees": [
+          "(5!)",
+          "(5 + 5)",
+          "((5!) / 5)"
+        ]
+      }
+    },
+    "40": {
+      "expression": "(((5 * 5) - 5) / 0.5)",
+      "complexity": 21,
+      "unique_operators": 3,
+      "hints": {
+        "leaf_values": [
+          "0.5",
+          "5",
+          "5",
+          "5"
+        ],
+        "operators": [
+          "*",
+          "-",
+          "/"
+        ],
+        "subtrees": [
+          "(5 * 5)",
+          "((5 * 5) - 5)"
+        ]
+      }
+    },
+    "45": {
+      "expression": "((55 - 5) - 5)",
+      "complexity": 14,
+      "unique_operators": 1,
+      "hints": {
+        "leaf_values": [
+          "5",
+          "5",
+          "55"
+        ],
+        "operators": [
+          "-"
+        ],
+        "subtrees": [
+          "(55 - 5)"
+        ]
+      }
+    },
+    "47": {
+      "expression": "(((5!) + ((5!) - 5)) / 5)",
+      "complexity": 25,
+      "unique_operators": 4,
+      "hints": {
+        "leaf_values": [
+          "5",
+          "5",
+          "5",
+          "5"
+        ],
+        "operators": [
+          "!",
+          "+",
+          "-",
+          "/"
+        ],
+        "subtrees": [
+          "(5!)",
+          "((5!) - 5)",
+          "((5!) + ((5!) - 5))"
+        ]
+      }
+    },
+    "49": {
+      "expression": "(((5 * 5) - 0.5) / 0.5)",
+      "complexity": 23,
+      "unique_operators": 3,
+      "hints": {
+        "leaf_values": [
+          "0.5",
+          "0.5",
+          "5",
+          "5"
+        ],
+        "operators": [
+          "*",
+          "-",
+          "/"
+        ],
+        "subtrees": [
+          "(5 * 5)",
+          "((5 * 5) - 0.5)"
+        ]
+      }
+    },
+    "79": {
+      "expression": "(55 + ((5!) / 5))",
+      "complexity": 17,
+      "unique_operators": 3,
+      "hints": {
+        "leaf_values": [
+          "5",
+          "5",
+          "55"
+        ],
+        "operators": [
+          "!",
+          "+",
+          "/"
+        ],
+        "subtrees": [
+          "(5!)",
+          "((5!) / 5)"
+        ]
+      }
+    },
+    "90": {
+      "expression": "(((5!) - (5 * 5)) - 5)",
+      "complexity": 22,
+      "unique_operators": 3,
+      "hints": {
+        "leaf_values": [
+          "5",
+          "5",
+          "5",
+          "5"
+        ],
+        "operators": [
+          "!",
+          "*",
+          "-"
+        ],
+        "subtrees": [
+          "(5!)",
+          "(5 * 5)",
+          "((5!) - (5 * 5))"
+        ]
+      }
+    },
+    "95": {
+      "expression": "(((5!) - (5 * 5)) % (5!))",
+      "complexity": 25,
+      "unique_operators": 4,
+      "hints": {
+        "leaf_values": [
+          "5",
+          "5",
+          "5",
+          "5"
+        ],
+        "operators": [
+          "!",
+          "%",
+          "*",
+          "-"
+        ],
+        "subtrees": [
+          "(5!)",
+          "(5 * 5)",
+          "((5!) - (5 * 5))"
+        ]
+      }
+    },
+    "7": {
+      "seed": 5,
+      "expression": "(((5 + 5) / 5) + 5)",
+      "complexity": 19,
+      "unique_operators": 2,
+      "hints": {
+        "leaf_values": [
+          "5",
+          "5",
+          "5",
+          "5"
+        ],
+        "operators": [
+          "+",
+          "/"
+        ],
+        "subtrees": [
+          "(5 + 5)",
+          "((5 + 5) / 5)"
+        ]
+      }
+    },
+    "64": {
+      "seed": 5,
+      "expression": "(0.5 ^ -((5 + (5 / 5))))",
+      "complexity": 24,
+      "unique_operators": 4,
+      "hints": {
+        "leaf_values": [
+          "0.5",
+          "5",
+          "5",
+          "5"
+        ],
+        "operators": [
+          "+",
+          "/",
+          "^",
+          "neg"
+        ],
+        "subtrees": [
+          "(5 / 5)",
+          "(5 + (5 / 5))",
+          "-((5 + (5 / 5)))"
+        ]
+      }
+    },
+    "66": {
+      "seed": 5,
+      "expression": "(0.55 * (sqrt((5 * 5))!))",
+      "complexity": 25,
+      "unique_operators": 3,
+      "hints": {
+        "leaf_values": [
+          "0.55",
+          "5",
+          "5"
+        ],
+        "operators": [
+          "*",
+          "sqrt"
+        ],
+        "subtrees": [
+          "(5 * 5)",
+          "sqrt((5 * 5))",
+          "(0.55 * sqrt((5 * 5)))"
+        ]
+      }
+    },
+    "8": {
+      "seed": 5,
+      "expression": "sqrt((0.5 ^ -(((5 / 5) + 5))))",
+      "complexity": 30,
+      "unique_operators": 5,
+      "hints": {
+        "leaf_values": [
+          "0.5",
+          "5",
+          "5",
+          "5"
+        ],
+        "operators": [
+          "+",
+          "/",
+          "^",
+          "neg",
+          "sqrt"
+        ],
+        "subtrees": [
+          "(5 / 5)",
+          "((5 / 5) + 5)",
+          "-(((5 / 5) + 5))",
+          "(0.5 ^ -(((5 / 5) + 5)))"
+        ]
+      }
+    }
+  },
+  "6": {
+    "7": {
+      "expression": "(((66 % 6)!) + 6)",
+      "complexity": 17,
+      "unique_operators": 3,
+      "hints": {
+        "leaf_values": [
+          "6",
+          "6",
+          "66"
+        ],
+        "operators": [
+          "!",
+          "%",
+          "+"
+        ],
+        "subtrees": [
+          "(66 % 6)",
+          "((66 % 6)!)"
+        ]
+      }
+    },
+    "8": {
+      "expression": "(((6 + 6) / 6) + 6)",
+      "complexity": 19,
+      "unique_operators": 2,
+      "hints": {
+        "leaf_values": [
+          "6",
+          "6",
+          "6",
+          "6"
+        ],
+        "operators": [
+          "+",
+          "/"
+        ],
+        "subtrees": [
+          "(6 + 6)",
+          "((6 + 6) / 6)"
+        ]
+      }
+    },
+    "13": {
+      "expression": "((6 + (6 / 6)) + 6)",
+      "complexity": 19,
+      "unique_operators": 2,
+      "hints": {
+        "leaf_values": [
+          "6",
+          "6",
+          "6",
+          "6"
+        ],
+        "operators": [
+          "+",
+          "/"
+        ],
+        "subtrees": [
+          "(6 / 6)",
+          "(6 + (6 / 6))"
+        ]
+      }
+    },
+    "17": {
+      "expression": "((66 / 6) + 6)",
+      "complexity": 14,
+      "unique_operators": 2,
+      "hints": {
+        "leaf_values": [
+          "6",
+          "6",
+          "66"
+        ],
+        "operators": [
+          "+",
+          "/"
+        ],
+        "subtrees": [
+          "(66 / 6)"
+        ]
+      }
+    },
+    "18": {
+      "expression": "(0.6 * ((6 * 6) - 6))",
+      "complexity": 21,
+      "unique_operators": 2,
+      "hints": {
+        "leaf_values": [
+          "0.6",
+          "6",
+          "6",
+          "6"
+        ],
+        "operators": [
+          "*",
+          "-"
+        ],
+        "subtrees": [
+          "(6 * 6)",
+          "((6 * 6) - 6)"
+        ]
+      }
+    },
+    "33": {
+      "expression": "(((6 - 0.6) * 6) + 0.6)",
+      "complexity": 23,
+      "unique_operators": 3,
+      "hints": {
+        "leaf_values": [
+          "0.6",
+          "0.6",
+          "6",
+          "6"
+        ],
+        "operators": [
+          "*",
+          "+",
+          "-"
+        ],
+        "subtrees": [
+          "(6 - 0.6)",
+          "((6 - 0.6) * 6)"
+        ]
+      }
+    },
+    "36": {
+      "expression": "(((6 * 6) - 6) + 6)",
+      "complexity": 19,
+      "unique_operators": 3,
+      "hints": {
+        "leaf_values": [
+          "6",
+          "6",
+          "6",
+          "6"
+        ],
+        "operators": [
+          "*",
+          "+",
+          "-"
+        ],
+        "subtrees": [
+          "(6 * 6)",
+          "((6 * 6) - 6)"
+        ]
+      }
+    },
+    "37": {
+      "expression": "((6 / 6) + (6 * 6))",
+      "complexity": 19,
+      "unique_operators": 3,
+      "hints": {
+        "leaf_values": [
+          "6",
+          "6",
+          "6",
+          "6"
+        ],
+        "operators": [
+          "*",
+          "+",
+          "/"
+        ],
+        "subtrees": [
+          "(6 / 6)",
+          "(6 * 6)"
+        ]
+      }
+    },
+    "39": {
+      "expression": "((0.6 * 66) - 0.6)",
+      "complexity": 18,
+      "unique_operators": 2,
+      "hints": {
+        "leaf_values": [
+          "0.6",
+          "0.6",
+          "66"
+        ],
+        "operators": [
+          "*",
+          "-"
+        ],
+        "subtrees": [
+          "(0.6 * 66)"
+        ]
+      }
+    },
+    "42": {
+      "expression": "(6 * ((6 / 6) + 6))",
+      "complexity": 19,
+      "unique_operators": 3,
+      "hints": {
+        "leaf_values": [
+          "6",
+          "6",
+          "6",
+          "6"
+        ],
+        "operators": [
+          "*",
+          "+",
+          "/"
+        ],
+        "subtrees": [
+          "(6 / 6)",
+          "((6 / 6) + 6)"
+        ]
+      }
+    },
+    "48": {
+      "expression": "((6 + 6) + (6 * 6))",
+      "complexity": 19,
+      "unique_operators": 2,
+      "hints": {
+        "leaf_values": [
+          "6",
+          "6",
+          "6",
+          "6"
+        ],
+        "operators": [
+          "*",
+          "+"
+        ],
+        "subtrees": [
+          "(6 + 6)",
+          "(6 * 6)"
+        ]
+      }
+    },
+    "59": {
+      "expression": "(((6 * 6) - 0.6) / 0.6)",
+      "complexity": 23,
+      "unique_operators": 3,
+      "hints": {
+        "leaf_values": [
+          "0.6",
+          "0.6",
+          "6",
+          "6"
+        ],
+        "operators": [
+          "*",
+          "-",
+          "/"
+        ],
+        "subtrees": [
+          "(6 * 6)",
+          "((6 * 6) - 0.6)"
+        ]
+      }
+    },
+    "61": {
+      "expression": "(((6 * 6) + 0.6) / 0.6)",
+      "complexity": 23,
+      "unique_operators": 3,
+      "hints": {
+        "leaf_values": [
+          "0.6",
+          "0.6",
+          "6",
+          "6"
+        ],
+        "operators": [
+          "*",
+          "+",
+          "/"
+        ],
+        "subtrees": [
+          "(6 * 6)",
+          "((6 * 6) + 0.6)"
+        ]
+      }
+    },
+    "64": {
+      "expression": "(((6 + 6) / 6) ^ 6)",
+      "complexity": 19,
+      "unique_operators": 3,
+      "hints": {
+        "leaf_values": [
+          "6",
+          "6",
+          "6",
+          "6"
+        ],
+        "operators": [
+          "+",
+          "/",
+          "^"
+        ],
+        "subtrees": [
+          "(6 + 6)",
+          "((6 + 6) / 6)"
+        ]
+      }
+    },
+    "66": {
+      "expression": "(66.6 - 0.6)",
+      "complexity": 12,
+      "unique_operators": 1,
+      "hints": {
+        "leaf_values": [
+          "0.6",
+          "66.6"
+        ],
+        "operators": [
+          "-"
+        ],
+        "subtrees": []
+      }
+    },
+    "67": {
+      "expression": "(66 + (6 / 6))",
+      "complexity": 14,
+      "unique_operators": 2,
+      "hints": {
+        "leaf_values": [
+          "6",
+          "6",
+          "66"
+        ],
+        "operators": [
+          "+",
+          "/"
+        ],
+        "subtrees": [
+          "(6 / 6)"
+        ]
+      }
+    },
+    "72": {
+      "expression": "((6 * 6) + (6 * 6))",
+      "complexity": 19,
+      "unique_operators": 2,
+      "hints": {
+        "leaf_values": [
+          "6",
+          "6",
+          "6",
+          "6"
+        ],
+        "operators": [
+          "*",
+          "+"
+        ],
+        "subtrees": [
+          "(6 * 6)"
+        ]
+      }
+    },
+    "76": {
+      "expression": "(66 + (6 / 0.6))",
+      "complexity": 16,
+      "unique_operators": 2,
+      "hints": {
+        "leaf_values": [
+          "0.6",
+          "6",
+          "66"
+        ],
+        "operators": [
+          "+",
+          "/"
+        ],
+        "subtrees": [
+          "(6 / 0.6)"
+        ]
+      }
+    },
+    "78": {
+      "expression": "(6 + (66 + 6))",
+      "complexity": 14,
+      "unique_operators": 1,
+      "hints": {
+        "leaf_values": [
+          "6",
+          "6",
+          "66"
+        ],
+        "operators": [
+          "+"
+        ],
+        "subtrees": [
+          "(66 + 6)"
+        ]
+      }
+    },
+    "6": {
+      "seed": 6,
+      "expression": "(66 % (6 + 6))",
+      "complexity": 14,
+      "unique_operators": 2,
+      "hints": {
+        "leaf_values": [
+          "6",
+          "6",
+          "66"
+        ],
+        "operators": [
+          "%",
+          "+"
+        ],
+        "subtrees": [
+          "(6 + 6)"
+        ]
+      }
+    },
+    "1": {
+      "seed": 6,
+      "expression": "((666 % 6)!)",
+      "complexity": 12,
+      "unique_operators": 2,
+      "hints": {
+        "leaf_values": [
+          "6",
+          "666"
+        ],
+        "operators": [
+          "!",
+          "%"
+        ],
+        "subtrees": [
+          "(666 % 6)"
+        ]
+      }
+    },
+    "10": {
+      "seed": 6,
+      "expression": "((66 - 6) / 6)",
+      "complexity": 14,
+      "unique_operators": 2,
+      "hints": {
+        "leaf_values": [
+          "6",
+          "6",
+          "66"
+        ],
+        "operators": [
+          "-",
+          "/"
+        ],
+        "subtrees": [
+          "(66 - 6)"
+        ]
+      }
+    },
+    "54": {
+      "seed": 6,
+      "expression": "(66 - (6 + 6))",
+      "complexity": 14,
+      "unique_operators": 2,
+      "hints": {
+        "leaf_values": [
+          "6",
+          "6",
+          "66"
+        ],
+        "operators": [
+          "+",
+          "-"
+        ],
+        "subtrees": [
+          "(6 + 6)"
+        ]
+      }
+    },
+    "12": {
+      "seed": 6,
+      "expression": "((66 + 6) / 6)",
+      "complexity": 14,
+      "unique_operators": 2,
+      "hints": {
+        "leaf_values": [
+          "6",
+          "6",
+          "66"
+        ],
+        "operators": [
+          "+",
+          "/"
+        ],
+        "subtrees": [
+          "(66 + 6)"
+        ]
+      }
+    },
+    "30": {
+      "seed": 6,
+      "expression": "(66 - (6 * 6))",
+      "complexity": 14,
+      "unique_operators": 2,
+      "hints": {
+        "leaf_values": [
+          "6",
+          "6",
+          "66"
+        ],
+        "operators": [
+          "*",
+          "-"
+        ],
+        "subtrees": [
+          "(6 * 6)"
+        ]
+      }
+    },
+    "24": {
+      "seed": 6,
+      "expression": "((6 * 6) - (6 + 6))",
+      "complexity": 19,
+      "unique_operators": 3,
+      "hints": {
+        "leaf_values": [
+          "6",
+          "6",
+          "6",
+          "6"
+        ],
+        "operators": [
+          "*",
+          "+",
+          "-"
+        ],
+        "subtrees": [
+          "(6 * 6)",
+          "(6 + 6)"
+        ]
+      }
+    },
+    "5": {
+      "seed": 6,
+      "expression": "((66 / 6) - 6)",
+      "complexity": 14,
+      "unique_operators": 2,
+      "hints": {
+        "leaf_values": [
+          "6",
+          "6",
+          "66"
+        ],
+        "operators": [
+          "-",
+          "/"
+        ],
+        "subtrees": [
+          "(66 / 6)"
+        ]
+      }
+    },
+    "3": {
+      "seed": 6,
+      "expression": "((6 + (6 + 6)) / 6)",
+      "complexity": 19,
+      "unique_operators": 2,
+      "hints": {
+        "leaf_values": [
+          "6",
+          "6",
+          "6",
+          "6"
+        ],
+        "operators": [
+          "+",
+          "/"
+        ],
+        "subtrees": [
+          "(6 + 6)",
+          "(6 + (6 + 6))"
+        ]
+      }
+    },
+    "65": {
+      "seed": 6,
+      "expression": "(66 - (6 / 6))",
+      "complexity": 14,
+      "unique_operators": 2,
+      "hints": {
+        "leaf_values": [
+          "6",
+          "6",
+          "66"
+        ],
+        "operators": [
+          "-",
+          "/"
+        ],
+        "subtrees": [
+          "(6 / 6)"
+        ]
+      }
+    },
+    "35": {
+      "seed": 6,
+      "expression": "((6 * 6) - (6 / 6))",
+      "complexity": 19,
+      "unique_operators": 3,
+      "hints": {
+        "leaf_values": [
+          "6",
+          "6",
+          "6",
+          "6"
+        ],
+        "operators": [
+          "*",
+          "-",
+          "/"
+        ],
+        "subtrees": [
+          "(6 / 6)",
+          "(6 * 6)"
+        ]
+      }
+    },
+    "11": {
+      "seed": 6,
+      "expression": "(6 + (6 - (6 / 6)))",
+      "complexity": 19,
+      "unique_operators": 3,
+      "hints": {
+        "leaf_values": [
+          "6",
+          "6",
+          "6",
+          "6"
+        ],
+        "operators": [
+          "+",
+          "-",
+          "/"
+        ],
+        "subtrees": [
+          "(6 / 6)",
+          "(6 - (6 / 6))"
+        ]
+      }
+    },
+    "2": {
+      "seed": 6,
+      "expression": "((6 / 6) + (6 / 6))",
+      "complexity": 19,
+      "unique_operators": 2,
+      "hints": {
+        "leaf_values": [
+          "6",
+          "6",
+          "6",
+          "6"
+        ],
+        "operators": [
+          "+",
+          "/"
+        ],
+        "subtrees": [
+          "(6 / 6)"
+        ]
+      }
+    },
+    "60": {
+      "seed": 6,
+      "expression": "(66 - sqrt((6 * 6)))",
+      "complexity": 20,
+      "unique_operators": 3,
+      "hints": {
+        "leaf_values": [
+          "6",
+          "6",
+          "66"
+        ],
+        "operators": [
+          "*",
+          "-",
+          "sqrt"
+        ],
+        "subtrees": [
+          "(6 * 6)",
+          "sqrt((6 * 6))"
+        ]
+      }
+    },
+    "4": {
+      "seed": 6,
+      "expression": "(6 - ((6 + 6) / 6))",
+      "complexity": 19,
+      "unique_operators": 3,
+      "hints": {
+        "leaf_values": [
+          "6",
+          "6",
+          "6",
+          "6"
+        ],
+        "operators": [
+          "+",
+          "-",
+          "/"
+        ],
+        "subtrees": [
+          "(6 + 6)",
+          "((6 + 6) / 6)"
+        ]
+      }
+    },
+    "20": {
+      "seed": 6,
+      "expression": "(((6 - (6 / 6))!) / 6)",
+      "complexity": 22,
+      "unique_operators": 3,
+      "hints": {
+        "leaf_values": [
+          "6",
+          "6",
+          "6",
+          "6"
+        ],
+        "operators": [
+          "!",
+          "-",
+          "/"
+        ],
+        "subtrees": [
+          "(6 / 6)",
+          "(6 - (6 / 6))",
+          "((6 - (6 / 6))!)"
+        ]
+      }
+    }
+  },
+  "7": {
+    "1": {
+      "expression": "((777 % 7)!)",
+      "complexity": 12,
+      "unique_operators": 2,
+      "hints": {
+        "leaf_values": [
+          "7",
+          "777"
+        ],
+        "operators": [
+          "!",
+          "%"
+        ],
+        "subtrees": [
+          "(777 % 7)"
+        ]
+      }
+    },
+    "2": {
+      "expression": "((7 / 7) + (7 / 7))",
+      "complexity": 19,
+      "unique_operators": 2,
+      "hints": {
+        "leaf_values": [
+          "7",
+          "7",
+          "7",
+          "7"
+        ],
+        "operators": [
+          "+",
+          "/"
+        ],
+        "subtrees": [
+          "(7 / 7)"
+        ]
+      }
+    },
+    "3": {
+      "expression": "(((7 + 7) + 7) / 7)",
+      "complexity": 19,
+      "unique_operators": 2,
+      "hints": {
+        "leaf_values": [
+          "7",
+          "7",
+          "7",
+          "7"
+        ],
+        "operators": [
+          "+",
+          "/"
+        ],
+        "subtrees": [
+          "(7 + 7)",
+          "((7 + 7) + 7)"
+        ]
+      }
+    },
+    "4": {
+      "expression": "((77 / 7) - 7)",
+      "complexity": 14,
+      "unique_operators": 2,
+      "hints": {
+        "leaf_values": [
+          "7",
+          "7",
+          "77"
+        ],
+        "operators": [
+          "-",
+          "/"
+        ],
+        "subtrees": [
+          "(77 / 7)"
+        ]
+      }
+    },
+    "5": {
+      "expression": "(7 - ((7 + 7) / 7))",
+      "complexity": 19,
+      "unique_operators": 3,
+      "hints": {
+        "leaf_values": [
+          "7",
+          "7",
+          "7",
+          "7"
+        ],
+        "operators": [
+          "+",
+          "-",
+          "/"
+        ],
+        "subtrees": [
+          "(7 + 7)",
+          "((7 + 7) / 7)"
+        ]
+      }
+    },
+    "6": {
+      "expression": "(((7 * 7) - 7) / 7)",
+      "complexity": 19,
+      "unique_operators": 3,
+      "hints": {
+        "leaf_values": [
+          "7",
+          "7",
+          "7",
+          "7"
+        ],
+        "operators": [
+          "*",
+          "-",
+          "/"
+        ],
+        "subtrees": [
+          "(7 * 7)",
+          "((7 * 7) - 7)"
+        ]
+      }
+    },
+    "7": {
+      "expression": "((77 % 7) + 7)",
+      "complexity": 14,
+      "unique_operators": 2,
+      "hints": {
+        "leaf_values": [
+          "7",
+          "7",
+          "77"
+        ],
+        "operators": [
+          "%",
+          "+"
+        ],
+        "subtrees": [
+          "(77 % 7)"
+        ]
+      }
+    },
+    "8": {
+      "expression": "(((77 % 7)!) + 7)",
+      "complexity": 17,
+      "unique_operators": 3,
+      "hints": {
+        "leaf_values": [
+          "7",
+          "7",
+          "77"
+        ],
+        "operators": [
+          "!",
+          "%",
+          "+"
+        ],
+        "subtrees": [
+          "(77 % 7)",
+          "((77 % 7)!)"
+        ]
+      }
+    },
+    "9": {
+      "expression": "(7 + ((7 + 7) / 7))",
+      "complexity": 19,
+      "unique_operators": 2,
+      "hints": {
+        "leaf_values": [
+          "7",
+          "7",
+          "7",
+          "7"
+        ],
+        "operators": [
+          "+",
+          "/"
+        ],
+        "subtrees": [
+          "(7 + 7)",
+          "((7 + 7) / 7)"
+        ]
+      }
+    },
+    "10": {
+      "expression": "((77 - 7) / 7)",
+      "complexity": 14,
+      "unique_operators": 2,
+      "hints": {
+        "leaf_values": [
+          "7",
+          "7",
+          "77"
+        ],
+        "operators": [
+          "-",
+          "/"
+        ],
+        "subtrees": [
+          "(77 - 7)"
+        ]
+      }
+    },
+    "11": {
+      "expression": "(77 / sqrt((7 * 7)))",
+      "complexity": 20,
+      "unique_operators": 3,
+      "hints": {
+        "leaf_values": [
+          "7",
+          "7",
+          "77"
+        ],
+        "operators": [
+          "*",
+          "/",
+          "sqrt"
+        ],
+        "subtrees": [
+          "(7 * 7)",
+          "sqrt((7 * 7))"
+        ]
+      }
+    },
+    "12": {
+      "expression": "((77 + 7) / 7)",
+      "complexity": 14,
+      "unique_operators": 2,
+      "hints": {
+        "leaf_values": [
+          "7",
+          "7",
+          "77"
+        ],
+        "operators": [
+          "+",
+          "/"
+        ],
+        "subtrees": [
+          "(77 + 7)"
+        ]
+      }
+    },
+    "13": {
+      "expression": "(7 + (7 - (7 / 7)))",
+      "complexity": 19,
+      "unique_operators": 3,
+      "hints": {
+        "leaf_values": [
+          "7",
+          "7",
+          "7",
+          "7"
+        ],
+        "operators": [
+          "+",
+          "-",
+          "/"
+        ],
+        "subtrees": [
+          "(7 / 7)",
+          "(7 - (7 / 7))"
+        ]
+      }
+    },
+    "14": {
+      "expression": "(7 + ((7 - 7) + 7))",
+      "complexity": 19,
+      "unique_operators": 2,
+      "hints": {
+        "leaf_values": [
+          "7",
+          "7",
+          "7",
+          "7"
+        ],
+        "operators": [
+          "+",
+          "-"
+        ],
+        "subtrees": [
+          "(7 - 7)",
+          "((7 - 7) + 7)"
+        ]
+      }
+    },
+    "15": {
+      "expression": "(7 + ((7 / 7) + 7))",
+      "complexity": 19,
+      "unique_operators": 2,
+      "hints": {
+        "leaf_values": [
+          "7",
+          "7",
+          "7",
+          "7"
+        ],
+        "operators": [
+          "+",
+          "/"
+        ],
+        "subtrees": [
+          "(7 / 7)",
+          "((7 / 7) + 7)"
+        ]
+      }
+    },
+    "16": {
+      "expression": "(((7 - 0.7) / 0.7) + 7)",
+      "complexity": 23,
+      "unique_operators": 3,
+      "hints": {
+        "leaf_values": [
+          "0.7",
+          "0.7",
+          "7",
+          "7"
+        ],
+        "operators": [
+          "+",
+          "-",
+          "/"
+        ],
+        "subtrees": [
+          "(7 - 0.7)",
+          "((7 - 0.7) / 0.7)"
+        ]
+      }
+    },
+    "17": {
+      "expression": "(((0.7 * 7) + 7) / 0.7)",
+      "complexity": 23,
+      "unique_operators": 3,
+      "hints": {
+        "leaf_values": [
+          "0.7",
+          "0.7",
+          "7",
+          "7"
+        ],
+        "operators": [
+          "*",
+          "+",
+          "/"
+        ],
+        "subtrees": [
+          "(0.7 * 7)",
+          "((0.7 * 7) + 7)"
+        ]
+      }
+    },
+    "18": {
+      "expression": "(7 + (77 / 7))",
+      "complexity": 14,
+      "unique_operators": 2,
+      "hints": {
+        "leaf_values": [
+          "7",
+          "7",
+          "77"
+        ],
+        "operators": [
+          "+",
+          "/"
+        ],
+        "subtrees": [
+          "(77 / 7)"
+        ]
+      }
+    },
+    "19": {
+      "expression": "(((7 - 0.7) + 7) / 0.7)",
+      "complexity": 23,
+      "unique_operators": 3,
+      "hints": {
+        "leaf_values": [
+          "0.7",
+          "0.7",
+          "7",
+          "7"
+        ],
+        "operators": [
+          "+",
+          "-",
+          "/"
+        ],
+        "subtrees": [
+          "(7 - 0.7)",
+          "((7 - 0.7) + 7)"
+        ]
+      }
+    },
+    "20": {
+      "expression": "((7 / 0.7) + (7 / 0.7))",
+      "complexity": 23,
+      "unique_operators": 2,
+      "hints": {
+        "leaf_values": [
+          "0.7",
+          "0.7",
+          "7",
+          "7"
+        ],
+        "operators": [
+          "+",
+          "/"
+        ],
+        "subtrees": [
+          "(7 / 0.7)"
+        ]
+      }
+    },
+    "21": {
+      "expression": "(7 + (sqrt((7 * 7)) + 7))",
+      "complexity": 25,
+      "unique_operators": 3,
+      "hints": {
+        "leaf_values": [
+          "7",
+          "7",
+          "7"
+        ],
+        "operators": [
+          "*",
+          "+",
+          "sqrt"
+        ],
+        "subtrees": [
+          "(7 * 7)",
+          "sqrt((7 * 7))",
+          "(7 + sqrt((7 * 7)))"
+        ]
+      }
+    },
+    "24": {
+      "expression": "(((77 / 7) % 7)!)",
+      "complexity": 17,
+      "unique_operators": 3,
+      "hints": {
+        "leaf_values": [
+          "7",
+          "7",
+          "77"
+        ],
+        "operators": [
+          "!",
+          "%",
+          "/"
+        ],
+        "subtrees": [
+          "(77 / 7)",
+          "((77 / 7) % 7)"
+        ]
+      }
+    },
+    "27": {
+      "expression": "(((7 + 7) / 0.7) + 7)",
+      "complexity": 21,
+      "unique_operators": 2,
+      "hints": {
+        "leaf_values": [
+          "0.7",
+          "7",
+          "7",
+          "7"
+        ],
+        "operators": [
+          "+",
+          "/"
+        ],
+        "subtrees": [
+          "(7 + 7)",
+          "((7 + 7) / 0.7)"
+        ]
+      }
+    },
+    "28": {
+      "expression": "(77 - (7 * 7))",
+      "complexity": 14,
+      "unique_operators": 2,
+      "hints": {
+        "leaf_values": [
+          "7",
+          "7",
+          "77"
+        ],
+        "operators": [
+          "*",
+          "-"
+        ],
+        "subtrees": [
+          "(7 * 7)"
+        ]
+      }
+    },
+    "30": {
+      "expression": "(((7 + 7) + 7) / 0.7)",
+      "complexity": 21,
+      "unique_operators": 2,
+      "hints": {
+        "leaf_values": [
+          "0.7",
+          "7",
+          "7",
+          "7"
+        ],
+        "operators": [
+          "+",
+          "/"
+        ],
+        "subtrees": [
+          "(7 + 7)",
+          "((7 + 7) + 7)"
+        ]
+      }
+    },
+    "35": {
+      "expression": "(((7 * 7) - 7) - 7)",
+      "complexity": 19,
+      "unique_operators": 2,
+      "hints": {
+        "leaf_values": [
+          "7",
+          "7",
+          "7",
+          "7"
+        ],
+        "operators": [
+          "*",
+          "-"
+        ],
+        "subtrees": [
+          "(7 * 7)",
+          "((7 * 7) - 7)"
+        ]
+      }
+    },
+    "39": {
+      "expression": "((7 * 7) - (7 / 0.7))",
+      "complexity": 21,
+      "unique_operators": 3,
+      "hints": {
+        "leaf_values": [
+          "0.7",
+          "7",
+          "7",
+          "7"
+        ],
+        "operators": [
+          "*",
+          "-",
+          "/"
+        ],
+        "subtrees": [
+          "(7 * 7)",
+          "(7 / 0.7)"
+        ]
+      }
+    },
+    "42": {
+      "expression": "(7 * (7 - (7 / 7)))",
+      "complexity": 19,
+      "unique_operators": 3,
+      "hints": {
+        "leaf_values": [
+          "7",
+          "7",
+          "7",
+          "7"
+        ],
+        "operators": [
+          "*",
+          "-",
+          "/"
+        ],
+        "subtrees": [
+          "(7 / 7)",
+          "(7 - (7 / 7))"
+        ]
+      }
+    },
+    "48": {
+      "expression": "((7 * 7) - (7 / 7))",
+      "complexity": 19,
+      "unique_operators": 3,
+      "hints": {
+        "leaf_values": [
+          "7",
+          "7",
+          "7",
+          "7"
+        ],
+        "operators": [
+          "*",
+          "-",
+          "/"
+        ],
+        "subtrees": [
+          "(7 * 7)",
+          "(7 / 7)"
+        ]
+      }
+    },
+    "49": {
+      "expression": "(7 * ((7 - 7) + 7))",
+      "complexity": 19,
+      "unique_operators": 3,
+      "hints": {
+        "leaf_values": [
+          "7",
+          "7",
+          "7",
+          "7"
+        ],
+        "operators": [
+          "*",
+          "+",
+          "-"
+        ],
+        "subtrees": [
+          "(7 - 7)",
+          "((7 - 7) + 7)"
+        ]
+      }
+    },
+    "50": {
+      "expression": "((7 * 7) + (7 / 7))",
+      "complexity": 19,
+      "unique_operators": 3,
+      "hints": {
+        "leaf_values": [
+          "7",
+          "7",
+          "7",
+          "7"
+        ],
+        "operators": [
+          "*",
+          "+",
+          "/"
+        ],
+        "subtrees": [
+          "(7 * 7)",
+          "(7 / 7)"
+        ]
+      }
+    },
+    "55": {
+      "expression": "(77 / (0.7 + 0.7))",
+      "complexity": 18,
+      "unique_operators": 2,
+      "hints": {
+        "leaf_values": [
+          "0.7",
+          "0.7",
+          "77"
+        ],
+        "operators": [
+          "+",
+          "/"
+        ],
+        "subtrees": [
+          "(0.7 + 0.7)"
+        ]
+      }
+    },
+    "56": {
+      "expression": "(((7 / 7) + 7) * 7)",
+      "complexity": 19,
+      "unique_operators": 3,
+      "hints": {
+        "leaf_values": [
+          "7",
+          "7",
+          "7",
+          "7"
+        ],
+        "operators": [
+          "*",
+          "+",
+          "/"
+        ],
+        "subtrees": [
+          "(7 / 7)",
+          "((7 / 7) + 7)"
+        ]
+      }
+    },
+    "59": {
+      "expression": "((7 / 0.7) + (7 * 7))",
+      "complexity": 21,
+      "unique_operators": 3,
+      "hints": {
+        "leaf_values": [
+          "0.7",
+          "7",
+          "7",
+          "7"
+        ],
+        "operators": [
+          "*",
+          "+",
+          "/"
+        ],
+        "subtrees": [
+          "(7 * 7)",
+          "(7 / 0.7)"
+        ]
+      }
+    },
+    "60": {
+      "expression": "(((7 * 7) - 7) / 0.7)",
+      "complexity": 21,
+      "unique_operators": 3,
+      "hints": {
+        "leaf_values": [
+          "0.7",
+          "7",
+          "7",
+          "7"
+        ],
+        "operators": [
+          "*",
+          "-",
+          "/"
+        ],
+        "subtrees": [
+          "(7 * 7)",
+          "((7 * 7) - 7)"
+        ]
+      }
+    },
+    "63": {
+      "expression": "(77 - (7 + 7))",
+      "complexity": 14,
+      "unique_operators": 2,
+      "hints": {
+        "leaf_values": [
+          "7",
+          "7",
+          "77"
+        ],
+        "operators": [
+          "+",
+          "-"
+        ],
+        "subtrees": [
+          "(7 + 7)"
+        ]
+      }
+    },
+    "67": {
+      "expression": "(77 - (7 / 0.7))",
+      "complexity": 16,
+      "unique_operators": 2,
+      "hints": {
+        "leaf_values": [
+          "0.7",
+          "7",
+          "77"
+        ],
+        "operators": [
+          "-",
+          "/"
+        ],
+        "subtrees": [
+          "(7 / 0.7)"
+        ]
+      }
+    },
+    "69": {
+      "expression": "(((7 * 7) - 0.7) / 0.7)",
+      "complexity": 23,
+      "unique_operators": 3,
+      "hints": {
+        "leaf_values": [
+          "0.7",
+          "0.7",
+          "7",
+          "7"
+        ],
+        "operators": [
+          "*",
+          "-",
+          "/"
+        ],
+        "subtrees": [
+          "(7 * 7)",
+          "((7 * 7) - 0.7)"
+        ]
+      }
+    },
+    "70": {
+      "expression": "(77 - sqrt((7 * 7)))",
+      "complexity": 20,
+      "unique_operators": 3,
+      "hints": {
+        "leaf_values": [
+          "7",
+          "7",
+          "77"
+        ],
+        "operators": [
+          "*",
+          "-",
+          "sqrt"
+        ],
+        "subtrees": [
+          "(7 * 7)",
+          "sqrt((7 * 7))"
+        ]
+      }
+    },
+    "71": {
+      "expression": "(((7 * 7) + 0.7) / 0.7)",
+      "complexity": 23,
+      "unique_operators": 3,
+      "hints": {
+        "leaf_values": [
+          "0.7",
+          "0.7",
+          "7",
+          "7"
+        ],
+        "operators": [
+          "*",
+          "+",
+          "/"
+        ],
+        "subtrees": [
+          "(7 * 7)",
+          "((7 * 7) + 0.7)"
+        ]
+      }
+    },
+    "76": {
+      "expression": "(77 - (7 / 7))",
+      "complexity": 14,
+      "unique_operators": 2,
+      "hints": {
+        "leaf_values": [
+          "7",
+          "7",
+          "77"
+        ],
+        "operators": [
+          "-",
+          "/"
+        ],
+        "subtrees": [
+          "(7 / 7)"
+        ]
+      }
+    },
+    "77": {
+      "expression": "(77.7 - 0.7)",
+      "complexity": 12,
+      "unique_operators": 1,
+      "hints": {
+        "leaf_values": [
+          "0.7",
+          "77.7"
+        ],
+        "operators": [
+          "-"
+        ],
+        "subtrees": []
+      }
+    },
+    "78": {
+      "expression": "(77 + (7 / 7))",
+      "complexity": 14,
+      "unique_operators": 2,
+      "hints": {
+        "leaf_values": [
+          "7",
+          "7",
+          "77"
+        ],
+        "operators": [
+          "+",
+          "/"
+        ],
+        "subtrees": [
+          "(7 / 7)"
+        ]
+      }
+    },
+    "80": {
+      "expression": "(((7 * 7) + 7) / 0.7)",
+      "complexity": 21,
+      "unique_operators": 3,
+      "hints": {
+        "leaf_values": [
+          "0.7",
+          "7",
+          "7",
+          "7"
+        ],
+        "operators": [
+          "*",
+          "+",
+          "/"
+        ],
+        "subtrees": [
+          "(7 * 7)",
+          "((7 * 7) + 7)"
+        ]
+      }
+    },
+    "84": {
+      "expression": "(77 + sqrt((7 * 7)))",
+      "complexity": 20,
+      "unique_operators": 3,
+      "hints": {
+        "leaf_values": [
+          "7",
+          "7",
+          "77"
+        ],
+        "operators": [
+          "*",
+          "+",
+          "sqrt"
+        ],
+        "subtrees": [
+          "(7 * 7)",
+          "sqrt((7 * 7))"
+        ]
+      }
+    },
+    "87": {
+      "expression": "(77 + (7 / 0.7))",
+      "complexity": 16,
+      "unique_operators": 2,
+      "hints": {
+        "leaf_values": [
+          "0.7",
+          "7",
+          "77"
+        ],
+        "operators": [
+          "+",
+          "/"
+        ],
+        "subtrees": [
+          "(7 / 0.7)"
+        ]
+      }
+    },
+    "91": {
+      "expression": "(7 + (77 + 7))",
+      "complexity": 14,
+      "unique_operators": 1,
+      "hints": {
+        "leaf_values": [
+          "7",
+          "7",
+          "77"
+        ],
+        "operators": [
+          "+"
+        ],
+        "subtrees": [
+          "(77 + 7)"
+        ]
+      }
+    },
+    "98": {
+      "expression": "((7 * 7) + (7 * 7))",
+      "complexity": 19,
+      "unique_operators": 2,
+      "hints": {
+        "leaf_values": [
+          "7",
+          "7",
+          "7",
+          "7"
+        ],
+        "operators": [
+          "*",
+          "+"
+        ],
+        "subtrees": [
+          "(7 * 7)"
+        ]
+      }
+    },
+    "100": {
+      "expression": "((7 / 0.7) * (7 / 0.7))",
+      "complexity": 23,
+      "unique_operators": 2,
+      "hints": {
+        "leaf_values": [
+          "0.7",
+          "0.7",
+          "7",
+          "7"
+        ],
+        "operators": [
+          "*",
+          "/"
+        ],
+        "subtrees": [
+          "(7 / 0.7)"
+        ]
+      }
+    }
+  },
+  "8": {
+    "1": {
+      "expression": "((888 % 8)!)",
+      "complexity": 12,
+      "unique_operators": 2,
+      "hints": {
+        "leaf_values": [
+          "8",
+          "888"
+        ],
+        "operators": [
+          "!",
+          "%"
+        ],
+        "subtrees": [
+          "(888 % 8)"
+        ]
+      }
+    },
+    "2": {
+      "expression": "((8 / 8) + (8 / 8))",
+      "complexity": 19,
+      "unique_operators": 2,
+      "hints": {
+        "leaf_values": [
+          "8",
+          "8",
+          "8",
+          "8"
+        ],
+        "operators": [
+          "+",
+          "/"
+        ],
+        "subtrees": [
+          "(8 / 8)"
+        ]
+      }
+    },
+    "3": {
+      "expression": "((88 / 8) - 8)",
+      "complexity": 14,
+      "unique_operators": 2,
+      "hints": {
+        "leaf_values": [
+          "8",
+          "8",
+          "88"
+        ],
+        "operators": [
+          "-",
+          "/"
+        ],
+        "subtrees": [
+          "(88 / 8)"
+        ]
+      }
+    },
+    "4": {
+      "expression": "((8 * 8) / (8 + 8))",
+      "complexity": 19,
+      "unique_operators": 3,
+      "hints": {
+        "leaf_values": [
+          "8",
+          "8",
+          "8",
+          "8"
+        ],
+        "operators": [
+          "*",
+          "+",
+          "/"
+        ],
+        "subtrees": [
+          "(8 + 8)",
+          "(8 * 8)"
+        ]
+      }
+    },
+    "5": {
+      "expression": "((8 / 8) + sqrt((8 + 8)))",
+      "complexity": 25,
+      "unique_operators": 3,
+      "hints": {
+        "leaf_values": [
+          "8",
+          "8",
+          "8",
+          "8"
+        ],
+        "operators": [
+          "+",
+          "/",
+          "sqrt"
+        ],
+        "subtrees": [
+          "(8 / 8)",
+          "(8 + 8)",
+          "sqrt((8 + 8))"
+        ]
+      }
+    },
+    "6": {
+      "expression": "(((88 / 8) - 8)!)",
+      "complexity": 17,
+      "unique_operators": 3,
+      "hints": {
+        "leaf_values": [
+          "8",
+          "8",
+          "88"
+        ],
+        "operators": [
+          "!",
+          "-",
+          "/"
+        ],
+        "subtrees": [
+          "(88 / 8)",
+          "((88 / 8) - 8)"
+        ]
+      }
+    },
+    "7": {
+      "expression": "(((8 * 8) - 8) / 8)",
+      "complexity": 19,
+      "unique_operators": 3,
+      "hints": {
+        "leaf_values": [
+          "8",
+          "8",
+          "8",
+          "8"
+        ],
+        "operators": [
+          "*",
+          "-",
+          "/"
+        ],
+        "subtrees": [
+          "(8 * 8)",
+          "((8 * 8) - 8)"
+        ]
+      }
+    },
+    "8": {
+      "expression": "(88 % (8 + 8))",
+      "complexity": 14,
+      "unique_operators": 2,
+      "hints": {
+        "leaf_values": [
+          "8",
+          "8",
+          "88"
+        ],
+        "operators": [
+          "%",
+          "+"
+        ],
+        "subtrees": [
+          "(8 + 8)"
+        ]
+      }
+    },
+    "9": {
+      "expression": "(((88 % 8)!) + 8)",
+      "complexity": 17,
+      "unique_operators": 3,
+      "hints": {
+        "leaf_values": [
+          "8",
+          "8",
+          "88"
+        ],
+        "operators": [
+          "!",
+          "%",
+          "+"
+        ],
+        "subtrees": [
+          "(88 % 8)",
+          "((88 % 8)!)"
+        ]
+      }
+    },
+    "10": {
+      "expression": "((88 - 8) / 8)",
+      "complexity": 14,
+      "unique_operators": 2,
+      "hints": {
+        "leaf_values": [
+          "8",
+          "8",
+          "88"
+        ],
+        "operators": [
+          "-",
+          "/"
+        ],
+        "subtrees": [
+          "(88 - 8)"
+        ]
+      }
+    },
+    "11": {
+      "expression": "(88 / sqrt((8 * 8)))",
+      "complexity": 20,
+      "unique_operators": 3,
+      "hints": {
+        "leaf_values": [
+          "8",
+          "8",
+          "88"
+        ],
+        "operators": [
+          "*",
+          "/",
+          "sqrt"
+        ],
+        "subtrees": [
+          "(8 * 8)",
+          "sqrt((8 * 8))"
+        ]
+      }
+    },
+    "12": {
+      "expression": "((88 + 8) / 8)",
+      "complexity": 14,
+      "unique_operators": 2,
+      "hints": {
+        "leaf_values": [
+          "8",
+          "8",
+          "88"
+        ],
+        "operators": [
+          "+",
+          "/"
+        ],
+        "subtrees": [
+          "(88 + 8)"
+        ]
+      }
+    },
+    "14": {
+      "expression": "(8 + (sqrt((8 + (8 / 8)))!))",
+      "complexity": 28,
+      "unique_operators": 4,
+      "hints": {
+        "leaf_values": [
+          "8",
+          "8",
+          "8",
+          "8"
+        ],
+        "operators": [
+          "+",
+          "/",
+          "sqrt"
+        ],
+        "subtrees": [
+          "(8 / 8)",
+          "(8 + (8 / 8))",
+          "sqrt((8 + (8 / 8)))",
+          "(8 + sqrt((8 + (8 / 8))))"
+        ]
+      }
+    },
+    "15": {
+      "expression": "((8 - (8 / 8)) + 8)",
+      "complexity": 19,
+      "unique_operators": 3,
+      "hints": {
+        "leaf_values": [
+          "8",
+          "8",
+          "8",
+          "8"
+        ],
+        "operators": [
+          "+",
+          "-",
+          "/"
+        ],
+        "subtrees": [
+          "(8 / 8)",
+          "(8 - (8 / 8))"
+        ]
+      }
+    },
+    "16": {
+      "expression": "((8 + (8 + 8)) - 8)",
+      "complexity": 19,
+      "unique_operators": 2,
+      "hints": {
+        "leaf_values": [
+          "8",
+          "8",
+          "8",
+          "8"
+        ],
+        "operators": [
+          "+",
+          "-"
+        ],
+        "subtrees": [
+          "(8 + 8)",
+          "(8 + (8 + 8))"
+        ]
+      }
+    },
+    "17": {
+      "expression": "((8 + (8 / 8)) + 8)",
+      "complexity": 19,
+      "unique_operators": 2,
+      "hints": {
+        "leaf_values": [
+          "8",
+          "8",
+          "8",
+          "8"
+        ],
+        "operators": [
+          "+",
+          "/"
+        ],
+        "subtrees": [
+          "(8 / 8)",
+          "(8 + (8 / 8))"
+        ]
+      }
+    },
+    "18": {
+      "expression": "((8 + 8) + sqrt(sqrt((8 + 8))))",
+      "complexity": 31,
+      "unique_operators": 2,
+      "hints": {
+        "leaf_values": [
+          "8",
+          "8",
+          "8",
+          "8"
+        ],
+        "operators": [
+          "+",
+          "sqrt"
+        ],
+        "subtrees": [
+          "(8 + 8)",
+          "sqrt((8 + 8))",
+          "sqrt(sqrt((8 + 8)))"
+        ]
+      }
+    },
+    "19": {
+      "expression": "((88 / 8) + 8)",
+      "complexity": 14,
+      "unique_operators": 2,
+      "hints": {
+        "leaf_values": [
+          "8",
+          "8",
+          "88"
+        ],
+        "operators": [
+          "+",
+          "/"
+        ],
+        "subtrees": [
+          "(88 / 8)"
+        ]
+      }
+    },
+    "20": {
+      "expression": "((8 + sqrt((8 + 8))) + 8)",
+      "complexity": 25,
+      "unique_operators": 2,
+      "hints": {
+        "leaf_values": [
+          "8",
+          "8",
+          "8",
+          "8"
+        ],
+        "operators": [
+          "+",
+          "sqrt"
+        ],
+        "subtrees": [
+          "(8 + 8)",
+          "sqrt((8 + 8))",
+          "(8 + sqrt((8 + 8)))"
+        ]
+      }
+    },
+    "21": {
+      "expression": "((8 + (0.8 + 8)) / 0.8)",
+      "complexity": 23,
+      "unique_operators": 2,
+      "hints": {
+        "leaf_values": [
+          "0.8",
+          "0.8",
+          "8",
+          "8"
+        ],
+        "operators": [
+          "+",
+          "/"
+        ],
+        "subtrees": [
+          "(0.8 + 8)",
+          "(8 + (0.8 + 8))"
+        ]
+      }
+    },
+    "22": {
+      "expression": "(88 / sqrt((8 + 8)))",
+      "complexity": 20,
+      "unique_operators": 3,
+      "hints": {
+        "leaf_values": [
+          "8",
+          "8",
+          "88"
+        ],
+        "operators": [
+          "+",
+          "/",
+          "sqrt"
+        ],
+        "subtrees": [
+          "(8 + 8)",
+          "sqrt((8 + 8))"
+        ]
+      }
+    },
+    "23": {
+      "expression": "((sqrt((8 + 8))!) - (8 / 8))",
+      "complexity": 28,
+      "unique_operators": 5,
+      "hints": {
+        "leaf_values": [
+          "8",
+          "8",
+          "8",
+          "8"
+        ],
+        "operators": [
+          "+",
+          "-",
+          "/",
+          "sqrt"
+        ],
+        "subtrees": [
+          "(8 / 8)",
+          "(8 + 8)",
+          "sqrt((8 + 8))",
+          "(sqrt((8 + 8)) - (8 / 8))"
+        ]
+      }
+    },
+    "24": {
+      "expression": "(88 - (8 * 8))",
+      "complexity": 14,
+      "unique_operators": 2,
+      "hints": {
+        "leaf_values": [
+          "8",
+          "8",
+          "88"
+        ],
+        "operators": [
+          "*",
+          "-"
+        ],
+        "subtrees": [
+          "(8 * 8)"
+        ]
+      }
+    },
+    "25": {
+      "expression": "((sqrt((8 + 8))!) + (8 / 8))",
+      "complexity": 28,
+      "unique_operators": 4,
+      "hints": {
+        "leaf_values": [
+          "8",
+          "8",
+          "8",
+          "8"
+        ],
+        "operators": [
+          "+",
+          "/",
+          "sqrt"
+        ],
+        "subtrees": [
+          "(8 / 8)",
+          "(8 + 8)",
+          "sqrt((8 + 8))",
+          "(sqrt((8 + 8)) + (8 / 8))"
+        ]
+      }
+    },
+    "26": {
+      "expression": "((sqrt((8 + 8))!) + sqrt(sqrt((8 + 8))))",
+      "complexity": 40,
+      "unique_operators": 3,
+      "hints": {
+        "leaf_values": [
+          "8",
+          "8",
+          "8",
+          "8"
+        ],
+        "operators": [
+          "+",
+          "sqrt"
+        ],
+        "subtrees": [
+          "(8 + 8)",
+          "sqrt((8 + 8))",
+          "sqrt(sqrt((8 + 8)))",
+          "(sqrt((8 + 8)) + sqrt(sqrt((8 + 8))))"
+        ]
+      }
+    },
+    "28": {
+      "expression": "(sqrt((8 + 8)) + (sqrt((8 + 8))!))",
+      "complexity": 34,
+      "unique_operators": 3,
+      "hints": {
+        "leaf_values": [
+          "8",
+          "8"
+        ],
+        "operators": [
+          "+",
+          "sqrt"
+        ],
+        "subtrees": [
+          "(8 + 8)",
+          "sqrt((8 + 8))"
+        ]
+      }
+    },
+    "30": {
+      "expression": "((8 + (8 + 8)) / 0.8)",
+      "complexity": 21,
+      "unique_operators": 2,
+      "hints": {
+        "leaf_values": [
+          "0.8",
+          "8",
+          "8",
+          "8"
+        ],
+        "operators": [
+          "+",
+          "/"
+        ],
+        "subtrees": [
+          "(8 + 8)",
+          "(8 + (8 + 8))"
+        ]
+      }
+    },
+    "32": {
+      "expression": "((8 + (8 + 8)) + 8)",
+      "complexity": 19,
+      "unique_operators": 1,
+      "hints": {
+        "leaf_values": [
+          "8",
+          "8",
+          "8",
+          "8"
+        ],
+        "operators": [
+          "+"
+        ],
+        "subtrees": [
+          "(8 + 8)",
+          "(8 + (8 + 8))"
+        ]
+      }
+    },
+    "34": {
+      "expression": "((8 / 0.8) + (sqrt((8 + 8))!))",
+      "complexity": 30,
+      "unique_operators": 4,
+      "hints": {
+        "leaf_values": [
+          "0.8",
+          "8",
+          "8",
+          "8"
+        ],
+        "operators": [
+          "+",
+          "/",
+          "sqrt"
+        ],
+        "subtrees": [
+          "(8 + 8)",
+          "(8 / 0.8)",
+          "sqrt((8 + 8))",
+          "((8 / 0.8) + sqrt((8 + 8)))"
+        ]
+      }
+    },
+    "36": {
+      "expression": "sqrt((sqrt((sqrt(((8 / 8) + 8))!)) ^ 8))",
+      "complexity": 40,
+      "unique_operators": 5,
+      "hints": {
+        "leaf_values": [
+          "8",
+          "8",
+          "8"
+        ],
+        "operators": [
+          "+",
+          "/",
+          "sqrt"
+        ],
+        "subtrees": [
+          "(8 / 8)",
+          "((8 / 8) + 8)",
+          "sqrt(((8 / 8) + 8))",
+          "sqrt(sqrt(((8 / 8) + 8)))",
+          "sqrt(sqrt(sqrt(((8 / 8) + 8))))"
+        ]
+      }
+    },
+    "40": {
+      "expression": "(8 + (8 * sqrt((8 + 8))))",
+      "complexity": 25,
+      "unique_operators": 3,
+      "hints": {
+        "leaf_values": [
+          "8",
+          "8",
+          "8",
+          "8"
+        ],
+        "operators": [
+          "*",
+          "+",
+          "sqrt"
+        ],
+        "subtrees": [
+          "(8 + 8)",
+          "sqrt((8 + 8))",
+          "(8 * sqrt((8 + 8)))"
+        ]
+      }
+    },
+    "44": {
+      "expression": "(88 / sqrt(sqrt((8 + 8))))",
+      "complexity": 26,
+      "unique_operators": 3,
+      "hints": {
+        "leaf_values": [
+          "8",
+          "8",
+          "88"
+        ],
+        "operators": [
+          "+",
+          "/",
+          "sqrt"
+        ],
+        "subtrees": [
+          "(8 + 8)",
+          "sqrt((8 + 8))",
+          "sqrt(sqrt((8 + 8)))"
+        ]
+      }
+    },
+    "48": {
+      "expression": "((8 * 8) - (8 + 8))",
+      "complexity": 19,
+      "unique_operators": 3,
+      "hints": {
+        "leaf_values": [
+          "8",
+          "8",
+          "8",
+          "8"
+        ],
+        "operators": [
+          "*",
+          "+",
+          "-"
+        ],
+        "subtrees": [
+          "(8 + 8)",
+          "(8 * 8)"
+        ]
+      }
+    },
+    "49": {
+      "expression": "sqrt(sqrt(((8 - (8 / 8)) ^ 8)))",
+      "complexity": 31,
+      "unique_operators": 4,
+      "hints": {
+        "leaf_values": [
+          "8",
+          "8",
+          "8",
+          "8"
+        ],
+        "operators": [
+          "-",
+          "/",
+          "^",
+          "sqrt"
+        ],
+        "subtrees": [
+          "(8 / 8)",
+          "(8 - (8 / 8))",
+          "((8 - (8 / 8)) ^ 8)",
+          "sqrt(((8 - (8 / 8)) ^ 8))"
+        ]
+      }
+    },
+    "50": {
+      "expression": "(8 / (0.8 - (0.8 * 0.8)))",
+      "complexity": 25,
+      "unique_operators": 3,
+      "hints": {
+        "leaf_values": [
+          "0.8",
+          "0.8",
+          "0.8",
+          "8"
+        ],
+        "operators": [
+          "*",
+          "-",
+          "/"
+        ],
+        "subtrees": [
+          "(0.8 * 0.8)",
+          "(0.8 - (0.8 * 0.8))"
+        ]
+      }
+    },
+    "52": {
+      "expression": "((0.8 * (8 * 8)) + 0.8)",
+      "complexity": 23,
+      "unique_operators": 2,
+      "hints": {
+        "leaf_values": [
+          "0.8",
+          "0.8",
+          "8",
+          "8"
+        ],
+        "operators": [
+          "*",
+          "+"
+        ],
+        "subtrees": [
+          "(8 * 8)",
+          "(0.8 * (8 * 8))"
+        ]
+      }
+    },
+    "54": {
+      "expression": "((8 * 8) - (8 / 0.8))",
+      "complexity": 21,
+      "unique_operators": 3,
+      "hints": {
+        "leaf_values": [
+          "0.8",
+          "8",
+          "8",
+          "8"
+        ],
+        "operators": [
+          "*",
+          "-",
+          "/"
+        ],
+        "subtrees": [
+          "(8 * 8)",
+          "(8 / 0.8)"
+        ]
+      }
+    },
+    "55": {
+      "expression": "(88 / (0.8 + 0.8))",
+      "complexity": 18,
+      "unique_operators": 2,
+      "hints": {
+        "leaf_values": [
+          "0.8",
+          "0.8",
+          "88"
+        ],
+        "operators": [
+          "+",
+          "/"
+        ],
+        "subtrees": [
+          "(0.8 + 0.8)"
+        ]
+      }
+    },
+    "56": {
+      "expression": "(8 * (8 - (8 / 8)))",
+      "complexity": 19,
+      "unique_operators": 3,
+      "hints": {
+        "leaf_values": [
+          "8",
+          "8",
+          "8",
+          "8"
+        ],
+        "operators": [
+          "*",
+          "-",
+          "/"
+        ],
+        "subtrees": [
+          "(8 / 8)",
+          "(8 - (8 / 8))"
+        ]
+      }
+    },
+    "60": {
+      "expression": "((8 * 8) - sqrt((8 + 8)))",
+      "complexity": 25,
+      "unique_operators": 4,
+      "hints": {
+        "leaf_values": [
+          "8",
+          "8",
+          "8",
+          "8"
+        ],
+        "operators": [
+          "*",
+          "+",
+          "-",
+          "sqrt"
+        ],
+        "subtrees": [
+          "(8 + 8)",
+          "(8 * 8)",
+          "sqrt((8 + 8))"
+        ]
+      }
+    },
+    "62": {
+      "expression": "((8 * 8) - sqrt(sqrt((8 + 8))))",
+      "complexity": 31,
+      "unique_operators": 4,
+      "hints": {
+        "leaf_values": [
+          "8",
+          "8",
+          "8",
+          "8"
+        ],
+        "operators": [
+          "*",
+          "+",
+          "-",
+          "sqrt"
+        ],
+        "subtrees": [
+          "(8 + 8)",
+          "(8 * 8)",
+          "sqrt((8 + 8))",
+          "sqrt(sqrt((8 + 8)))"
+        ]
+      }
+    },
+    "63": {
+      "expression": "((8 * 8) - (8 / 8))",
+      "complexity": 19,
+      "unique_operators": 3,
+      "hints": {
+        "leaf_values": [
+          "8",
+          "8",
+          "8",
+          "8"
+        ],
+        "operators": [
+          "*",
+          "-",
+          "/"
+        ],
+        "subtrees": [
+          "(8 / 8)",
+          "(8 * 8)"
+        ]
+      }
+    },
+    "64": {
+      "expression": "((8 + (8 * 8)) - 8)",
+      "complexity": 19,
+      "unique_operators": 3,
+      "hints": {
+        "leaf_values": [
+          "8",
+          "8",
+          "8",
+          "8"
+        ],
+        "operators": [
+          "*",
+          "+",
+          "-"
+        ],
+        "subtrees": [
+          "(8 * 8)",
+          "(8 + (8 * 8))"
+        ]
+      }
+    },
+    "65": {
+      "expression": "((8 * 8) + (8 / 8))",
+      "complexity": 19,
+      "unique_operators": 3,
+      "hints": {
+        "leaf_values": [
+          "8",
+          "8",
+          "8",
+          "8"
+        ],
+        "operators": [
+          "*",
+          "+",
+          "/"
+        ],
+        "subtrees": [
+          "(8 / 8)",
+          "(8 * 8)"
+        ]
+      }
+    },
+    "66": {
+      "expression": "((8 * 8) + sqrt(sqrt((8 + 8))))",
+      "complexity": 31,
+      "unique_operators": 3,
+      "hints": {
+        "leaf_values": [
+          "8",
+          "8",
+          "8",
+          "8"
+        ],
+        "operators": [
+          "*",
+          "+",
+          "sqrt"
+        ],
+        "subtrees": [
+          "(8 + 8)",
+          "(8 * 8)",
+          "sqrt((8 + 8))",
+          "sqrt(sqrt((8 + 8)))"
+        ]
+      }
+    },
+    "68": {
+      "expression": "((8 * 8) + sqrt((8 + 8)))",
+      "complexity": 25,
+      "unique_operators": 3,
+      "hints": {
+        "leaf_values": [
+          "8",
+          "8",
+          "8",
+          "8"
+        ],
+        "operators": [
+          "*",
+          "+",
+          "sqrt"
+        ],
+        "subtrees": [
+          "(8 + 8)",
+          "(8 * 8)",
+          "sqrt((8 + 8))"
+        ]
+      }
+    },
+    "70": {
+      "expression": "(((8 * 8) - 8) / 0.8)",
+      "complexity": 21,
+      "unique_operators": 3,
+      "hints": {
+        "leaf_values": [
+          "0.8",
+          "8",
+          "8",
+          "8"
+        ],
+        "operators": [
+          "*",
+          "-",
+          "/"
+        ],
+        "subtrees": [
+          "(8 * 8)",
+          "((8 * 8) - 8)"
+        ]
+      }
+    },
+    "71": {
+      "expression": "sqrt((((sqrt((8 * 8))!) + 8) / 8))",
+      "complexity": 34,
+      "unique_operators": 5,
+      "hints": {
+        "leaf_values": [
+          "8",
+          "8",
+          "8",
+          "8"
+        ],
+        "operators": [
+          "*",
+          "+",
+          "/",
+          "sqrt"
+        ],
+        "subtrees": [
+          "(8 * 8)",
+          "sqrt((8 * 8))",
+          "(sqrt((8 * 8)) + 8)",
+          "((sqrt((8 * 8)) + 8) / 8)",
+          "sqrt(((sqrt((8 * 8)) + 8) / 8))"
+        ]
+      }
+    },
+    "72": {
+      "expression": "((88 - 8) - 8)",
+      "complexity": 14,
+      "unique_operators": 1,
+      "hints": {
+        "leaf_values": [
+          "8",
+          "8",
+          "88"
+        ],
+        "operators": [
+          "-"
+        ],
+        "subtrees": [
+          "(88 - 8)"
+        ]
+      }
+    },
+    "74": {
+      "expression": "((8 / 0.8) + (8 * 8))",
+      "complexity": 21,
+      "unique_operators": 3,
+      "hints": {
+        "leaf_values": [
+          "0.8",
+          "8",
+          "8",
+          "8"
+        ],
+        "operators": [
+          "*",
+          "+",
+          "/"
+        ],
+        "subtrees": [
+          "(8 * 8)",
+          "(8 / 0.8)"
+        ]
+      }
+    },
+    "78": {
+      "expression": "(88 - (8 / 0.8))",
+      "complexity": 16,
+      "unique_operators": 2,
+      "hints": {
+        "leaf_values": [
+          "0.8",
+          "8",
+          "88"
+        ],
+        "operators": [
+          "-",
+          "/"
+        ],
+        "subtrees": [
+          "(8 / 0.8)"
+        ]
+      }
+    },
+    "79": {
+      "expression": "(((8 * 8) - 0.8) / 0.8)",
+      "complexity": 23,
+      "unique_operators": 3,
+      "hints": {
+        "leaf_values": [
+          "0.8",
+          "0.8",
+          "8",
+          "8"
+        ],
+        "operators": [
+          "*",
+          "-",
+          "/"
+        ],
+        "subtrees": [
+          "(8 * 8)",
+          "((8 * 8) - 0.8)"
+        ]
+      }
+    },
+    "80": {
+      "expression": "((8 + (8 * 8)) + 8)",
+      "complexity": 19,
+      "unique_operators": 2,
+      "hints": {
+        "leaf_values": [
+          "8",
+          "8",
+          "8",
+          "8"
+        ],
+        "operators": [
+          "*",
+          "+"
+        ],
+        "subtrees": [
+          "(8 * 8)",
+          "(8 + (8 * 8))"
+        ]
+      }
+    },
+    "81": {
+      "expression": "((0.8 + (8 * 8)) / 0.8)",
+      "complexity": 23,
+      "unique_operators": 3,
+      "hints": {
+        "leaf_values": [
+          "0.8",
+          "0.8",
+          "8",
+          "8"
+        ],
+        "operators": [
+          "*",
+          "+",
+          "/"
+        ],
+        "subtrees": [
+          "(8 * 8)",
+          "(0.8 + (8 * 8))"
+        ]
+      }
+    },
+    "84": {
+      "expression": "(88 - sqrt((8 + 8)))",
+      "complexity": 20,
+      "unique_operators": 3,
+      "hints": {
+        "leaf_values": [
+          "8",
+          "8",
+          "88"
+        ],
+        "operators": [
+          "+",
+          "-",
+          "sqrt"
+        ],
+        "subtrees": [
+          "(8 + 8)",
+          "sqrt((8 + 8))"
+        ]
+      }
+    },
+    "86": {
+      "expression": "(88 - sqrt(sqrt((8 + 8))))",
+      "complexity": 26,
+      "unique_operators": 3,
+      "hints": {
+        "leaf_values": [
+          "8",
+          "8",
+          "88"
+        ],
+        "operators": [
+          "+",
+          "-",
+          "sqrt"
+        ],
+        "subtrees": [
+          "(8 + 8)",
+          "sqrt((8 + 8))",
+          "sqrt(sqrt((8 + 8)))"
+        ]
+      }
+    },
+    "87": {
+      "expression": "(88 - (8 / 8))",
+      "complexity": 14,
+      "unique_operators": 2,
+      "hints": {
+        "leaf_values": [
+          "8",
+          "8",
+          "88"
+        ],
+        "operators": [
+          "-",
+          "/"
+        ],
+        "subtrees": [
+          "(8 / 8)"
+        ]
+      }
+    },
+    "88": {
+      "expression": "(88.8 - 0.8)",
+      "complexity": 12,
+      "unique_operators": 1,
+      "hints": {
+        "leaf_values": [
+          "0.8",
+          "88.8"
+        ],
+        "operators": [
+          "-"
+        ],
+        "subtrees": []
+      }
+    },
+    "89": {
+      "expression": "(88 + (8 / 8))",
+      "complexity": 14,
+      "unique_operators": 2,
+      "hints": {
+        "leaf_values": [
+          "8",
+          "8",
+          "88"
+        ],
+        "operators": [
+          "+",
+          "/"
+        ],
+        "subtrees": [
+          "(8 / 8)"
+        ]
+      }
+    },
+    "90": {
+      "expression": "(88 + sqrt(sqrt((8 + 8))))",
+      "complexity": 26,
+      "unique_operators": 2,
+      "hints": {
+        "leaf_values": [
+          "8",
+          "8",
+          "88"
+        ],
+        "operators": [
+          "+",
+          "sqrt"
+        ],
+        "subtrees": [
+          "(8 + 8)",
+          "sqrt((8 + 8))",
+          "sqrt(sqrt((8 + 8)))"
+        ]
+      }
+    },
+    "92": {
+      "expression": "(88 + sqrt((8 + 8)))",
+      "complexity": 20,
+      "unique_operators": 2,
+      "hints": {
+        "leaf_values": [
+          "8",
+          "8",
+          "88"
+        ],
+        "operators": [
+          "+",
+          "sqrt"
+        ],
+        "subtrees": [
+          "(8 + 8)",
+          "sqrt((8 + 8))"
+        ]
+      }
+    },
+    "96": {
+      "expression": "(88 + sqrt((8 * 8)))",
+      "complexity": 20,
+      "unique_operators": 3,
+      "hints": {
+        "leaf_values": [
+          "8",
+          "8",
+          "88"
+        ],
+        "operators": [
+          "*",
+          "+",
+          "sqrt"
+        ],
+        "subtrees": [
+          "(8 * 8)",
+          "sqrt((8 * 8))"
+        ]
+      }
+    },
+    "98": {
+      "expression": "(88 + (8 / 0.8))",
+      "complexity": 16,
+      "unique_operators": 2,
+      "hints": {
+        "leaf_values": [
+          "0.8",
+          "8",
+          "88"
+        ],
+        "operators": [
+          "+",
+          "/"
+        ],
+        "subtrees": [
+          "(8 / 0.8)"
+        ]
+      }
+    },
+    "100": {
+      "expression": "((8 / 0.8) * (8 / 0.8))",
+      "complexity": 23,
+      "unique_operators": 2,
+      "hints": {
+        "leaf_values": [
+          "0.8",
+          "0.8",
+          "8",
+          "8"
+        ],
+        "operators": [
+          "*",
+          "/"
+        ],
+        "subtrees": [
+          "(8 / 0.8)"
+        ]
+      }
+    }
+  },
+  "9": {
+    "13": {
+      "expression": "((9 / 0.9) + (sqrt(9) % 9))",
+      "complexity": 27,
+      "unique_operators": 4,
+      "hints": {
+        "leaf_values": [
+          "0.9",
+          "9",
+          "9"
+        ],
+        "operators": [
+          "+",
+          "/",
+          "sqrt"
+        ],
+        "subtrees": [
+          "sqrt(9)",
+          "(9 / 0.9)",
+          "((9 / 0.9) + sqrt(9))"
+        ]
+      }
+    },
+    "27": {
+      "expression": "(9 + (sqrt((9 * 9)) + 9))",
+      "complexity": 25,
+      "unique_operators": 3,
+      "hints": {
+        "leaf_values": [
+          "9",
+          "9",
+          "9"
+        ],
+        "operators": [
+          "*",
+          "+",
+          "sqrt"
+        ],
+        "subtrees": [
+          "(9 * 9)",
+          "sqrt((9 * 9))",
+          "(9 + sqrt((9 * 9)))"
+        ]
+      }
+    },
+    "29": {
+      "expression": "(9 + ((9 + 9) / 0.9))",
+      "complexity": 21,
+      "unique_operators": 2,
+      "hints": {
+        "leaf_values": [
+          "0.9",
+          "9",
+          "9",
+          "9"
+        ],
+        "operators": [
+          "+",
+          "/"
+        ],
+        "subtrees": [
+          "(9 + 9)",
+          "((9 + 9) / 0.9)"
+        ]
+      }
+    },
+    "33": {
+      "expression": "(99 / sqrt(sqrt((9 * 9))))",
+      "complexity": 26,
+      "unique_operators": 3,
+      "hints": {
+        "leaf_values": [
+          "9",
+          "9",
+          "99"
+        ],
+        "operators": [
+          "*",
+          "/",
+          "sqrt"
+        ],
+        "subtrees": [
+          "(9 * 9)",
+          "sqrt((9 * 9))",
+          "sqrt(sqrt((9 * 9)))"
+        ]
+      }
+    },
+    "37": {
+      "expression": "((9 * sqrt(9)) + (9 / 0.9))",
+      "complexity": 27,
+      "unique_operators": 4,
+      "hints": {
+        "leaf_values": [
+          "0.9",
+          "9",
+          "9",
+          "9"
+        ],
+        "operators": [
+          "*",
+          "+",
+          "/",
+          "sqrt"
+        ],
+        "subtrees": [
+          "sqrt(9)",
+          "(9 / 0.9)",
+          "(9 * sqrt(9))"
+        ]
+      }
+    },
+    "39": {
+      "expression": "(((sqrt(9) * 9) / 0.9) + 9)",
+      "complexity": 27,
+      "unique_operators": 4,
+      "hints": {
+        "leaf_values": [
+          "0.9",
+          "9",
+          "9"
+        ],
+        "operators": [
+          "+",
+          "/",
+          "sqrt"
+        ],
+        "subtrees": [
+          "sqrt(9)",
+          "(sqrt(9) / 0.9)",
+          "((sqrt(9) / 0.9) + 9)"
+        ]
+      }
+    },
+    "45": {
+      "expression": "((9 - (sqrt(9) - 9)) * sqrt(9))",
+      "complexity": 31,
+      "unique_operators": 3,
+      "hints": {
+        "leaf_values": [
+          "9",
+          "9",
+          "9"
+        ],
+        "operators": [
+          "*",
+          "-",
+          "sqrt"
+        ],
+        "subtrees": [
+          "sqrt(9)",
+          "(9 - sqrt(9))",
+          "((9 - sqrt(9)) * sqrt(9))"
+        ]
+      }
+    },
+    "51": {
+      "expression": "(((sqrt(9)!) + (9!)) % 99)",
+      "complexity": 26,
+      "unique_operators": 4,
+      "hints": {
+        "leaf_values": [
+          "9",
+          "9",
+          "99"
+        ],
+        "operators": [
+          "!",
+          "%",
+          "+",
+          "sqrt"
+        ],
+        "subtrees": [
+          "(9!)",
+          "sqrt(9)",
+          "(sqrt(9) + (9!))",
+          "((sqrt(9) + (9!)) % 99)"
+        ]
+      }
+    },
+    "69": {
+      "expression": "((9 * 9) - (9 + sqrt(9)))",
+      "complexity": 25,
+      "unique_operators": 4,
+      "hints": {
+        "leaf_values": [
+          "9",
+          "9",
+          "9",
+          "9"
+        ],
+        "operators": [
+          "*",
+          "+",
+          "-",
+          "sqrt"
+        ],
+        "subtrees": [
+          "sqrt(9)",
+          "(9 * 9)",
+          "(9 + sqrt(9))"
+        ]
+      }
+    },
+    "75": {
+      "expression": "((sqrt(9) - 9) + (9 * 9))",
+      "complexity": 25,
+      "unique_operators": 4,
+      "hints": {
+        "leaf_values": [
+          "9",
+          "9",
+          "9"
+        ],
+        "operators": [
+          "*",
+          "+",
+          "sqrt"
+        ],
+        "subtrees": [
+          "sqrt(9)",
+          "(9 * 9)",
+          "(sqrt(9) + (9 * 9))"
+        ]
+      }
+    },
+    "82": {
+      "expression": "((9 / 9) + (9 * 9))",
+      "complexity": 19,
+      "unique_operators": 3,
+      "hints": {
+        "leaf_values": [
+          "9",
+          "9",
+          "9",
+          "9"
+        ],
+        "operators": [
+          "*",
+          "+",
+          "/"
+        ],
+        "subtrees": [
+          "(9 / 9)",
+          "(9 * 9)"
+        ]
+      }
+    },
+    "91": {
+      "expression": "((9 * 9) + (9 / 0.9))",
+      "complexity": 21,
+      "unique_operators": 3,
+      "hints": {
+        "leaf_values": [
+          "0.9",
+          "9",
+          "9",
+          "9"
+        ],
+        "operators": [
+          "*",
+          "+",
+          "/"
+        ],
+        "subtrees": [
+          "(9 * 9)",
+          "(9 / 0.9)"
+        ]
+      }
+    },
+    "93": {
+      "expression": "(((9 * 9) / 0.9) + sqrt(9))",
+      "complexity": 27,
+      "unique_operators": 4,
+      "hints": {
+        "leaf_values": [
+          "0.9",
+          "9",
+          "9",
+          "9"
+        ],
+        "operators": [
+          "*",
+          "+",
+          "/",
+          "sqrt"
+        ],
+        "subtrees": [
+          "sqrt(9)",
+          "(9 * 9)",
+          "((9 * 9) / 0.9)"
+        ]
+      }
+    },
+    "99": {
+      "expression": "(99.9 - 0.9)",
+      "complexity": 12,
+      "unique_operators": 1,
+      "hints": {
+        "leaf_values": [
+          "0.9",
+          "99.9"
+        ],
+        "operators": [
+          "-"
+        ],
+        "subtrees": []
+      }
+    },
+    "18": {
+      "seed": 9,
+      "expression": "(99 - (9 * 9))",
+      "complexity": 14,
+      "unique_operators": 2,
+      "hints": {
+        "leaf_values": [
+          "9",
+          "9",
+          "99"
+        ],
+        "operators": [
+          "*",
+          "-"
+        ],
+        "subtrees": [
+          "(9 * 9)"
+        ]
+      }
+    },
+    "100": {
+      "seed": 9,
+      "expression": "(99 + (9 / 9))",
+      "complexity": 14,
+      "unique_operators": 2,
+      "hints": {
+        "leaf_values": [
+          "9",
+          "9",
+          "99"
+        ],
+        "operators": [
+          "+",
+          "/"
+        ],
+        "subtrees": [
+          "(9 / 9)"
+        ]
+      }
+    },
+    "2": {
+      "seed": 9,
+      "expression": "((99 / 9) % 9)",
+      "complexity": 14,
+      "unique_operators": 2,
+      "hints": {
+        "leaf_values": [
+          "9",
+          "9",
+          "99"
+        ],
+        "operators": [
+          "%",
+          "/"
+        ],
+        "subtrees": [
+          "(99 / 9)"
+        ]
+      }
+    },
+    "81": {
+      "seed": 9,
+      "expression": "((99 - 9) - 9)",
+      "complexity": 14,
+      "unique_operators": 1,
+      "hints": {
+        "leaf_values": [
+          "9",
+          "9",
+          "99"
+        ],
+        "operators": [
+          "-"
+        ],
+        "subtrees": [
+          "(99 - 9)"
+        ]
+      }
+    },
+    "1": {
+      "seed": 9,
+      "expression": "((999 % 9)!)",
+      "complexity": 12,
+      "unique_operators": 2,
+      "hints": {
+        "leaf_values": [
+          "9",
+          "999"
+        ],
+        "operators": [
+          "!",
+          "%"
+        ],
+        "subtrees": [
+          "(999 % 9)"
+        ]
+      }
+    },
+    "80": {
+      "seed": 9,
+      "expression": "((9 * 9) - (9 / 9))",
+      "complexity": 19,
+      "unique_operators": 3,
+      "hints": {
+        "leaf_values": [
+          "9",
+          "9",
+          "9",
+          "9"
+        ],
+        "operators": [
+          "*",
+          "-",
+          "/"
+        ],
+        "subtrees": [
+          "(9 / 9)",
+          "(9 * 9)"
+        ]
+      }
+    },
+    "12": {
+      "seed": 9,
+      "expression": "((99 + 9) / 9)",
+      "complexity": 14,
+      "unique_operators": 2,
+      "hints": {
+        "leaf_values": [
+          "9",
+          "9",
+          "99"
+        ],
+        "operators": [
+          "+",
+          "/"
+        ],
+        "subtrees": [
+          "(99 + 9)"
+        ]
+      }
+    },
+    "20": {
+      "seed": 9,
+      "expression": "((99 / 9) + 9)",
+      "complexity": 14,
+      "unique_operators": 2,
+      "hints": {
+        "leaf_values": [
+          "9",
+          "9",
+          "99"
+        ],
+        "operators": [
+          "+",
+          "/"
+        ],
+        "subtrees": [
+          "(99 / 9)"
+        ]
+      }
+    },
+    "10": {
+      "seed": 9,
+      "expression": "((99 - 9) / 9)",
+      "complexity": 14,
+      "unique_operators": 2,
+      "hints": {
+        "leaf_values": [
+          "9",
+          "9",
+          "99"
+        ],
+        "operators": [
+          "-",
+          "/"
+        ],
+        "subtrees": [
+          "(99 - 9)"
+        ]
+      }
+    },
+    "17": {
+      "seed": 9,
+      "expression": "((9 + 9) - (9 / 9))",
+      "complexity": 19,
+      "unique_operators": 3,
+      "hints": {
+        "leaf_values": [
+          "9",
+          "9",
+          "9",
+          "9"
+        ],
+        "operators": [
+          "+",
+          "-",
+          "/"
+        ],
+        "subtrees": [
+          "(9 / 9)",
+          "(9 + 9)"
+        ]
+      }
+    },
+    "9": {
+      "seed": 9,
+      "expression": "((99 % 9) + 9)",
+      "complexity": 14,
+      "unique_operators": 2,
+      "hints": {
+        "leaf_values": [
+          "9",
+          "9",
+          "99"
+        ],
+        "operators": [
+          "%",
+          "+"
+        ],
+        "subtrees": [
+          "(99 % 9)"
+        ]
+      }
+    },
+    "98": {
+      "seed": 9,
+      "expression": "(99 - (9 / 9))",
+      "complexity": 14,
+      "unique_operators": 2,
+      "hints": {
+        "leaf_values": [
+          "9",
+          "9",
+          "99"
+        ],
+        "operators": [
+          "-",
+          "/"
+        ],
+        "subtrees": [
+          "(9 / 9)"
+        ]
+      }
+    },
+    "72": {
+      "seed": 9,
+      "expression": "(9 * (9 - (9 / 9)))",
+      "complexity": 19,
+      "unique_operators": 3,
+      "hints": {
+        "leaf_values": [
+          "9",
+          "9",
+          "9",
+          "9"
+        ],
+        "operators": [
+          "*",
+          "-",
+          "/"
+        ],
+        "subtrees": [
+          "(9 / 9)",
+          "(9 - (9 / 9))"
+        ]
+      }
+    },
+    "90": {
+      "seed": 9,
+      "expression": "((9 + (9 / 9)) * 9)",
+      "complexity": 19,
+      "unique_operators": 3,
+      "hints": {
+        "leaf_values": [
+          "9",
+          "9",
+          "9",
+          "9"
+        ],
+        "operators": [
+          "*",
+          "+",
+          "/"
+        ],
+        "subtrees": [
+          "(9 / 9)",
+          "(9 + (9 / 9))"
+        ]
+      }
+    },
+    "63": {
+      "seed": 9,
+      "expression": "((9 * 9) - (9 + 9))",
+      "complexity": 19,
+      "unique_operators": 3,
+      "hints": {
+        "leaf_values": [
+          "9",
+          "9",
+          "9",
+          "9"
+        ],
+        "operators": [
+          "*",
+          "+",
+          "-"
+        ],
+        "subtrees": [
+          "(9 * 9)",
+          "(9 + 9)"
+        ]
+      }
+    },
+    "8": {
+      "seed": 9,
+      "expression": "(9 - ((9 / 9) ^ 9))",
+      "complexity": 19,
+      "unique_operators": 3,
+      "hints": {
+        "leaf_values": [
+          "9",
+          "9",
+          "9",
+          "9"
+        ],
+        "operators": [
+          "-",
+          "/",
+          "^"
+        ],
+        "subtrees": [
+          "(9 / 9)",
+          "((9 / 9) ^ 9)"
+        ]
+      }
+    },
+    "3": {
+      "seed": 9,
+      "expression": "((9 + (9 + 9)) / 9)",
+      "complexity": 19,
+      "unique_operators": 2,
+      "hints": {
+        "leaf_values": [
+          "9",
+          "9",
+          "9",
+          "9"
+        ],
+        "operators": [
+          "+",
+          "/"
+        ],
+        "subtrees": [
+          "(9 + 9)",
+          "(9 + (9 + 9))"
+        ]
+      }
+    },
+    "36": {
+      "seed": 9,
+      "expression": "((9 + 9) + (9 + 9))",
+      "complexity": 19,
+      "unique_operators": 1,
+      "hints": {
+        "leaf_values": [
+          "9",
+          "9",
+          "9",
+          "9"
+        ],
+        "operators": [
+          "+"
+        ],
+        "subtrees": [
+          "(9 + 9)"
+        ]
+      }
+    },
+    "19": {
+      "seed": 9,
+      "expression": "((9 + (9 / 9)) + 9)",
+      "complexity": 19,
+      "unique_operators": 2,
+      "hints": {
+        "leaf_values": [
+          "9",
+          "9",
+          "9",
+          "9"
+        ],
+        "operators": [
+          "+",
+          "/"
+        ],
+        "subtrees": [
+          "(9 / 9)",
+          "(9 + (9 / 9))"
+        ]
+      }
+    },
+    "11": {
+      "seed": 9,
+      "expression": "(9 + ((9 + 9) / 9))",
+      "complexity": 19,
+      "unique_operators": 2,
+      "hints": {
+        "leaf_values": [
+          "9",
+          "9",
+          "9",
+          "9"
+        ],
+        "operators": [
+          "+",
+          "/"
+        ],
+        "subtrees": [
+          "(9 + 9)",
+          "((9 + 9) / 9)"
+        ]
+      }
+    },
+    "7": {
+      "seed": 9,
+      "expression": "(9 - ((9 + 9) / 9))",
+      "complexity": 19,
+      "unique_operators": 3,
+      "hints": {
+        "leaf_values": [
+          "9",
+          "9",
+          "9",
+          "9"
+        ],
+        "operators": [
+          "+",
+          "-",
+          "/"
+        ],
+        "subtrees": [
+          "(9 + 9)",
+          "((9 + 9) / 9)"
+        ]
+      }
+    },
+    "30": {
+      "seed": 9,
+      "expression": "sqrt(((99 * 9) + 9))",
+      "complexity": 20,
+      "unique_operators": 3,
+      "hints": {
+        "leaf_values": [
+          "9",
+          "9",
+          "99"
+        ],
+        "operators": [
+          "*",
+          "+",
+          "sqrt"
+        ],
+        "subtrees": [
+          "(99 * 9)",
+          "((99 * 9) + 9)"
+        ]
+      }
+    },
+    "6": {
+      "seed": 9,
+      "expression": "((((9 + 9) + 9) / 9)!)",
+      "complexity": 22,
+      "unique_operators": 3,
+      "hints": {
+        "leaf_values": [
+          "9",
+          "9",
+          "9",
+          "9"
+        ],
+        "operators": [
+          "!",
+          "+",
+          "/"
+        ],
+        "subtrees": [
+          "(9 + 9)",
+          "((9 + 9) + 9)",
+          "(((9 + 9) + 9) / 9)"
+        ]
+      }
+    },
+    "96": {
+      "seed": 9,
+      "expression": "(99 - sqrt(sqrt((9 * 9))))",
+      "complexity": 26,
+      "unique_operators": 3,
+      "hints": {
+        "leaf_values": [
+          "9",
+          "9",
+          "99"
+        ],
+        "operators": [
+          "*",
+          "-",
+          "sqrt"
+        ],
+        "subtrees": [
+          "(9 * 9)",
+          "sqrt((9 * 9))",
+          "sqrt(sqrt((9 * 9)))"
+        ]
+      }
+    },
+    "15": {
+      "seed": 9,
+      "expression": "((sqrt((9 - (9 % 9)))!) + 9)",
+      "complexity": 28,
+      "unique_operators": 5,
+      "hints": {
+        "leaf_values": [
+          "9",
+          "9",
+          "9",
+          "9"
+        ],
+        "operators": [
+          "%",
+          "+",
+          "-",
+          "sqrt"
+        ],
+        "subtrees": [
+          "(9 % 9)",
+          "(9 - (9 % 9))",
+          "sqrt((9 - (9 % 9)))",
+          "(sqrt((9 - (9 % 9))) + 9)"
+        ]
+      }
+    },
+    "54": {
+      "seed": 9,
+      "expression": "((sqrt((9 * (9 / 9)))!) * 9)",
+      "complexity": 28,
+      "unique_operators": 4,
+      "hints": {
+        "leaf_values": [
+          "9",
+          "9",
+          "9",
+          "9"
+        ],
+        "operators": [
+          "*",
+          "/",
+          "sqrt"
+        ],
+        "subtrees": [
+          "(9 / 9)",
+          "(9 * (9 / 9))",
+          "sqrt((9 * (9 / 9)))",
+          "(sqrt((9 * (9 / 9))) * 9)"
+        ]
+      }
+    },
+    "21": {
+      "seed": 9,
+      "expression": "(9 + (9 + sqrt(sqrt((9 * 9)))))",
+      "complexity": 31,
+      "unique_operators": 3,
+      "hints": {
+        "leaf_values": [
+          "9",
+          "9",
+          "9",
+          "9"
+        ],
+        "operators": [
+          "*",
+          "+",
+          "sqrt"
+        ],
+        "subtrees": [
+          "(9 * 9)",
+          "sqrt((9 * 9))",
+          "sqrt(sqrt((9 * 9)))",
+          "(9 + sqrt(sqrt((9 * 9))))"
+        ]
+      }
+    },
+    "78": {
+      "seed": 9,
+      "expression": "((9 * 9) - sqrt(sqrt((9 * 9))))",
+      "complexity": 31,
+      "unique_operators": 3,
+      "hints": {
+        "leaf_values": [
+          "9",
+          "9",
+          "9",
+          "9"
+        ],
+        "operators": [
+          "*",
+          "-",
+          "sqrt"
+        ],
+        "subtrees": [
+          "(9 * 9)",
+          "sqrt((9 * 9))",
+          "sqrt(sqrt((9 * 9)))"
+        ]
+      }
+    },
+    "4": {
+      "seed": 9,
+      "expression": "((9 / 9) + sqrt(sqrt((9 * 9))))",
+      "complexity": 31,
+      "unique_operators": 4,
+      "hints": {
+        "leaf_values": [
+          "9",
+          "9",
+          "9",
+          "9"
+        ],
+        "operators": [
+          "*",
+          "+",
+          "/",
+          "sqrt"
+        ],
+        "subtrees": [
+          "(9 / 9)",
+          "(9 * 9)",
+          "sqrt((9 * 9))",
+          "sqrt(sqrt((9 * 9)))"
+        ]
+      }
+    },
+    "84": {
+      "seed": 9,
+      "expression": "(sqrt(sqrt((9 * 9))) + (9 * 9))",
+      "complexity": 31,
+      "unique_operators": 3,
+      "hints": {
+        "leaf_values": [
+          "9",
+          "9"
+        ],
+        "operators": [
+          "*",
+          "sqrt"
+        ],
+        "subtrees": [
+          "(9 * 9)",
+          "sqrt((9 * 9))",
+          "sqrt(sqrt((9 * 9)))"
+        ]
+      }
+    },
+    "24": {
+      "seed": 9,
+      "expression": "((sqrt(sqrt((9 * 9)))!) + (9 + 9))",
+      "complexity": 34,
+      "unique_operators": 4,
+      "hints": {
+        "leaf_values": [
+          "9",
+          "9",
+          "9",
+          "9"
+        ],
+        "operators": [
+          "*",
+          "+",
+          "sqrt"
+        ],
+        "subtrees": [
+          "(9 + 9)",
+          "(9 * 9)",
+          "sqrt((9 * 9))",
+          "sqrt(sqrt((9 * 9)))",
+          "(sqrt(sqrt((9 * 9))) + (9 + 9))"
+        ]
+      }
+    },
+    "87": {
+      "seed": 9,
+      "expression": "((9 * 9) + (sqrt(sqrt((9 * 9)))!))",
+      "complexity": 34,
+      "unique_operators": 4,
+      "hints": {
+        "leaf_values": [
+          "9",
+          "9",
+          "9",
+          "9"
+        ],
+        "operators": [
+          "*",
+          "+",
+          "sqrt"
+        ],
+        "subtrees": [
+          "(9 * 9)",
+          "sqrt((9 * 9))",
+          "sqrt(sqrt((9 * 9)))",
+          "((9 * 9) + sqrt(sqrt((9 * 9))))"
+        ]
+      }
+    },
+    "5": {
+      "seed": 9,
+      "expression": "(-((9 / 9)) + (sqrt(sqrt((9 * 9)))!))",
+      "complexity": 37,
+      "unique_operators": 6,
+      "hints": {
+        "leaf_values": [
+          "9",
+          "9",
+          "9",
+          "9"
+        ],
+        "operators": [
+          "*",
+          "+",
+          "/",
+          "neg",
+          "sqrt"
+        ],
+        "subtrees": [
+          "(9 * 9)",
+          "(9 / 9)",
+          "sqrt((9 * 9))",
+          "sqrt(sqrt((9 * 9)))",
+          "((9 / 9) + sqrt(sqrt((9 * 9))))",
+          "-(((9 / 9) + sqrt(sqrt((9 * 9)))))"
+        ]
+      }
+    }
+  }
+}

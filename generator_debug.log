@@ -1,0 +1,65 @@
+2024-12-24 12:02:16,810 - INFO - Starting tests
+2024-12-24 12:02:16,810 - INFO - Starting tree generation tests
+2024-12-24 12:02:16,810 - DEBUG - Test 1: Creating 5+5
+2024-12-24 12:02:16,810 - DEBUG - Expression: 5+5
+2024-12-24 12:02:16,811 - DEBUG - Evaluation: 10.0
+2024-12-24 12:02:16,811 - DEBUG - Seed count (5): 2
+2024-12-24 12:02:16,811 - DEBUG - 
+Test 2: Creating 55
+2024-12-24 12:02:16,811 - DEBUG - Expression: 55
+2024-12-24 12:02:16,811 - DEBUG - Evaluation: 55.0
+2024-12-24 12:02:16,811 - DEBUG - Seed count (5): 2
+2024-12-24 12:02:16,811 - DEBUG - 
+Test 3: Creating 5.5
+2024-12-24 12:02:16,811 - DEBUG - Expression: 5.0
+2024-12-24 12:02:16,812 - DEBUG - Evaluation: 0.5
+2024-12-24 12:02:16,812 - DEBUG - Seed count (5): 1
+2024-12-24 12:02:16,844 - DEBUG - Evaluation: 7.416198487095663
+2024-12-24 12:02:16,844 - DEBUG - Seed count (5): 2
+2024-12-24 12:02:16,845 - DEBUG - 
+Test 5: Creating (5+5)!
+2024-12-24 12:02:16,845 - DEBUG - Expression: (5+5)!
+2024-12-24 12:03:31,702 - INFO - Starting tests
+2024-12-24 12:03:31,703 - INFO - Starting tree generation tests
+2024-12-24 12:03:31,703 - DEBUG - Test 1: Creating 5+5
+2024-12-24 12:03:31,704 - DEBUG - Expression: 5+5
+2024-12-24 12:03:31,704 - DEBUG - Evaluation: 10.0
+2024-12-24 12:03:31,705 - DEBUG - Seed count (5): 2
+2024-12-24 12:03:31,705 - DEBUG - 
+Test 2: Creating 55
+2024-12-24 12:03:31,706 - DEBUG - Expression: 55
+2024-12-24 12:03:31,706 - DEBUG - Evaluation: 55.0
+2024-12-24 12:03:31,706 - DEBUG - Seed count (5): 2
+2024-12-24 12:03:31,706 - DEBUG - 
+Test 3: Creating 5.5
+2024-12-24 12:03:31,707 - DEBUG - Expression: 5.0
+2024-12-24 12:03:31,707 - DEBUG - Evaluation: 0.5
+2024-12-24 12:03:31,711 - DEBUG - Seed count (5): 1
+2024-12-24 12:03:31,711 - DEBUG - 
+Test 4: Creating sqrt(55)
+2024-12-24 12:03:31,711 - DEBUG - Expression: sqrt(55)
+2024-12-24 12:03:31,711 - DEBUG - Evaluation: 7.416198487095663
+2024-12-24 12:03:31,711 - DEBUG - Seed count (5): 2
+2024-12-24 12:03:31,711 - DEBUG - 
+Test 5: Creating (5+5)!
+2024-12-24 12:03:31,712 - DEBUG - Expression: (5+5)!
+2024-12-24 12:03:31,712 - DEBUG - Expected error: Value too large: 3628800.0
+2024-12-24 12:03:31,712 - DEBUG - Seed count (5): 2
+2024-12-24 12:03:31,712 - DEBUG - 
+Test 6: Testing invalid operations
+2024-12-24 12:03:31,712 - DEBUG - 
+Test 7: Testing structure validation
+2024-12-24 12:03:31,713 - DEBUG - Valid structure test: True
+2024-12-24 12:03:31,713 - DEBUG - Invalid structure test: False
+2024-12-24 12:03:31,713 - DEBUG - 
+Test 8: Testing decimal variants
+2024-12-24 12:03:31,713 - DEBUG - Decimal variant 1: 5.0 = 0.5
+2024-12-24 12:03:31,713 - DEBUG - Decimal variant 2: 5.00 = 0.05
+2024-12-24 12:03:31,714 - INFO - 
+Testing solution generation
+2024-12-24 12:03:31,714 - DEBUG - Testing seed=5, target=28
+2024-12-24 12:03:31,714 - DEBUG - Testing expression: (5.0*5)+5.0
+2024-12-24 12:03:31,714 - DEBUG - Structure valid: True
+2024-12-24 12:03:31,715 - DEBUG - Seed count: 3
+2024-12-24 12:03:31,715 - DEBUG - Evaluation: 3.0
+2024-12-24 12:03:31,715 - INFO - Tests completed

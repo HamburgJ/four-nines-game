@@ -15,7 +15,7 @@ export const Navigation = () => {
   return (
     <>
       <Navbar className="px-3">
-        <Navbar.Brand as={Link} to="/" className="game-title me-auto">Game Title</Navbar.Brand>
+        <Navbar.Brand as={Link} to="/" className="game-title me-auto">Four Nines</Navbar.Brand>
         <Nav className="nav-icons">
           <Button
             variant="link"

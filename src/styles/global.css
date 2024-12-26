@@ -132,8 +132,8 @@ body {
 }
 
 /* Theme transitions */
-* {
-  transition: background-color 0.3s ease, color 0.3s ease;
+body, .game-container, .home-card, .nav-icons .nav-link {
+  transition: background-color 0.15s ease-in-out, color 0.15s ease-in-out;
 }
 
 /* High contrast support */
