@@ -33,9 +33,7 @@ jobs:
         env:
           # Pass repository info to Vite for base URL
           VITE_REPO_NAME: ${{ github.event.repository.name }}
-        run: |
-          tsc --transpileOnly
-          vite build
+        run: npm run build
         
       - name: Setup Pages
         uses: actions/configure-pages@v3
