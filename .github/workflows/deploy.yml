@@ -33,7 +33,9 @@ jobs:
         env:
           # Pass repository info to Vite for base URL
           VITE_REPO_NAME: ${{ github.event.repository.name }}
-        run: npm run build
+        run: |
+          tsc --noEmit false
+          npm run build -- --skipTypeCheck
         
       - name: Setup Pages
         uses: actions/configure-pages@v3
@@ -47,7 +49,7 @@ jobs:
     needs: build
     runs-on: ubuntu-latest
     environment:
-      name: 'github-pages'
+      name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
       - name: Deploy to GitHub Pages
