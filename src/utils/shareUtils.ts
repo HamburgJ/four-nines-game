@@ -11,6 +11,12 @@ interface ShareOptions {
   grid?: ResultEmoji[][];
   stats?: GameStats;
   hintsUsed?: number;
+  puzzle?: {
+    target: number;
+    seed: number;
+    date: string;
+  };
+  didSolve: boolean;
 }
 
 interface GameStats {
@@ -23,18 +29,19 @@ interface GameStats {
 }
 
 /**
- * Generate a result grid visual (like Wordle's colored squares)
- * @param grid 2D array of result emojis
- * @returns Formatted string of emojis
+ * Format a date in "MMM dd, yyyy" format
  */
-export const generateResultGrid = (grid: ResultEmoji[][]): string => {
-  return grid.map(row => row.join('')).join('\n');
+const formatDate = (dateStr: string): string => {
+  const date = new Date(dateStr);
+  return date.toLocaleDateString('en-US', { 
+    month: 'short', 
+    day: 'numeric', 
+    year: 'numeric' 
+  });
 };
 
 /**
  * Format time in milliseconds to a readable string
- * @param ms Time in milliseconds
- * @returns Formatted string like "1:23"
  */
 const formatTime = (ms: number): string => {
   const seconds = Math.floor(ms / 1000);
@@ -45,38 +52,22 @@ const formatTime = (ms: number): string => {
 
 /**
  * Generate share text for the game result
- * @param options Share options including score, stats, etc.
- * @returns Formatted share text
  */
 export const generateShareText = (options: ShareOptions): string => {
   const lines: string[] = [];
+  
+  // First line: Solved status and date
+  const statusLine = `I ${options.didSolve ? 'solved' : "didn't solve"} Four Nines puzzle for ${formatDate(options.puzzle?.date || new Date().toISOString())}`;
+  lines.push(statusLine);
 
-  // Title and day number
-  lines.push(`${options.title}${options.dayNumber ? ` #${options.dayNumber}` : ''}`);
-
-  // Score
-  if (options.score !== undefined) {
-    lines.push(`Score: ${options.score}${options.hintsUsed ? ` (${options.hintsUsed} hints used)` : ''}`);
+  // Second line: Puzzle details
+  if (options.puzzle) {
+    lines.push(`Make ${options.puzzle.target} with four ${options.puzzle.seed}s`);
   }
 
-  // Grid
-  if (options.grid) {
-    lines.push('');
-    lines.push(generateResultGrid(options.grid));
-  }
-
-  // Time
-  if (options.timeMs) {
-    lines.push(`Time: ${formatTime(options.timeMs)}`);
-  }
-
-  // Stats
-  if (options.stats) {
-    lines.push('');
-    lines.push(`Played: ${options.stats.gamesPlayed}`);
-    lines.push(`Win Rate: ${Math.round(options.stats.winRate * 100)}%`);
-    lines.push(`Current Streak: ${options.stats.currentStreak}`);
-    lines.push(`Max Streak: ${options.stats.maxStreak}`);
+  // Third line: Hints used
+  if (options.hintsUsed !== undefined) {
+    lines.push(`${options.hintsUsed}/2 Hints used`);
   }
 
   return lines.join('\n');
@@ -84,25 +75,27 @@ export const generateShareText = (options: ShareOptions): string => {
 
 /**
  * Share results using the native share API or fallback to clipboard
- * @param text Text to share
- * @param url Optional URL to share
- * @returns Promise that resolves when sharing is complete
  */
 export const shareResults = async (text: string, url?: string): Promise<void> => {
-  if (navigator.share) {
-    try {
-      await navigator.share({
-        text,
-        url,
-        title: 'Game Results',
-      });
-    } catch (err) {
-      if (err instanceof Error && err.name !== 'AbortError') {
-        await navigator.clipboard.writeText(text);
-      }
+  const shareData = {
+    title: 'Four Nines Puzzle',
+    text,
+    url: url || window.location.href
+  };
+
+  try {
+    if (navigator.share && navigator.canShare(shareData)) {
+      await navigator.share(shareData);
+    } else {
+      await navigator.clipboard.writeText(text);
+      // You might want to show a toast or notification here
+      console.log('Copied to clipboard!');
     }
-  } else {
-    await navigator.clipboard.writeText(text);
+  } catch (err) {
+    if (err instanceof Error && err.name !== 'AbortError') {
+      await navigator.clipboard.writeText(text);
+      console.log('Fallback: Copied to clipboard!');
+    }
   }
 };
 

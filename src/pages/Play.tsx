@@ -9,7 +9,7 @@ import { getTodaysPuzzle, validateAndEvaluate, calculateScore, DailyPuzzle } fro
 import { Alert } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowLeft, faLightbulb, faShare, faBackspace, faFlag } from '@fortawesome/free-solid-svg-icons';
-import { generateShareText } from '../utils/shareUtils';
+import { generateShareText, shareResults } from '../utils/shareUtils';
 import { HintState } from '../types/GameState';
 
 // Define operator groups for the keyboard
@@ -165,15 +165,24 @@ export const Play: React.FC = () => {
   };
 
   const handleShare = async () => {
-    if (gameState.todayCompleted) {
-      const text = generateShareText({
-        title: 'Four Nines',
-        dayNumber: puzzle.puzzleNumber,
-        score: calculateScore(gameState.currentExpression)
-      });
-      await navigator.clipboard.writeText(text);
-      setResultSpace('Copied to clipboard!');
-    }
+    const shareText = generateShareText({
+      title: 'Four Nines',
+      puzzle: {
+        target: puzzle.target,
+        seed: puzzle.seed,
+        date: puzzle.date
+      },
+      didSolve: !gameState.gaveUp,
+      hintsUsed: getTotalHintsUsed(),
+      stats: {
+        gamesPlayed: gameState.gamesPlayed,
+        winRate: gameState.winRate,
+        currentStreak: gameState.currentStreak,
+        maxStreak: gameState.maxStreak
+      }
+    });
+
+    await shareResults(shareText);
   };
 
   const handleRevealHint = () => {

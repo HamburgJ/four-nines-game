@@ -9,6 +9,11 @@ interface GameState {
     operators: string[];
     subtrees: string[];
   };
+  // Stats for sharing
+  gamesPlayed: number;
+  winRate: number;
+  currentStreak: number;
+  maxStreak: number;
 }
 
 const INITIAL_STATE: GameState = {
@@ -19,7 +24,12 @@ const INITIAL_STATE: GameState = {
   hintsUsed: {
     operators: [],
     subtrees: []
-  }
+  },
+  // Initialize stats
+  gamesPlayed: 0,
+  winRate: 0,
+  currentStreak: 0,
+  maxStreak: 0
 };
 
 export const useGameState = () => {
