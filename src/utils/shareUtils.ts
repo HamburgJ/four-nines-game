@@ -56,6 +56,10 @@ const formatTime = (ms: number): string => {
 export const generateShareText = (options: ShareOptions): string => {
   const lines: string[] = [];
   
+  // URL line
+  lines.push(window.location.href);
+  lines.push('');  // Empty line after URL
+  
   // First line: Solved status and date
   const statusLine = `I ${options.didSolve ? 'solved' : "didn't solve"} Four Nines puzzle for ${formatDate(options.puzzle?.date || new Date().toISOString())}`;
   lines.push(statusLine);
