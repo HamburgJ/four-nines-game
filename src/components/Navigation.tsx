@@ -33,6 +33,7 @@ export const Navigation = () => {
           >
             <FontAwesomeIcon icon={faInfoCircle} />
           </Button>
+          {/*
           <Button
             variant="link"
             className="nav-link"
@@ -41,6 +42,7 @@ export const Navigation = () => {
           >
             <FontAwesomeIcon icon={faCog} />
           </Button>
+          */}
         </Nav>
       </Navbar>
 
