@@ -109,7 +109,8 @@ export const validateAndEvaluate = (expression: string, puzzle: DailyPuzzle): {
   }
 
   // Check for invalid characters (excluding parentheses which we'll handle separately)
-  if (!/^[0-9+\-*/^%()!.\s]+$/.test(expression)) {
+  if (!/^[0-9+\-*/^%()!.\ssqrt]+$/.test(expression)) {
+    console.log('Invalid characters in expression:', expression);
     return { isValid: false, error: 'Invalid characters in expression' };
   }
 
@@ -122,12 +123,18 @@ export const validateAndEvaluate = (expression: string, puzzle: DailyPuzzle): {
       expr = expr + ')'.repeat(openCount - closeCount);
     }
 
-    // Replace sqrt with Math.sqrt for mathjs
-    const normalizedExpr = expr.replace(/sqrt/g, 'Math.sqrt');
-    const value = evaluate(normalizedExpr);
+    console.log('Original expression:', expression);
+    console.log('Balanced expression:', expr);
+
+    // No need to replace sqrt - mathjs has its own sqrt function
+    console.log('Expression to evaluate:', expr);
+
+    const value = evaluate(expr);
+    console.log('Evaluated value:', value);
     
     // Check if result is a number
     if (typeof value !== 'number' || isNaN(value)) {
+      console.log('Invalid result type or NaN:', value);
       return { isValid: false, error: 'Invalid expression' };
     }
 
@@ -144,6 +151,7 @@ export const validateAndEvaluate = (expression: string, puzzle: DailyPuzzle): {
       digitCount
     };
   } catch (e) {
+    console.log('Evaluation error:', e);
     return { isValid: false, error: 'Invalid expression' };
   }
 }; 

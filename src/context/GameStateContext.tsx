@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
-import { GameState, DEFAULT_GAME_STATE } from '../types/GameState';
+import { GameState, DEFAULT_GAME_STATE, HintState } from '../types/GameState';
 
 interface GameStateContextType {
   gameState: GameState;
@@ -15,7 +15,18 @@ const STORAGE_KEY = 'gameState';
 export const GameStateProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [gameState, setGameState] = useState<GameState>(() => {
     const stored = localStorage.getItem(STORAGE_KEY);
-    return stored ? JSON.parse(stored) : DEFAULT_GAME_STATE;
+    if (stored) {
+      const parsed = JSON.parse(stored);
+      // Ensure hintsUsed has the correct structure
+      if (!parsed.hintsUsed || typeof parsed.hintsUsed !== 'object') {
+        parsed.hintsUsed = {
+          operators: [],
+          subtrees: []
+        };
+      }
+      return parsed;
+    }
+    return DEFAULT_GAME_STATE;
   });
 
   useEffect(() => {

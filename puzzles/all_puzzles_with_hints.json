@@ -116,24 +116,6 @@
         ]
       }
     },
-    "1": {
-      "expression": "((111 % 1)!)",
-      "complexity": 12,
-      "unique_operators": 2,
-      "hints": {
-        "leaf_values": [
-          "1",
-          "111"
-        ],
-        "operators": [
-          "!",
-          "%"
-        ],
-        "subtrees": [
-          "(111 % 1)"
-        ]
-      }
-    },
     "12": {
       "expression": "((11 + 1) ^ 1)",
       "complexity": 14,
@@ -1236,25 +1218,6 @@
         ]
       }
     },
-    "1": {
-      "seed": 2,
-      "expression": "((222 % 2)!)",
-      "complexity": 12,
-      "unique_operators": 2,
-      "hints": {
-        "leaf_values": [
-          "2",
-          "222"
-        ],
-        "operators": [
-          "!",
-          "%"
-        ],
-        "subtrees": [
-          "(222 % 2)"
-        ]
-      }
-    },
     "10": {
       "seed": 2,
       "expression": "((22 - 2) / 2)",
@@ -1371,24 +1334,6 @@
     }
   },
   "3": {
-    "1": {
-      "expression": "((333 % 3)!)",
-      "complexity": 12,
-      "unique_operators": 2,
-      "hints": {
-        "leaf_values": [
-          "3",
-          "333"
-        ],
-        "operators": [
-          "!",
-          "%"
-        ],
-        "subtrees": [
-          "(333 % 3)"
-        ]
-      }
-    },
     "33": {
       "expression": "(33.3 - 0.3)",
       "complexity": 12,
@@ -2135,24 +2080,6 @@
     }
   },
   "4": {
-    "1": {
-      "expression": "((444 % 4)!)",
-      "complexity": 12,
-      "unique_operators": 2,
-      "hints": {
-        "leaf_values": [
-          "4",
-          "444"
-        ],
-        "operators": [
-          "!",
-          "%"
-        ],
-        "subtrees": [
-          "(444 % 4)"
-        ]
-      }
-    },
     "2": {
       "expression": "(4 - ((4 + 4) / 4))",
       "complexity": 19,
@@ -4386,24 +4313,6 @@
         ]
       }
     },
-    "1": {
-      "expression": "((555 % 5)!)",
-      "complexity": 12,
-      "unique_operators": 2,
-      "hints": {
-        "leaf_values": [
-          "5",
-          "555"
-        ],
-        "operators": [
-          "!",
-          "%"
-        ],
-        "subtrees": [
-          "(555 % 5)"
-        ]
-      }
-    },
     "2": {
       "expression": "((5 / 5) + (5 / 5))",
       "complexity": 19,
@@ -5555,25 +5464,6 @@
         ]
       }
     },
-    "1": {
-      "seed": 6,
-      "expression": "((666 % 6)!)",
-      "complexity": 12,
-      "unique_operators": 2,
-      "hints": {
-        "leaf_values": [
-          "6",
-          "666"
-        ],
-        "operators": [
-          "!",
-          "%"
-        ],
-        "subtrees": [
-          "(666 % 6)"
-        ]
-      }
-    },
     "10": {
       "seed": 6,
       "expression": "((66 - 6) / 6)",
@@ -5877,24 +5767,6 @@
     }
   },
   "7": {
-    "1": {
-      "expression": "((777 % 7)!)",
-      "complexity": 12,
-      "unique_operators": 2,
-      "hints": {
-        "leaf_values": [
-          "7",
-          "777"
-        ],
-        "operators": [
-          "!",
-          "%"
-        ],
-        "subtrees": [
-          "(777 % 7)"
-        ]
-      }
-    },
     "2": {
       "expression": "((7 / 7) + (7 / 7))",
       "complexity": 19,
@@ -6886,24 +6758,6 @@
     }
   },
   "8": {
-    "1": {
-      "expression": "((888 % 8)!)",
-      "complexity": 12,
-      "unique_operators": 2,
-      "hints": {
-        "leaf_values": [
-          "8",
-          "888"
-        ],
-        "operators": [
-          "!",
-          "%"
-        ],
-        "subtrees": [
-          "(888 % 8)"
-        ]
-      }
-    },
     "2": {
       "expression": "((8 / 8) + (8 / 8))",
       "complexity": 19,
@@ -8637,25 +8491,6 @@
         ],
         "subtrees": [
           "(99 - 9)"
-        ]
-      }
-    },
-    "1": {
-      "seed": 9,
-      "expression": "((999 % 9)!)",
-      "complexity": 12,
-      "unique_operators": 2,
-      "hints": {
-        "leaf_values": [
-          "9",
-          "999"
-        ],
-        "operators": [
-          "!",
-          "%"
-        ],
-        "subtrees": [
-          "(999 % 9)"
         ]
       }
     },

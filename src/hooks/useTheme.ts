@@ -3,14 +3,29 @@ import { useGameState } from '../context/GameStateContext';
 
 export const useTheme = () => {
   const { gameState, updateSettings } = useGameState();
-  const { theme } = gameState.settings;
+  const theme = gameState.settings?.theme;
 
+  // Initialize theme and listen for system preference changes
   useEffect(() => {
+    const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
+    
+    // Set initial theme if not set
     if (!theme) {
-      const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-      updateSettings({ theme: prefersDark ? 'dark' : 'light' });
+      updateSettings({ theme: mediaQuery.matches ? 'dark' : 'light' });
     }
-    document.documentElement.setAttribute('data-bs-theme', theme);
+
+    // Update document theme
+    document.documentElement.setAttribute('data-bs-theme', theme || 'light');
+
+    // Listen for system theme changes
+    const handleChange = (e: MediaQueryListEvent) => {
+      if (!localStorage.getItem('gameState')) {
+        updateSettings({ theme: e.matches ? 'dark' : 'light' });
+      }
+    };
+
+    mediaQuery.addEventListener('change', handleChange);
+    return () => mediaQuery.removeEventListener('change', handleChange);
   }, [theme, updateSettings]);
 
   const toggleTheme = () => {
@@ -18,7 +33,7 @@ export const useTheme = () => {
   };
 
   return {
-    theme,
+    theme: theme || 'light',
     toggleTheme,
   };
 }; 

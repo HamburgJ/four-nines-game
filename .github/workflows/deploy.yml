@@ -33,6 +33,7 @@ jobs:
         env:
           # Pass repository info to Vite for base URL
           VITE_REPO_NAME: ${{ github.event.repository.name }}
+          VITE_GA_ID: ${{ secrets.VITE_GA_ID }}
         run: npm run build
         
       - name: Setup Pages

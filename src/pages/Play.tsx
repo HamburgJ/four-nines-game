@@ -1,11 +1,16 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback, useRef } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
+import { Button, Modal } from 'react-bootstrap';
+import { FaArrowLeft, FaLightbulb, FaShare, FaFlag } from 'react-icons/fa';
+import { toast } from 'react-toastify';
+import { useTheme } from '../hooks/useTheme';
 import { useGameState } from '../hooks/useGameState';
 import { getTodaysPuzzle, validateAndEvaluate, calculateScore, DailyPuzzle } from '../utils/gameLogic';
-import { Alert, Button } from 'react-bootstrap';
+import { Alert } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faLightbulb, faShare, faArrowLeft, faBackspace } from '@fortawesome/free-solid-svg-icons';
+import { faArrowLeft, faLightbulb, faShare, faBackspace, faFlag } from '@fortawesome/free-solid-svg-icons';
 import { generateShareText } from '../utils/shareUtils';
-import './Play.css';
+import { HintState } from '../types/GameState';
 
 // Define operator groups for the keyboard
 const OPERATORS = {
@@ -27,6 +32,21 @@ export const Play: React.FC = () => {
   const [resultSpace, setResultSpace] = useState<string>('');
   const [showHint, setShowHint] = useState(false);
   const [timeUntilNext, setTimeUntilNext] = useState<string>('');
+  const [showGiveUpModal, setShowGiveUpModal] = useState(false);
+  const [isMobile, setIsMobile] = useState<boolean>(false);
+
+  // Detect mobile device
+  useEffect(() => {
+    const checkMobile = () => {
+      const userAgent = navigator.userAgent.toLowerCase();
+      const isMobileDevice = /mobile|android|ios|iphone|ipad|ipod|windows phone/i.test(userAgent);
+      setIsMobile(isMobileDevice);
+    };
+
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
 
   useEffect(() => {
     // Check if it's a new day
@@ -35,14 +55,10 @@ export const Play: React.FC = () => {
       setPuzzle(todayPuzzle);
       updateGameState({
         currentExpression: '',
-        todayCompleted: false
-      });
-      // Reset hints
-      updateGameState({
+        todayCompleted: false,
         hintsUsed: {
-          leafValues: false,
-          operators: false,
-          subtrees: 0
+          operators: [],
+          subtrees: []
         }
       });
     }
@@ -86,7 +102,8 @@ export const Play: React.FC = () => {
   };
 
   const handleExpressionChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const expr = e.target.value;
+    // Convert × to * for evaluation
+    const expr = e.target.value.replace(/×/g, '*');
     updateGameState({ currentExpression: expr });
     setCursorPosition(e.target.selectionStart || 0);
     validateExpression(expr);
@@ -101,6 +118,15 @@ export const Play: React.FC = () => {
       const newExpr = expr.slice(0, pos) + '-(())' + expr.slice(pos);
       updateGameState({ currentExpression: newExpr });
       setCursorPosition(pos + 3);
+      validateExpression(newExpr);
+      return;
+    }
+
+    // Special handling for sqrt
+    if (key === 'sqrt') {
+      const newExpr = expr.slice(0, pos) + 'sqrt(' + expr.slice(pos);
+      updateGameState({ currentExpression: newExpr });
+      setCursorPosition(pos + 5);
       validateExpression(newExpr);
       return;
     }
@@ -150,22 +176,23 @@ export const Play: React.FC = () => {
     }
   };
 
-  const handleRevealHint = (type: 'leafValues' | 'operators' | 'subtrees') => {
-    if (type === 'subtrees') {
-      updateGameState({
-        hintsUsed: {
-          ...gameState.hintsUsed,
-          subtrees: gameState.hintsUsed.subtrees + 1
-        }
-      });
-    } else {
-      updateGameState({
-        hintsUsed: {
-          ...gameState.hintsUsed,
-          [type]: true
-        }
-      });
-    }
+  const handleRevealHint = () => {
+    if (!puzzle.solution?.hints) return;
+
+    const totalOperators = puzzle.solution.hints.operators.length;
+    const totalSubtrees = puzzle.solution.hints.subtrees.length;
+    const currentHints = getTotalHintsUsed();
+
+    const newHints: HintState = {
+      operators: currentHints < totalOperators 
+        ? puzzle.solution.hints.operators.slice(0, currentHints + 1)
+        : puzzle.solution.hints.operators,
+      subtrees: currentHints >= totalOperators
+        ? puzzle.solution.hints.subtrees.slice(0, currentHints - totalOperators + 1)
+        : []
+    };
+
+    updateGameState({ hintsUsed: newHints });
     setShowHint(true);
   };
 
@@ -176,89 +203,84 @@ export const Play: React.FC = () => {
     });
   };
 
-  const allHintsUsed = () => {
-    return gameState.hintsUsed.leafValues && 
-           gameState.hintsUsed.operators && 
-           gameState.hintsUsed.subtrees >= (puzzle.solution?.hints?.subtrees?.length || 0);
+  const getTotalHintsUsed = () => {
+    return gameState.hintsUsed.operators.length + gameState.hintsUsed.subtrees.length;
   };
 
-  const getTotalHintsUsed = () => {
-    return (gameState.hintsUsed.leafValues ? 1 : 0) + 
-           (gameState.hintsUsed.operators ? 1 : 0) + 
-           gameState.hintsUsed.subtrees;
+  const allHintsUsed = () => {
+    const totalOperators = puzzle.solution?.hints?.operators?.length || 0;
+    const totalSubtrees = puzzle.solution?.hints?.subtrees?.length || 0;
+    return getTotalHintsUsed() >= (totalOperators + totalSubtrees);
+  };
+
+  const handleGiveUpClick = () => {
+    setShowGiveUpModal(true);
+  };
+
+  const handleGiveUpConfirm = () => {
+    setShowGiveUpModal(false);
+    handleGiveUp();
+  };
+
+  const handleGiveUpCancel = () => {
+    setShowGiveUpModal(false);
   };
 
   const renderHintSummary = () => {
-    const hints = puzzle.solution?.hints;
-    if (!hints) return null;
+    if (!puzzle.solution?.hints) return null;
 
-    // Only render if there are any revealed hints
-    if (!gameState.hintsUsed.leafValues && 
-        !gameState.hintsUsed.operators && 
-        gameState.hintsUsed.subtrees === 0) {
-      return null;
-    }
+    const currentHints = getTotalHintsUsed();
+    if (currentHints === 0) return null;
 
     return (
       <div className="hint-summary">
-        {gameState.hintsUsed.leafValues && (
-          <div className="hint-item">
-            <div className="hint-label">Numbers:</div>
-            <div className="hint-content">{hints.leaf_values.join(' ')}</div>
-          </div>
-        )}
-        {gameState.hintsUsed.operators && (
+        {gameState.hintsUsed.operators.length > 0 && (
           <div className="hint-item">
             <div className="hint-label">Operators:</div>
-            <div className="hint-content">{hints.operators.join(' ')}</div>
+            <div className="hint-content">{gameState.hintsUsed.operators.join(' ')}</div>
           </div>
         )}
-        {gameState.hintsUsed.subtrees > 0 && hints.subtrees.slice(0, gameState.hintsUsed.subtrees).map((tree, i) => (
-          <div key={i} className="hint-item">
-            <div className="hint-label">Subtree {i + 1}:</div>
-            <div className="hint-content">{tree}</div>
+        {gameState.hintsUsed.subtrees.length > 0 && (
+          <div className="hint-item">
+            <div className="hint-label">Solution contains:</div>
+            <div className="hint-content">{gameState.hintsUsed.subtrees.join(', ')}</div>
           </div>
-        ))}
+        )}
       </div>
     );
   };
 
   const renderHintButtons = () => {
+    if (!puzzle.solution?.hints) return null;
+
+    const totalOperators = puzzle.solution.hints.operators.length;
+    const totalSubtrees = puzzle.solution.hints.subtrees.length;
+    const currentHints = getTotalHintsUsed();
+    const isComplete = currentHints >= (totalOperators + totalSubtrees);
+    const totalHints = totalOperators + totalSubtrees;
+
     return (
       <div className="hint-buttons">
         <Button
-          variant="outline-secondary"
-          onClick={() => handleRevealHint('leafValues')}
-          disabled={gameState.hintsUsed.leafValues}
-          className="hint-type-button"
+          variant={isComplete ? "danger" : "outline-secondary"}
+          onClick={isComplete ? handleGiveUpClick : handleRevealHint}
+          disabled={gameState.todayCompleted}
+          className={`hint-type-button ${isComplete ? 'give-up-button' : ''}`}
+          size={isComplete ? "lg" : undefined}
         >
-          <FontAwesomeIcon icon={faLightbulb} className="me-2" />
-          Numbers
-        </Button>
-        <Button
-          variant="outline-secondary"
-          onClick={() => handleRevealHint('operators')}
-          disabled={gameState.hintsUsed.operators}
-          className="hint-type-button"
-        >
-          <FontAwesomeIcon icon={faLightbulb} className="me-2" />
-          Operators
-        </Button>
-        <Button
-          variant="outline-secondary"
-          onClick={() => handleRevealHint('subtrees')}
-          disabled={gameState.hintsUsed.subtrees >= (puzzle.solution?.hints.subtrees?.length || 0)}
-          className="hint-type-button"
-        >
-          <FontAwesomeIcon icon={faLightbulb} className="me-2" />
-          Subtree
+          <FontAwesomeIcon icon={isComplete ? faFlag : faLightbulb} className="me-2" />
+          {isComplete ? "Give Up" : `Hint (${currentHints}/?)`}
         </Button>
       </div>
     );
   };
 
   const renderHintIndicator = () => {
-    const totalHints = 2 + (puzzle.solution?.hints?.subtrees?.length || 0); // Numbers + Operators + Subtrees
+    if (!puzzle.solution?.hints || getTotalHintsUsed() === 0) return null;
+
+    const totalOperators = puzzle.solution.hints.operators.length;
+    const totalSubtrees = puzzle.solution.hints.subtrees.length;
+    const totalHints = totalOperators + totalSubtrees;
     const usedHints = getTotalHintsUsed();
 
     return (
@@ -309,25 +331,34 @@ export const Play: React.FC = () => {
     );
   };
 
+  const renderGiveUpModal = () => {
+    return (
+      <Modal show={showGiveUpModal} onHide={handleGiveUpCancel} centered>
+        <Modal.Header closeButton>
+          <Modal.Title>Give Up?</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          Are you sure you want to give up? The solution will be revealed.
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={handleGiveUpCancel}>
+            Cancel
+          </Button>
+          <Button variant="danger" onClick={handleGiveUpConfirm}>
+            Yes, Give Up
+          </Button>
+        </Modal.Footer>
+      </Modal>
+    );
+  };
+
+  // Function to display expression with × instead of *
+  const displayExpression = (expr: string) => {
+    return expr.replace(/\*/g, '×');
+  };
+
   return (
     <div className="game-container">
-      <div className="game-header">
-        <Button variant="link" className="back-button" onClick={() => window.history.back()}>
-          <FontAwesomeIcon icon={faArrowLeft} />
-        </Button>
-        <div className="puzzle-number">#{puzzle.puzzleNumber}</div>
-        <div className="header-buttons">
-          <Button
-            variant="link"
-            onClick={handleShare}
-            disabled={!gameState.todayCompleted}
-            className="share-button"
-          >
-            <FontAwesomeIcon icon={faShare} />
-          </Button>
-        </div>
-      </div>
-
       <div className="game-content">
         <div className="target-display">
           Make {puzzle.target} with four {puzzle.seed}s
@@ -336,105 +367,95 @@ export const Play: React.FC = () => {
         <div className="expression-container">
           <input
             type="text"
-            value={gameState.currentExpression}
+            value={displayExpression(gameState.currentExpression)}
             onChange={handleExpressionChange}
             onFocus={handleInputFocus}
             onClick={handleInputClick}
             placeholder="Enter your expression..."
             className="expression-input"
             disabled={gameState.todayCompleted}
+            readOnly={isMobile}
+            inputMode={isMobile ? "none" : "text"}
           />
-          {evaluation && evaluation.value !== undefined && (
-            <div className="evaluation-display">
+          <div className="evaluation-display">
+            {evaluation && evaluation.value !== undefined && (
               <span className="value-text">= {evaluation.value}</span>
-            </div>
-          )}
+            )}
+          </div>
         </div>
 
         {renderCompletionState()}
       </div>
 
-      <div className="bottom-controls">
-        {renderHintSummary()}
-        {renderHintIndicator()}
-        <div className="hint-controls">
-          {renderHintButtons()}
-          {!gameState.todayCompleted && allHintsUsed() && (
-            <Button
-              variant="outline-danger"
-              onClick={handleGiveUp}
-              className="give-up-button"
-            >
-              Give Up
-            </Button>
-          )}
-        </div>
-        <div className="keyboard">
-          <div className="keyboard-row">
-            <Button
-              variant={getDigitButtonVariant()}
-              onClick={() => handleKeyPress(puzzle.seed.toString())}
-              className="key-button"
-              disabled={gameState.todayCompleted}
-            >
-              {puzzle.seed}
-            </Button>
-            {OPERATORS.basic.map(op => (
-              <Button
-                key={op}
-                variant="secondary"
-                onClick={() => handleKeyPress(op)}
-                className="key-button"
-                disabled={gameState.todayCompleted}
-              >
-                {op}
-              </Button>
-            ))}
-            <Button
-              variant="secondary"
-              onClick={handleBackspace}
-              className="key-button"
-              disabled={gameState.todayCompleted}
-            >
-              <FontAwesomeIcon icon={faBackspace} />
-            </Button>
+      {!gameState.todayCompleted && (
+        <div className="bottom-controls">
+          {renderHintSummary()}
+          {renderHintIndicator()}
+          <div className="hint-controls">
+            {renderHintButtons()}
           </div>
-          <div className="keyboard-row">
-            {OPERATORS.advanced.map(op => (
+          <div className="keyboard">
+            <div className="keyboard-row">
               <Button
-                key={op}
                 variant="secondary"
-                onClick={() => handleKeyPress(op)}
+                onClick={() => handleKeyPress(puzzle.seed.toString())}
                 className="key-button"
-                disabled={gameState.todayCompleted}
               >
-                {op}
+                {puzzle.seed}
               </Button>
-            ))}
-          </div>
-          <div className="keyboard-row">
-            {OPERATORS.parentheses.map(op => (
+              {OPERATORS.basic.map(op => (
+                <Button
+                  key={op}
+                  variant="secondary"
+                  onClick={() => handleKeyPress(op)}
+                  className="key-button"
+                >
+                  {op === '*' ? '×' : op}
+                </Button>
+              ))}
               <Button
-                key={op}
                 variant="secondary"
-                onClick={() => handleKeyPress(op)}
+                onClick={handleBackspace}
                 className="key-button"
-                disabled={gameState.todayCompleted}
               >
-                {op}
+                <FontAwesomeIcon icon={faBackspace} />
               </Button>
-            ))}
-            <Button
-              variant="danger"
-              onClick={() => updateGameState({ currentExpression: '' })}
-              className="key-button"
-              disabled={gameState.todayCompleted}
-            >
-              Clear
-            </Button>
+            </div>
+            <div className="keyboard-row">
+              {OPERATORS.advanced.map(op => (
+                <Button
+                  key={op}
+                  variant="secondary"
+                  onClick={() => handleKeyPress(op)}
+                  className="key-button"
+                >
+                  {op}
+                </Button>
+              ))}
+            </div>
+            <div className="keyboard-row">
+              {OPERATORS.parentheses.map(op => (
+                <Button
+                  key={op}
+                  variant="secondary"
+                  onClick={() => handleKeyPress(op)}
+                  className="key-button"
+                >
+                  {op}
+                </Button>
+              ))}
+              <Button
+                variant="danger"
+                onClick={() => updateGameState({ currentExpression: '' })}
+                className="key-button"
+              >
+                Clear
+              </Button>
+            </div>
           </div>
         </div>
-      </div>
+      )}
+      {renderGiveUpModal()}
     </div>
   );
 }; 

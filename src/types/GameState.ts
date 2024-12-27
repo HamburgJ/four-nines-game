@@ -11,11 +11,17 @@ export interface GameState {
   winRate: number;
   maxStreak: number;
   todayCompleted: boolean;
+  gaveUp?: boolean;
 
   // Game specific properties
   bestSolutions: { [date: string]: string };
   bestScores: { [date: string]: number };
-  hintsUsed: { [date: string]: number };
+  hintsUsed: HintState;
+}
+
+export interface HintState {
+  operators: string[];
+  subtrees: string[];
 }
 
 export interface GameSettings {
@@ -46,5 +52,8 @@ export const DEFAULT_GAME_STATE: GameState = {
   // Game specific defaults
   bestSolutions: {},
   bestScores: {},
-  hintsUsed: {},
+  hintsUsed: {
+    operators: [],
+    subtrees: []
+  }
 }; 

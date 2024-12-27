@@ -6,9 +6,8 @@ interface GameState {
   gaveUp: boolean;
   date: string;
   hintsUsed: {
-    leafValues: boolean;
-    operators: boolean;
-    subtrees: number;
+    operators: string[];
+    subtrees: string[];
   };
 }
 
@@ -18,9 +17,8 @@ const INITIAL_STATE: GameState = {
   gaveUp: false,
   date: new Date().toISOString().split('T')[0],
   hintsUsed: {
-    leafValues: false,
-    operators: false,
-    subtrees: 0
+    operators: [],
+    subtrees: []
   }
 };
 
