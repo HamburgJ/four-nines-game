@@ -5,7 +5,7 @@ import path from 'path'
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [react()],
-  base: '/four-nines/',
+  base: process.env.CF_PAGES ? '/four-nines/' : process.env.VITE_BASE_URL || '/',
   build: {
     outDir: 'dist',
     sourcemap: true,
