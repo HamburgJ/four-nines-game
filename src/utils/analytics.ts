@@ -17,6 +17,12 @@ export const initGA = () => {
         debug_mode: !isProduction
       }
     });
+    // Send initial pageview
+    ReactGA.send({
+      hitType: "pageview",
+      page: window.location.pathname,
+      title: "Four Nines - Daily Math Puzzle"
+    });
   } catch (error) {
     if (!isProduction) {
       console.warn('Failed to initialize Google Analytics:', error);
@@ -31,7 +37,7 @@ export const logPageView = (page: string) => {
     ReactGA.send({
       hitType: "pageview",
       page,
-      title: page
+      title: "Four Nines - Daily Math Puzzle"
     });
   } catch (error) {
     if (!isProduction) {
