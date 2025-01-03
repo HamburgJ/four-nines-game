@@ -109,10 +109,8 @@ body {
 
 .game-content {
   flex: 1;
-  overflow: hidden;
   display: flex;
   flex-direction: column;
-  min-height: 0;
   justify-content: flex-start;
   align-items: center;
   padding: 0.5rem;
@@ -582,4 +580,105 @@ body, .game-container, .home-card, .nav-icons .nav-link {
   .btn {
     border-width: 2px;
   }
-} 
+}
+
+@media (max-height: 700px) {
+  .navbar {
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+  }
+
+  .game-title {
+    font-size: 1.5rem;
+  }
+
+  .game-content {
+    padding: 0.25rem;
+  }
+  
+  .target-display {
+    margin: 0.25rem 0;
+    font-size: 1.5rem;
+    padding: 0.25rem;
+  }
+
+  .expression-container {
+    padding: 0.25rem;
+    gap: 0.25rem;
+  }
+
+  .expression-input {
+    padding: 0.5rem;
+    font-size: 1rem;
+  }
+
+  .evaluation-display {
+    font-size: 1rem;
+    min-height: 1.25rem;
+    height: 1.25rem;
+    margin: 0.15rem 0;
+  }
+  
+  .keyboard {
+    padding: 0.15rem;
+  }
+
+  .keyboard-row {
+    gap: 0.15rem;
+    margin-bottom: 0.15rem;
+  }
+  
+  .key-button {
+    min-width: 2rem;
+    height: 2rem;
+    font-size: 1rem;
+  }
+  
+  .hint-buttons {
+    padding: 0 0.25rem;
+    gap: 0.15rem;
+  }
+  
+  .hint-type-button {
+    padding: 0.35rem 0.75rem;
+    font-size: 0.9rem;
+    margin: 0.25rem auto;
+  }
+
+  .hint-summary {
+    padding: 0.25rem;
+    font-size: 0.8rem;
+    margin: 0.15rem auto;
+  }
+
+  .hint-item {
+    padding: 0.25rem;
+    gap: 0.5rem;
+  }
+}
+
+@media (max-height: 600px) {
+  .navbar {
+    padding-top: 0.25rem;
+    padding-bottom: 0.25rem;
+  }
+
+  .game-title {
+    font-size: 1.25rem;
+  }
+
+  .target-display {
+    font-size: 1.25rem;
+  }
+
+  .key-button {
+    min-width: 1.75rem;
+    height: 1.75rem;
+    font-size: 0.9rem;
+  }
+
+  .hint-type-button {
+    padding: 0.25rem 0.5rem;
+    font-size: 0.8rem;
+  }
+}
