@@ -53,13 +53,55 @@ class ExpressionParser:
                     raise ValueError("Empty parentheses")
                 continue
             break
-
-        # First check for binary operators at the root level
+            
+        # First check for unary operators
+        if expr.startswith('sqrt('):
+            print("Found sqrt operator")
+            # Find matching closing parenthesis
+            depth = 1
+            for i in range(5, len(expr)):
+                if expr[i] == '(':
+                    depth += 1
+                elif expr[i] == ')':
+                    depth -= 1
+                    if depth == 0:
+                        inner = expr[5:i]
+                        if not inner:
+                            raise ValueError("Empty sqrt()")
+                        return UnaryOpNode('sqrt', self.parse(inner))
+            raise ValueError("Unmatched parenthesis in sqrt")
+            
+        elif expr.endswith('!'):
+            print("Found factorial operator")
+            inner = expr[:-1].strip()
+            if not inner:
+                raise ValueError("Empty factorial")
+            return UnaryOpNode('!', self.parse(inner))
+            
+        elif expr.startswith('-'):
+            print("Found minus sign")
+            # Handle both negative numbers and unary minus
+            if len(expr) > 1 and (expr[1].isdigit() or expr[1] == '.'):
+                print("Treating as negative number")
+                # Negative number
+                try:
+                    return NumberNode(Decimal(expr))
+                except:
+                    raise ValueError(f"Invalid negative number: {expr}")
+            else:
+                print("Treating as unary minus")
+                # Unary minus operator
+                inner = expr[1:].strip()
+                if not inner:
+                    raise ValueError("Empty negation")
+                return UnaryOpNode('neg', self.parse(inner))
+                    
+        # Then look for binary operators at the root level
         # Process operators in order of precedence (highest to lowest)
         operators_by_precedence = [
-            '^',     # Exponentiation (highest precedence)
+            '+-',     # Addition and subtraction (lowest precedence)
             '*/%',   # Multiplication, division, modulo
-            '+-'     # Addition and subtraction (lowest precedence)
+            '^',     # Exponentiation (highest precedence)
         ]
         
         for operators in operators_by_precedence:
@@ -72,7 +114,7 @@ class ExpressionParser:
                     depth -= 1
                 elif depth == 0 and char in operators:
                     # Skip if it's part of a number like "1.0"
-                    if char in '+-' and i > 0 and expr[i-1].isdigit() and i < len(expr)-1 and expr[i+1].isdigit():
+                    if char == '.' and i > 0 and expr[i-1].isdigit() and i < len(expr)-1 and expr[i+1].isdigit():
                         continue
                     # Skip if it's a unary minus
                     if char == '-' and (i == 0 or expr[i-1] in '(+-*/^%'):
@@ -97,89 +139,14 @@ class ExpressionParser:
                         return BinaryOpNode('^', self.parse(left), UnaryOpNode('neg', self.parse(inner)))
                         
                     return BinaryOpNode(char, self.parse(left), self.parse(right))
-
-        # Then check for unary operators if no binary operators were found
-        if expr.startswith('sqrt('):
-            print("Found sqrt operator")
-            # Find matching closing parenthesis
-            depth = 1
-            for i in range(5, len(expr)):
-                if expr[i] == '(':
-                    depth += 1
-                elif expr[i] == ')':
-                    depth -= 1
-                    if depth == 0:
-                        inner = expr[5:i]
-                        if not inner:
-                            raise ValueError("Empty sqrt()")
-                        if i < len(expr) - 1:  # There's more after the sqrt
-                            rest = expr[i+1:].strip()
-                            if rest:
-                                # Handle factorial after sqrt
-                                if rest.startswith('!'):
-                                    if len(rest) > 1:  # If there's more after the factorial
-                                        remaining = rest[1:].strip()
-                                        if remaining[0] not in '+-*/^%':
-                                            raise ValueError(f"Invalid operator after factorial: {remaining[0]}")
-                                        return BinaryOpNode(remaining[0],
-                                                         UnaryOpNode('!', UnaryOpNode('sqrt', self.parse(inner))),
-                                                         self.parse(remaining[1:]))
-                                    return UnaryOpNode('!', UnaryOpNode('sqrt', self.parse(inner)))
-                                # Handle other operators after sqrt
-                                if rest[0] not in '+-*/^%':
-                                    raise ValueError(f"Invalid operator after sqrt: {rest[0]}")
-                                return BinaryOpNode(rest[0], 
-                                                 UnaryOpNode('sqrt', self.parse(inner)),
-                                                 self.parse(rest[1:]))
-                        return UnaryOpNode('sqrt', self.parse(inner))
-            raise ValueError("Unmatched parenthesis in sqrt")
-            
-        elif expr.endswith('!'):
-            print("Found factorial operator")
-            inner = expr[:-1].strip()
-            if not inner:
-                raise ValueError("Empty factorial")
-            # Check if there's more after the factorial when removing parentheses
-            if inner.endswith(')'):
-                paren_depth = 1
-                for i in range(len(inner)-2, -1, -1):
-                    if inner[i] == ')':
-                        paren_depth += 1
-                    elif inner[i] == '(':
-                        paren_depth -= 1
-                        if paren_depth == 0:
-                            if i > 0:  # There's an operator before the parenthetical
-                                op = inner[i-1]
-                                if op in '+-*/^%':
-                                    left = inner[:i-1].strip()
-                                    middle = inner[i:].strip()
-                                    return BinaryOpNode(op,
-                                                     self.parse(left),
-                                                     UnaryOpNode('!', self.parse(middle)))
-                            break
-            return UnaryOpNode('!', self.parse(inner))
-            
-        elif expr.startswith('-'):
-            print("Found minus sign")
-            # Handle both negative numbers and unary minus
-            if len(expr) > 1 and (expr[1].isdigit() or expr[1] == '.'):
-                print("Treating as negative number")
-                # Negative number
-                try:
-                    return NumberNode(Decimal(expr))
-                except:
-                    raise ValueError(f"Invalid negative number: {expr}")
-            else:
-                print("Treating as unary minus")
-                # Unary minus operator
-                inner = expr[1:].strip()
-                if not inner:
-                    raise ValueError("Empty negation")
-                return UnaryOpNode('neg', self.parse(inner))
                     
         # If no operators found, must be a number
         print("No operators found, treating as number")
         try:
+            # Handle decimal numbers
+            if expr.startswith('0.'):
+                return NumberNode(Decimal(expr))
+            # Handle other numbers
             return NumberNode(Decimal(expr))
         except:
             raise ValueError(f"Invalid number: {expr}")
@@ -209,16 +176,20 @@ class ExpressionParser:
         subtrees = set()
         
         def collect_subtrees(n: Node):
-            expr = str(n)
-            # Include all non-trivial expressions that aren't just numbers
-            if not isinstance(n, NumberNode):
-                subtrees.add(expr)
-            
             if isinstance(n, UnaryOpNode):
+                # Add the operand first
                 collect_subtrees(n.operand)
+                # Then add the full unary expression
+                expr = str(n)
+                if not isinstance(n.operand, NumberNode):
+                    subtrees.add(expr)
             elif isinstance(n, BinaryOpNode):
+                # Add left and right subtrees first
                 collect_subtrees(n.left)
                 collect_subtrees(n.right)
+                # Then add the full binary expression
+                expr = str(n)
+                subtrees.add(expr)
                     
         collect_subtrees(node)
         # Sort by length as a proxy for complexity
@@ -243,23 +214,29 @@ class HintGenerator:
         """
         successes = 0
         errors = 0
+        filtered_puzzles = {}
         
         for digit in ['1', '2', '3', '4', '5', '6', '7', '8', '9']:
             print(f"\nProcessing digit {digit}")
+            if digit not in puzzles:
+                continue
+                
+            filtered_puzzles[digit] = {}
             
-            for target in range(1, 101):
-                puzzle_id = f"{digit}->{target}"
-                if puzzle_id not in puzzles:
+            for target_str, puzzle in puzzles[digit].items():
+                target = int(target_str)
+                # Skip puzzles where target is 1
+                if target == 1:
+                    print(f"Skipping puzzle {digit}->{target} (target is 1)")
                     continue
                     
-                puzzle = puzzles[puzzle_id]
                 expr = puzzle.get('expression')
                 if not expr:
-                    print(f"Warning: No expression for puzzle {puzzle_id}")
+                    print(f"Warning: No expression for puzzle {digit}->{target}")
                     errors += 1
                     continue
                     
-                print(f"\nProcessing puzzle {puzzle_id}")
+                print(f"\nProcessing puzzle {digit}->{target}")
                 print(f"Expression: {expr}")
                 
                 try:
@@ -274,20 +251,22 @@ class HintGenerator:
                         'operators': hints.operators,
                         'subtrees': hints.subtrees
                     }
+                    filtered_puzzles[digit][target_str] = puzzle
                     successes += 1
                     
                 except Exception as e:
-                    print(f"Error generating hints for puzzle {puzzle_id}: {e}")
+                    print(f"Error generating hints for puzzle {digit}->{target}: {e}")
                     errors += 1
                     
         print(f"\nProcessed {successes + errors} puzzles total:")
         print(f"Successes: {successes}")
         print(f"Errors: {errors}")
+        print(f"Skipped all puzzles with target=1")
         
         if errors > 0:
-            print(f"\nTotal errors: {errors}")
+            print(f"Warning: {errors} puzzles had errors")
             
-        return puzzles
+        return filtered_puzzles
         
     def generate_hints(self, expr: str) -> ExpressionHints:
         """Generate hints for a puzzle expression.
@@ -358,16 +337,20 @@ class HintGenerator:
         subtrees = set()
         
         def collect_subtrees(n: Node):
-            expr = str(n)
-            # Include all non-trivial expressions that aren't just numbers
-            if not isinstance(n, NumberNode):
-                subtrees.add(expr)
-            
             if isinstance(n, UnaryOpNode):
+                # Add the operand first
                 collect_subtrees(n.operand)
+                # Then add the full unary expression
+                expr = str(n)
+                if not isinstance(n.operand, NumberNode):
+                    subtrees.add(expr)
             elif isinstance(n, BinaryOpNode):
+                # Add left and right subtrees first
                 collect_subtrees(n.left)
                 collect_subtrees(n.right)
+                # Then add the full binary expression
+                expr = str(n)
+                subtrees.add(expr)
                     
         collect_subtrees(node)
         # Sort by length as a proxy for complexity
@@ -422,26 +405,13 @@ def add_hints_to_puzzles(input_file: str, output_file: str, test_puzzle: str = N
             
     else:
         # Normal mode - process all puzzles
-        for digit in sorted(puzzles.keys()):
-            for target in sorted(puzzles[digit].keys()):
-                puzzle = puzzles[digit][target]
-                try:
-                    hints = hint_gen.generate_hints(puzzle['expression'])
-                    puzzle['hints'] = {
-                        'leaf_values': hints.leaf_values,
-                        'operators': hints.operators,
-                        'subtrees': hints.subtrees
-                    }
-                    success_count += 1
-                except Exception as e:
-                    error_count += 1
-                    print(f"Error processing puzzle {digit}->{target}: {e}")
-                    print(f"Expression: {puzzle['expression']}")
+        filtered_puzzles = hint_gen.add_hints_to_puzzles(puzzles)
             
     print(f"\nWriting results to {output_file}")
     try:
         # First verify we can serialize the data
-        json_str = json.dumps(puzzles, indent=2, ensure_ascii=False)
+        output_data = puzzles if test_puzzle else filtered_puzzles
+        json_str = json.dumps(output_data, indent=2, ensure_ascii=False)
         print(f"Successfully serialized {len(json_str)} bytes")
         
         # Write to file
