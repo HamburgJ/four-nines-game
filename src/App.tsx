@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { HashRouter as Router, Routes, Route } from 'react-router-dom';
 import { Container } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -9,6 +10,10 @@ import { Play } from './pages/Play';
 import { GameStateProvider } from './context/GameStateContext';
 
 function App() {
+  useEffect(() => {
+    document.documentElement.setAttribute('data-bs-theme', 'light');
+  }, []);
+
   return (
     <GameStateProvider>
       <Router>

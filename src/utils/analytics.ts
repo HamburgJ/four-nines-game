@@ -1,7 +1,7 @@
 import ReactGA from 'react-ga4';
 
-const GA_ID = process.env.CF_GA_ID || process.env.VITE_GA_ID;
-const isProduction = process.env.NODE_ENV === 'production';
+const GA_ID = import.meta.env.VITE_GA_ID;
+const isProduction = import.meta.env.PROD;
 
 export const initGA = () => {
   if (!GA_ID) {

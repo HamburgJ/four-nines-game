@@ -1,14 +1,9 @@
-import React, { useState, useEffect, useCallback, useRef } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
 import { Button, Modal } from 'react-bootstrap';
-import { FaArrowLeft, FaLightbulb, FaShare, FaFlag } from 'react-icons/fa';
-import { toast } from 'react-toastify';
-import { useTheme } from '../hooks/useTheme';
 import { useGameState } from '../hooks/useGameState';
-import { getTodaysPuzzle, validateAndEvaluate, calculateScore, DailyPuzzle } from '../utils/gameLogic';
-import { Alert } from 'react-bootstrap';
+import { getTodaysPuzzle, validateAndEvaluate, DailyPuzzle } from '../utils/gameLogic';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faArrowLeft, faLightbulb, faShare, faBackspace, faFlag } from '@fortawesome/free-solid-svg-icons';
+import { faLightbulb, faShare, faBackspace, faFlag } from '@fortawesome/free-solid-svg-icons';
 import { generateShareText, shareResults } from '../utils/shareUtils';
 import { HintState } from '../types/GameState';
 
@@ -157,11 +152,10 @@ export const Play: React.FC = () => {
     }
   };
 
-  const getDigitButtonVariant = () => {
-    if (!evaluation) return 'primary';
-    if (!evaluation.isValid) return 'danger';
-    if (evaluation.value === puzzle.target) return 'success';
-    return 'warning';
+  const handleClear = () => {
+    updateGameState({ currentExpression: '' });
+    setCursorPosition(0);
+    validateExpression('');
   };
 
   const handleShare = async () => {
@@ -216,12 +210,6 @@ export const Play: React.FC = () => {
     return gameState.hintsUsed.operators.length + gameState.hintsUsed.subtrees.length;
   };
 
-  const allHintsUsed = () => {
-    const totalOperators = puzzle.solution?.hints?.operators?.length || 0;
-    const totalSubtrees = puzzle.solution?.hints?.subtrees?.length || 0;
-    return getTotalHintsUsed() >= (totalOperators + totalSubtrees);
-  };
-
   const handleGiveUpClick = () => {
     setShowGiveUpModal(true);
   };
@@ -266,7 +254,6 @@ export const Play: React.FC = () => {
     const totalSubtrees = puzzle.solution.hints.subtrees.length;
     const currentHints = getTotalHintsUsed();
     const isComplete = currentHints >= (totalOperators + totalSubtrees);
-    const totalHints = totalOperators + totalSubtrees;
 
     return (
       <div className="hint-buttons">
@@ -285,7 +272,7 @@ export const Play: React.FC = () => {
   };
 
   const renderHintIndicator = () => {
-    if (!puzzle.solution?.hints || getTotalHintsUsed() === 0) return null;
+    if (!puzzle.solution?.hints) return null;
 
     const totalOperators = puzzle.solution.hints.operators.length;
     const totalSubtrees = puzzle.solution.hints.subtrees.length;
@@ -293,7 +280,7 @@ export const Play: React.FC = () => {
     const usedHints = getTotalHintsUsed();
 
     return (
-      <div className="hint-indicator">
+      <div className="hint-indicator" aria-label={`${usedHints} of ${totalHints} hints used`}>
         {Array.from({ length: totalHints }).map((_, i) => (
           <div 
             key={i} 
@@ -368,102 +355,117 @@ export const Play: React.FC = () => {
 
   return (
     <div className="game-container">
-      <div className="game-content">
-        <div className="target-display">
-          Make {puzzle.target} with four {puzzle.seed}s
-        </div>
+      <div className="game-panel">
+        <div className="game-panel-inner">
+          <div className="game-content">
+            <h1 className="puzzle-instruction">
+              Make <span>{puzzle.target}</span> with four <span>{puzzle.seed}s</span>
+            </h1>
 
-        <div className="expression-container">
-          <input
-            type="text"
-            value={displayExpression(gameState.currentExpression)}
-            onChange={handleExpressionChange}
-            onFocus={handleInputFocus}
-            onClick={handleInputClick}
-            placeholder="Enter your expression..."
-            className="expression-input"
-            disabled={gameState.todayCompleted}
-            readOnly={isMobile}
-            inputMode={isMobile ? "none" : "text"}
-          />
-          <div className="evaluation-display">
-            {evaluation && evaluation.value !== undefined && (
-              <span className="value-text">= {evaluation.value}</span>
-            )}
+            <div className="expression-container">
+              <input
+                type="text"
+                value={displayExpression(gameState.currentExpression)}
+                onChange={handleExpressionChange}
+                onFocus={handleInputFocus}
+                onClick={handleInputClick}
+                placeholder="Build your expression..."
+                className="expression-input"
+                disabled={gameState.todayCompleted}
+                readOnly={isMobile}
+                inputMode={isMobile ? "none" : "text"}
+              />
+              <div
+                className={`evaluation-display ${evaluation?.isValid ? 'is-correct' : ''}`}
+                aria-live="polite"
+              >
+                {evaluation && (
+                  <>
+                    {evaluation.value !== undefined && (
+                      <span className="value-text">= {evaluation.value}</span>
+                    )}
+                    <span className="status-detail">
+                      {evaluation.isValid ? 'Solved' : evaluation.error}
+                    </span>
+                  </>
+                )}
+              </div>
+            </div>
+
+            {renderCompletionState()}
           </div>
-        </div>
 
-        {renderCompletionState()}
+          {!gameState.todayCompleted && (
+            <div className="bottom-controls">
+              {renderHintSummary()}
+              <div className="hint-controls">
+                {renderHintButtons()}
+                {renderHintIndicator()}
+              </div>
+              <div className="keyboard" aria-label="Expression keypad">
+                <div className="keyboard-row keyboard-row-main">
+                  <Button
+                    variant="secondary"
+                    onClick={() => handleKeyPress(puzzle.seed.toString())}
+                    className="key-button key-button-digit"
+                  >
+                    {puzzle.seed}
+                  </Button>
+                  {OPERATORS.basic.map(op => (
+                    <Button
+                      key={op}
+                      variant="secondary"
+                      onClick={() => handleKeyPress(op)}
+                      className="key-button"
+                    >
+                      {op === '*' ? '×' : op}
+                    </Button>
+                  ))}
+                  <Button
+                    variant="secondary"
+                    onClick={handleBackspace}
+                    className="key-button key-button-icon"
+                    aria-label="Backspace"
+                  >
+                    <FontAwesomeIcon icon={faBackspace} />
+                  </Button>
+                </div>
+                <div className="keyboard-row keyboard-row-advanced">
+                  {OPERATORS.advanced.map(op => (
+                    <Button
+                      key={op}
+                      variant="secondary"
+                      onClick={() => handleKeyPress(op)}
+                      className="key-button"
+                    >
+                      {op}
+                    </Button>
+                  ))}
+                </div>
+                <div className="keyboard-row keyboard-row-compact">
+                  {OPERATORS.parentheses.map(op => (
+                    <Button
+                      key={op}
+                      variant="secondary"
+                      onClick={() => handleKeyPress(op)}
+                      className="key-button"
+                    >
+                      {op}
+                    </Button>
+                  ))}
+                  <Button
+                    variant="danger"
+                    onClick={handleClear}
+                    className="key-button key-button-clear"
+                  >
+                    Clear
+                  </Button>
+                </div>
+              </div>
+            </div>
+          )}
+        </div>
       </div>
-
-      {!gameState.todayCompleted && (
-        <div className="bottom-controls">
-          {renderHintSummary()}
-          {renderHintIndicator()}
-          <div className="hint-controls">
-            {renderHintButtons()}
-          </div>
-          <div className="keyboard">
-            <div className="keyboard-row">
-              <Button
-                variant="secondary"
-                onClick={() => handleKeyPress(puzzle.seed.toString())}
-                className="key-button"
-              >
-                {puzzle.seed}
-              </Button>
-              {OPERATORS.basic.map(op => (
-                <Button
-                  key={op}
-                  variant="secondary"
-                  onClick={() => handleKeyPress(op)}
-                  className="key-button"
-                >
-                  {op === '*' ? '×' : op}
-                </Button>
-              ))}
-              <Button
-                variant="secondary"
-                onClick={handleBackspace}
-                className="key-button"
-              >
-                <FontAwesomeIcon icon={faBackspace} />
-              </Button>
-            </div>
-            <div className="keyboard-row">
-              {OPERATORS.advanced.map(op => (
-                <Button
-                  key={op}
-                  variant="secondary"
-                  onClick={() => handleKeyPress(op)}
-                  className="key-button"
-                >
-                  {op}
-                </Button>
-              ))}
-            </div>
-            <div className="keyboard-row">
-              {OPERATORS.parentheses.map(op => (
-                <Button
-                  key={op}
-                  variant="secondary"
-                  onClick={() => handleKeyPress(op)}
-                  className="key-button"
-                >
-                  {op}
-                </Button>
-              ))}
-              <Button
-                variant="danger"
-                onClick={() => updateGameState({ currentExpression: '' })}
-                className="key-button"
-              >
-                Clear
-              </Button>
-            </div>
-          </div>
-        </div>
-      )}
       {renderGiveUpModal()}
     </div>
   );

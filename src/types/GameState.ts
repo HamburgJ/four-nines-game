@@ -26,14 +26,8 @@ export interface HintState {
 
 export interface GameSettings {
   // Built-in settings
-  theme: 'light' | 'dark';
+  theme: 'light';
 }
-
-// Get initial theme from system preference
-const getInitialTheme = (): 'light' | 'dark' => {
-  if (typeof window === 'undefined') return 'light';
-  return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
-};
 
 export const DEFAULT_GAME_STATE: GameState = {
   // Built-in defaults
@@ -41,7 +35,7 @@ export const DEFAULT_GAME_STATE: GameState = {
   lastPlayed: null,
   streak: 0,
   settings: {
-    theme: getInitialTheme(),
+    theme: 'light',
   },
   // Game completion defaults
   gamesPlayed: 0,
