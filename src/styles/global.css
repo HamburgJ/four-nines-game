@@ -80,6 +80,45 @@ a {
   gap: 0.5rem;
 }
 
+.burgerfun-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.45rem;
+  min-height: 2.35rem;
+  padding: 0.28rem 0.72rem 0.28rem 0.42rem;
+  border: 2px solid #303942;
+  border-radius: 999px;
+  background: var(--surface);
+  color: var(--ink);
+  box-shadow: 0 4px 0 #e7d9c6;
+  font-size: 0.78rem;
+  font-weight: 900;
+  line-height: 1;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: transform 0.16s ease, box-shadow 0.16s ease, color 0.16s ease;
+}
+
+.burgerfun-link img {
+  display: block;
+  width: 1.55rem;
+  height: 1.55rem;
+  user-select: none;
+}
+
+.burgerfun-link span {
+  display: block;
+}
+
+.burgerfun-link:hover,
+.burgerfun-link:focus {
+  color: var(--accent-dark);
+  outline: none;
+  transform: translateY(-1px);
+  box-shadow: 0 5px 0 #ead8b6;
+}
+
 .nav-icons .nav-link {
   display: inline-grid;
   place-items: center;

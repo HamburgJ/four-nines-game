@@ -15,6 +15,10 @@ export const Navigation = () => {
           Four Nines
         </Navbar.Brand>
         <Nav className="nav-icons">
+          <a href="/" className="burgerfun-link" aria-label="burger fun home">
+            <img src="/burger-icon-simple.svg" alt="" draggable="false" />
+            <span>burger fun</span>
+          </a>
           <Button
             variant="link"
             className="nav-link"
