@@ -8,7 +8,7 @@ import {
   getPuzzleForDateString,
   getTodayDateString,
   validateAndEvaluate,
-  FIRST_PUZZLE_DATE,
+  isPlayableDateString,
   DailyPuzzle,
 } from '../utils/gameLogic';
 import { countSymbols } from '../utils/solver';
@@ -30,8 +30,6 @@ const OPERATORS = {
   parentheses: ['(', ')'],
 };
 
-const DATE_PATTERN = /^\d{4}-\d{2}-\d{2}$/;
-
 const initRecord = (puzzle: DailyPuzzle, live: boolean): DayRecord => {
   if (live) {
     migrateLegacyState(puzzle.date, puzzle.seed, puzzle.target);
@@ -46,12 +44,13 @@ const initRecord = (puzzle: DailyPuzzle, live: boolean): DayRecord => {
 export const Play: React.FC = () => {
   const { date: dateParam } = useParams<{ date: string }>();
   const todayStr = getTodayDateString();
-  const dateStr = dateParam || todayStr;
+  // Validate BEFORE computing the puzzle: getPuzzleForDateString crashes on
+  // unparseable dates, and lenient rollover dates (2024-02-30) would create
+  // phantom puzzles. When invalid, fall back to today so the hooks below stay
+  // safe; the <Navigate> guard before render then redirects to /play.
+  const validDate = !dateParam || isPlayableDateString(dateParam, todayStr);
+  const dateStr = validDate && dateParam ? dateParam : todayStr;
   const isArchive = dateStr !== todayStr;
-
-  const validDate =
-    !dateParam ||
-    (DATE_PATTERN.test(dateParam) && dateParam >= FIRST_PUZZLE_DATE && dateParam <= todayStr);
 
   const puzzle = useMemo(() => getPuzzleForDateString(dateStr), [dateStr]);
   const parInfo = useMemo(() => getParInfo(puzzle.seed, puzzle.target), [puzzle.seed, puzzle.target]);

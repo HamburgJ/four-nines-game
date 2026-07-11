@@ -43,6 +43,19 @@ export const FIRST_PUZZLE_DATE = '2024-01-01';
 // Today's puzzle date key (UTC, matching the original daily scheme)
 export const getTodayDateString = (): string => new Date().toISOString().split('T')[0];
 
+// Whether a string names a real calendar date (strict YYYY-MM-DD) inside the
+// playable range [FIRST_PUZZLE_DATE, todayStr]. Guards the /play/:date route:
+// getPuzzleForDateString must never be called with an unparseable date
+// (Date.parse -> NaN crashes seed selection) or a rollover date like
+// 2024-02-30 (which Chrome parses leniently as March 1).
+export const isPlayableDateString = (dateStr: string, todayStr: string): boolean => {
+  if (!/^\d{4}-\d{2}-\d{2}$/.test(dateStr)) return false;
+  const parsed = Date.parse(dateStr);
+  if (Number.isNaN(parsed)) return false;
+  if (new Date(parsed).toISOString().split('T')[0] !== dateStr) return false;
+  return dateStr >= FIRST_PUZZLE_DATE && dateStr <= todayStr;
+};
+
 // Get puzzle for a specific date key (YYYY-MM-DD). This is the canonical,
 // deterministic mapping used by both the daily puzzle and the archive.
 export const getPuzzleForDateString = (dateStr: string): DailyPuzzle => {

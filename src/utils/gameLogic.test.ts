@@ -3,6 +3,7 @@ import {
   getPuzzleForDate,
   getPuzzleForDateString,
   validateAndEvaluate,
+  isPlayableDateString,
   FIRST_PUZZLE_DATE,
 } from './gameLogic';
 import { getParInfo } from './parData';
@@ -38,6 +39,34 @@ describe('daily puzzle generation', () => {
       expect(par, `${puzzle.date}: seed ${puzzle.seed} target ${puzzle.target}`).toBeDefined();
       expect(par!.par).toBeGreaterThan(0);
     }
+  });
+});
+
+describe('isPlayableDateString', () => {
+  const today = '2026-07-11';
+
+  it('accepts real dates inside the playable range', () => {
+    expect(isPlayableDateString(FIRST_PUZZLE_DATE, today)).toBe(true);
+    expect(isPlayableDateString('2025-02-28', today)).toBe(true);
+    expect(isPlayableDateString('2024-02-29', today)).toBe(true); // leap day
+    expect(isPlayableDateString(today, today)).toBe(true);
+  });
+
+  it('rejects dates outside the range', () => {
+    expect(isPlayableDateString('2023-12-31', today)).toBe(false);
+    expect(isPlayableDateString('2026-07-12', today)).toBe(false);
+  });
+
+  it('rejects unparseable strings that would crash puzzle generation', () => {
+    expect(isPlayableDateString('not-a-date', today)).toBe(false);
+    expect(isPlayableDateString('2024-99-99', today)).toBe(false);
+    expect(isPlayableDateString('9999-99-99', today)).toBe(false);
+  });
+
+  it('rejects rollover dates that Chrome parses leniently', () => {
+    expect(isPlayableDateString('2024-02-30', today)).toBe(false);
+    expect(isPlayableDateString('2025-04-31', today)).toBe(false);
+    expect(isPlayableDateString('2025-02-29', today)).toBe(false); // not a leap year
   });
 });
 
