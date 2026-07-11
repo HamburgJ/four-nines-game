@@ -564,6 +564,48 @@ body {
   color: var(--text-secondary);
 }
 
+/* Post-solve cross-promo strip */
+.cross-promo {
+  margin-top: 1.5rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--border-color);
+  width: 100%;
+  max-width: 420px;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  text-align: center;
+}
+
+.cross-promo-heading {
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-secondary);
+}
+
+.cross-promo-link {
+  text-decoration: none;
+  line-height: 1.4;
+}
+
+.cross-promo-link:hover .cross-promo-name {
+  text-decoration: underline;
+}
+
+.cross-promo-name {
+  display: block;
+  font-weight: 600;
+  color: var(--primary-color);
+}
+
+.cross-promo-blurb {
+  display: block;
+  font-size: 0.875rem;
+  color: var(--text-secondary);
+}
+
 /* Archive styles */
 .archive-banner {
   display: flex;

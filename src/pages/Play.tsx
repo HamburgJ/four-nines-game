@@ -15,13 +15,23 @@ import { countSymbols } from '../utils/solver';
 import { getParInfo, buildHints, TOTAL_HINTS } from '../utils/parData';
 import {
   DayRecord,
+  STREAK_MILESTONES,
   createRecord,
   getRecord,
+  loadRecords,
   saveRecord,
   migrateLegacyState,
+  streakAfterLiveSolve,
 } from '../utils/records';
 import { generateShareText, buildResultLine, copyShareText } from '../utils/shareUtils';
-import { logGameEvent } from '../utils/analytics';
+import {
+  logGameEvent,
+  logShareClicked,
+  logHintUsed,
+  logArchivePlay,
+  logStreakMilestone,
+} from '../utils/analytics';
+import { CrossPromo } from '../components/CrossPromo';
 
 // Define operator groups for the keyboard
 const OPERATORS = {
@@ -81,6 +91,9 @@ export const Play: React.FC = () => {
         ? validateAndEvaluate(loaded.currentExpression, puzzle)
         : null
     );
+    if (isArchive) {
+      logArchivePlay(puzzle.date);
+    }
   }, [puzzle.date]);
 
   // Detect mobile device
@@ -142,6 +155,14 @@ export const Play: React.FC = () => {
       timeMs: startedAt !== undefined ? Date.now() - startedAt : undefined,
     });
     logGameEvent('solve', isArchive ? 'archive' : 'daily', symbols);
+    if (!isArchive) {
+      // streakAfterLiveSolve does not need today's record persisted yet, so
+      // this is safe even though updateRecord saves asynchronously.
+      const streak = streakAfterLiveSolve(loadRecords(), puzzle.date);
+      if (STREAK_MILESTONES.includes(streak)) {
+        logStreakMilestone(streak);
+      }
+    }
   };
 
   const validateExpression = (expr: string, startedAt: number | undefined) => {
@@ -224,6 +245,7 @@ export const Play: React.FC = () => {
   });
 
   const handleShare = async () => {
+    logShareClicked(isArchive ? 'archive' : 'daily');
     const text = generateShareText(shareResult());
     const copied = await copyShareText(text);
     if (copied) {
@@ -238,6 +260,7 @@ export const Play: React.FC = () => {
     if (record.hintsUsed >= TOTAL_HINTS) return;
     updateRecord({ hintsUsed: record.hintsUsed + 1 });
     logGameEvent('hint', `hint-${record.hintsUsed + 1}`);
+    logHintUsed(record.hintsUsed + 1);
   };
 
   const handleGiveUp = () => {
@@ -357,6 +380,7 @@ export const Play: React.FC = () => {
         ) : (
           <div className="next-puzzle-timer">Next puzzle in {timeUntilNext}</div>
         )}
+        {!isArchive && <CrossPromo dateStr={puzzle.date} />}
       </div>
     );
   };
