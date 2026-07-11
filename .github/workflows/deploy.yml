@@ -1,8 +1,13 @@
 name: Deploy to GitHub Pages
 
+# The GitHub Pages deployment now serves a redirect page pointing to
+# https://burgerfun.ca/four-nines/ (the canonical home of Four Nines).
+# The playable game is still built from this repo by the burgerfun site,
+# which vendors it as a submodule — nothing about that build changes here.
+
 on:
   push:
-    branches: main 
+    branches: main
   workflow_dispatch:
 
 permissions:
@@ -15,34 +20,15 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      
-      - name: Set up Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: '18'
-          
-      - name: Set deployment variables
-        run: |
-          echo "VITE_BASE_URL=/${{ github.event.repository.name }}" >> $GITHUB_ENV
-          
-      - name: Install dependencies
-        run: npm install --legacy-peer-deps
-        
-      - name: Build
-        env:
-          # Pass repository info to Vite for base URL
-          VITE_REPO_NAME: ${{ github.event.repository.name }}
-          VITE_GA_ID: ${{ secrets.VITE_GA_ID }}
-        run: npm run build
-        
+
       - name: Setup Pages
         uses: actions/configure-pages@v3
-        
-      - name: Upload artifact
+
+      - name: Upload redirect page artifact
         uses: actions/upload-pages-artifact@v2
         with:
-          path: './dist'
-          
+          path: './pages-redirect'
+
   deploy:
     needs: build
     runs-on: ubuntu-latest
@@ -52,4 +38,4 @@ jobs:
     steps:
       - name: Deploy to GitHub Pages
         id: deployment
-        uses: actions/deploy-pages@v2 
+        uses: actions/deploy-pages@v2
