@@ -51,6 +51,14 @@ export const InfoModal: React.FC<InfoModalProps> = ({ show, onHide }) => {
           <li>Intermediate results can be any real number</li>
         </ul>
 
+        <h5>Par, Hints and Streaks</h5>
+        <ul>
+          <li>Every symbol you type (operators, decimal points) counts toward your score — parentheses are free</li>
+          <li><strong>Par</strong> is the fewest symbols any solution needs; try to match it</li>
+          <li>Three escalating hints are available each day; using them is noted in your result</li>
+          <li>Solving the daily puzzle on its day extends your streak — check the archive to play past days</li>
+        </ul>
+
         <h5>Examples</h5>
         <p>If you have the digit 4 and need to reach 1:</p>
         <ul>

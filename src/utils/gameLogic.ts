@@ -37,17 +37,34 @@ const seededRandom = (seed: number, min: number, max: number): number => {
   return Math.floor(rand * (max - min + 1)) + min;
 };
 
-// Get puzzle for a specific date
-export const getPuzzleForDate = (date: Date): DailyPuzzle => {
-  // Convert date to YYYY-MM-DD format
-  const dateStr = date.toISOString().split('T')[0];
-  
+// The date of puzzle #1
+export const FIRST_PUZZLE_DATE = '2024-01-01';
+
+// Today's puzzle date key (UTC, matching the original daily scheme)
+export const getTodayDateString = (): string => new Date().toISOString().split('T')[0];
+
+// Whether a string names a real calendar date (strict YYYY-MM-DD) inside the
+// playable range [FIRST_PUZZLE_DATE, todayStr]. Guards the /play/:date route:
+// getPuzzleForDateString must never be called with an unparseable date
+// (Date.parse -> NaN crashes seed selection) or a rollover date like
+// 2024-02-30 (which Chrome parses leniently as March 1).
+export const isPlayableDateString = (dateStr: string, todayStr: string): boolean => {
+  if (!/^\d{4}-\d{2}-\d{2}$/.test(dateStr)) return false;
+  const parsed = Date.parse(dateStr);
+  if (Number.isNaN(parsed)) return false;
+  if (new Date(parsed).toISOString().split('T')[0] !== dateStr) return false;
+  return dateStr >= FIRST_PUZZLE_DATE && dateStr <= todayStr;
+};
+
+// Get puzzle for a specific date key (YYYY-MM-DD). This is the canonical,
+// deterministic mapping used by both the daily puzzle and the archive.
+export const getPuzzleForDateString = (dateStr: string): DailyPuzzle => {
   // Create a seed from the date
   const dateSeed = Date.parse(dateStr);
-  
-  // Generate puzzle number (days since Jan 1, 2024)
-  const startDate = new Date('2024-01-01');
-  const puzzleNumber = Math.floor((date.getTime() - startDate.getTime()) / (1000 * 60 * 60 * 24)) + 1;
+
+  // Generate puzzle number (days since Jan 1, 2024). Equivalent to the
+  // original Date-based computation since dateStr is the UTC date.
+  const puzzleNumber = Math.floor((dateSeed - Date.parse(FIRST_PUZZLE_DATE)) / (1000 * 60 * 60 * 24)) + 1;
 
   // Get all available seeds and their targets
   const availableSeeds = Object.keys(puzzleData).map(Number);
@@ -71,6 +88,11 @@ export const getPuzzleForDate = (date: Date): DailyPuzzle => {
     puzzleNumber,
     solution
   };
+};
+
+// Get puzzle for a specific date
+export const getPuzzleForDate = (date: Date): DailyPuzzle => {
+  return getPuzzleForDateString(date.toISOString().split('T')[0]);
 };
 
 // Get today's puzzle
@@ -103,15 +125,20 @@ export const validateAndEvaluate = (expression: string, puzzle: DailyPuzzle): {
   // Count occurrences of the seed digit
   const digitCount = countDigitOccurrences(expression, puzzle.seed);
   let error = undefined;
-  
+
   if (digitCount !== 4) {
     error = digitCount < 4 ? 'Not enough digits' : 'Too many digits';
   }
 
   // Check for invalid characters (excluding parentheses which we'll handle separately)
   if (!/^[0-9+\-*/^%()!.\ssqrt]+$/.test(expression)) {
-    console.log('Invalid characters in expression:', expression);
     return { isValid: false, error: 'Invalid characters in expression' };
+  }
+
+  // Only the seed digit may be used (the rules allow no other digits)
+  const foreignDigit = (expression.match(/[0-9]/g) || []).find(d => d !== puzzle.seed.toString());
+  if (foreignDigit !== undefined) {
+    return { isValid: false, error: `Only the digit ${puzzle.seed} can be used` };
   }
 
   try {
@@ -123,18 +150,11 @@ export const validateAndEvaluate = (expression: string, puzzle: DailyPuzzle): {
       expr = expr + ')'.repeat(openCount - closeCount);
     }
 
-    console.log('Original expression:', expression);
-    console.log('Balanced expression:', expr);
-
     // No need to replace sqrt - mathjs has its own sqrt function
-    console.log('Expression to evaluate:', expr);
-
     const value = evaluate(expr);
-    console.log('Evaluated value:', value);
-    
+
     // Check if result is a number
     if (typeof value !== 'number' || isNaN(value)) {
-      console.log('Invalid result type or NaN:', value);
       return { isValid: false, error: 'Invalid expression' };
     }
 
@@ -151,7 +171,6 @@ export const validateAndEvaluate = (expression: string, puzzle: DailyPuzzle): {
       digitCount
     };
   } catch (e) {
-    console.log('Evaluation error:', e);
     return { isValid: false, error: 'Invalid expression' };
   }
 }; 

@@ -26,6 +26,11 @@ export const Home: React.FC = () => {
             Play Today's Puzzle
           </Button>
         </Link>
+        <Link to="/archive">
+          <Button variant="outline-secondary" className="w-100">
+            Play the Archive
+          </Button>
+        </Link>
       </div>
     </Container>
   );
