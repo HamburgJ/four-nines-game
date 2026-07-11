@@ -1,5 +1,3 @@
-import { getTodaysSeed } from './gameUtils';
-
 type ResultEmoji = '⬛' | '🟨' | '🟩' | '🟦' | '🟥' | '⬜'; // Add more as needed
 
 interface ShareOptions {
@@ -80,7 +78,9 @@ export const generateShareText = (options: ShareOptions): string => {
 /**
  * Share results using the native share API or fallback to clipboard
  */
-export const shareResults = async (text: string, url?: string): Promise<void> => {
+export type ShareMethod = 'native' | 'clipboard' | 'cancelled';
+
+export const shareResults = async (text: string, url?: string): Promise<ShareMethod> => {
   const shareData = {
     title: 'Four Nines Puzzle',
     text,
@@ -90,16 +90,15 @@ export const shareResults = async (text: string, url?: string): Promise<void> =>
   try {
     if (navigator.share && navigator.canShare(shareData)) {
       await navigator.share(shareData);
+      return 'native';
     } else {
       await navigator.clipboard.writeText(text);
-      // You might want to show a toast or notification here
-      console.log('Copied to clipboard!');
+      return 'clipboard';
     }
   } catch (err) {
-    if (err instanceof Error && err.name !== 'AbortError') {
-      await navigator.clipboard.writeText(text);
-      console.log('Fallback: Copied to clipboard!');
-    }
+    if (err instanceof Error && err.name === 'AbortError') return 'cancelled';
+    await navigator.clipboard.writeText(text);
+    return 'clipboard';
   }
 };
 
@@ -128,4 +127,4 @@ export const compareStats = (myStats: GameStats, friendStats: GameStats): string
   }
   
   return lines.join('\n');
-}; 
+};

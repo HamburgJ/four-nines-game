@@ -1,5 +1,5 @@
-import { evaluate } from 'mathjs';
 import allPuzzles from '../../puzzles/all_puzzles_with_hints.json';
+import { evaluateExpression } from './expressionEvaluator';
 
 export interface PuzzleHints {
   leaf_values: string[];
@@ -22,6 +22,20 @@ type PuzzleMap = {
 
 const puzzleData = allPuzzles as PuzzleMap;
 
+export const getLocalDateKey = (date = new Date()): string => {
+  const year = date.getFullYear();
+  const month = String(date.getMonth() + 1).padStart(2, '0');
+  const day = String(date.getDate()).padStart(2, '0');
+  return `${year}-${month}-${day}`;
+};
+
+export const getMillisecondsUntilNextPuzzle = (date = new Date()): number => {
+  const nextDay = new Date(date);
+  nextDay.setDate(nextDay.getDate() + 1);
+  nextDay.setHours(0, 0, 0, 0);
+  return Math.max(0, nextDay.getTime() - date.getTime());
+};
+
 export interface DailyPuzzle {
   seed: number;
   target: number;
@@ -39,15 +53,16 @@ const seededRandom = (seed: number, min: number, max: number): number => {
 
 // Get puzzle for a specific date
 export const getPuzzleForDate = (date: Date): DailyPuzzle => {
-  // Convert date to YYYY-MM-DD format
-  const dateStr = date.toISOString().split('T')[0];
+  // A daily puzzle follows the player's local calendar day. Using UTC here while
+  // counting down to local midnight made the puzzle change hours before the timer.
+  const dateStr = getLocalDateKey(date);
   
   // Create a seed from the date
-  const dateSeed = Date.parse(dateStr);
+  const dateSeed = Date.UTC(date.getFullYear(), date.getMonth(), date.getDate());
   
   // Generate puzzle number (days since Jan 1, 2024)
-  const startDate = new Date('2024-01-01');
-  const puzzleNumber = Math.floor((date.getTime() - startDate.getTime()) / (1000 * 60 * 60 * 24)) + 1;
+  const startDate = Date.UTC(2024, 0, 1);
+  const puzzleNumber = Math.floor((dateSeed - startDate) / (1000 * 60 * 60 * 24)) + 1;
 
   // Get all available seeds and their targets
   const availableSeeds = Object.keys(puzzleData).map(Number);
@@ -129,7 +144,7 @@ export const validateAndEvaluate = (expression: string, puzzle: DailyPuzzle): {
     // No need to replace sqrt - mathjs has its own sqrt function
     console.log('Expression to evaluate:', expr);
 
-    const value = evaluate(expr);
+    const value = evaluateExpression(expr);
     console.log('Evaluated value:', value);
     
     // Check if result is a number
@@ -154,4 +169,4 @@ export const validateAndEvaluate = (expression: string, puzzle: DailyPuzzle): {
     console.log('Evaluation error:', e);
     return { isValid: false, error: 'Invalid expression' };
   }
-}; 
+};

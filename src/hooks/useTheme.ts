@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { useGameState } from '../context/GameStateContext';
+import { useGameState } from './useGameState';
 
 export const useTheme = () => {
   const { gameState, updateSettings } = useGameState();

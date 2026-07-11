@@ -1,6 +1,6 @@
 import ReactGA from 'react-ga4';
 
-const GA_ID = import.meta.env.VITE_GA_ID;
+const GA_ID = import.meta.env.VITE_GA_ID || import.meta.env.CF_GA_ID;
 const isProduction = import.meta.env.PROD;
 
 export const initGA = () => {

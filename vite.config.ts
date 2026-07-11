@@ -5,10 +5,11 @@ import path from 'path'
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [react()],
+  envPrefix: ['VITE_', 'CF_'],
   base: process.env.VITE_BASE_URL || (process.env.CF_PAGES ? '/four-nines/' : '/'),
   build: {
     outDir: 'dist',
-    sourcemap: true,
+    sourcemap: false,
   },
   resolve: {
     alias: {

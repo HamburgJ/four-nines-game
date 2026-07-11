@@ -1,5 +1,5 @@
 import { Modal, Form, Button } from 'react-bootstrap';
-import { useGameState } from '../context/GameStateContext';
+import { useGameState } from '../hooks/useGameState';
 
 interface SettingsModalProps {
   show: boolean;

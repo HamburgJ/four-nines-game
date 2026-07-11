@@ -1,53 +1,28 @@
-export interface GameState {
-  // Built-in state properties
-  currentExpression: string;
-  lastPlayed: string | null;
-  streak: number;
-  settings: GameSettings;
-  
-  // Game completion tracking
-  gamesPlayed: number;
-  wins: number;
-  winRate: number;
-  maxStreak: number;
-  todayCompleted: boolean;
-  gaveUp?: boolean;
-
-  // Game specific properties
-  bestSolutions: { [date: string]: string };
-  bestScores: { [date: string]: number };
-  hintsUsed: HintState;
-}
-
 export interface HintState {
   operators: string[];
   subtrees: string[];
 }
 
 export interface GameSettings {
-  // Built-in settings
   theme: 'light';
 }
 
-export const DEFAULT_GAME_STATE: GameState = {
-  // Built-in defaults
-  currentExpression: '',
-  lastPlayed: null,
-  streak: 0,
-  settings: {
-    theme: 'light',
-  },
-  // Game completion defaults
-  gamesPlayed: 0,
-  wins: 0,
-  winRate: 0,
-  maxStreak: 0,
-  todayCompleted: false,
-  // Game specific defaults
-  bestSolutions: {},
-  bestScores: {},
-  hintsUsed: {
-    operators: [],
-    subtrees: []
-  }
-}; 
+export interface GameState {
+  schemaVersion: 2;
+  date: string;
+  currentExpression: string;
+  lastPlayed: string | null;
+  settings: GameSettings;
+  gamesPlayed: number;
+  wins: number;
+  winRate: number;
+  currentStreak: number;
+  maxStreak: number;
+  todayCompleted: boolean;
+  gaveUp: boolean;
+  bestSolutions: Record<string, string>;
+  bestScores: Record<string, number>;
+  hintsUsed: HintState;
+}
+
+export type GameOutcome = 'solved' | 'gave_up';

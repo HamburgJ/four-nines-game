@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faInfoCircle } from '@fortawesome/free-solid-svg-icons';
 import { InfoModal } from './InfoModal';
+import { logGameEvent } from '../utils/analytics';
 
 export const Navigation = () => {
   const [showInfo, setShowInfo] = useState(false);
@@ -15,7 +16,12 @@ export const Navigation = () => {
           Four Nines
         </Navbar.Brand>
         <Nav className="nav-icons">
-          <a href="/" className="burgerfun-link" aria-label="burger fun home">
+          <a
+            href="/"
+            className="burgerfun-link"
+            aria-label="burger fun home"
+            onClick={() => logGameEvent('burgerfun_home_click')}
+          >
             <img src="/burger-icon-simple.svg" alt="" draggable="false" />
             <span>burger fun</span>
           </a>

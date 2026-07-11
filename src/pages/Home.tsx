@@ -1,5 +1,4 @@
 import React from 'react';
-import { Button } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 
 export const Home: React.FC = () => {
@@ -21,9 +20,9 @@ export const Home: React.FC = () => {
           </div>
 
           <div className="home-actions">
-            <Button as={Link as any} to="/play" size="lg" className="primary-action">
+            <Link to="/play" className="btn btn-primary btn-lg primary-action">
               Play Today's Puzzle
-            </Button>
+            </Link>
           </div>
         </div>
       </section>

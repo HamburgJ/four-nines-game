@@ -1,11 +1,17 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { Button, Modal } from 'react-bootstrap';
 import { useGameState } from '../hooks/useGameState';
-import { getTodaysPuzzle, validateAndEvaluate, DailyPuzzle } from '../utils/gameLogic';
+import {
+  getMillisecondsUntilNextPuzzle,
+  getTodaysPuzzle,
+  validateAndEvaluate,
+  DailyPuzzle,
+} from '../utils/gameLogic';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faLightbulb, faShare, faBackspace, faFlag } from '@fortawesome/free-solid-svg-icons';
 import { generateShareText, shareResults } from '../utils/shareUtils';
 import { HintState } from '../types/GameState';
+import { logGameEvent } from '../utils/analytics';
 
 // Define operator groups for the keyboard
 const OPERATORS = {
@@ -15,8 +21,10 @@ const OPERATORS = {
 };
 
 export const Play: React.FC = () => {
-  const { gameState, updateGameState } = useGameState();
+  const { gameState, updateGameState, startNewDay, completeGame } = useGameState();
   const [puzzle, setPuzzle] = useState<DailyPuzzle>(getTodaysPuzzle());
+  const puzzleDateRef = useRef(puzzle.date);
+  const completionRef = useRef(gameState.todayCompleted);
   const [evaluation, setEvaluation] = useState<{ 
     value?: number; 
     error?: string;
@@ -24,8 +32,6 @@ export const Play: React.FC = () => {
     isValid?: boolean;
   } | null>(null);
   const [cursorPosition, setCursorPosition] = useState<number>(0);
-  const [resultSpace, setResultSpace] = useState<string>('');
-  const [showHint, setShowHint] = useState(false);
   const [timeUntilNext, setTimeUntilNext] = useState<string>('');
   const [showGiveUpModal, setShowGiveUpModal] = useState(false);
   const [isMobile, setIsMobile] = useState<boolean>(false);
@@ -44,31 +50,57 @@ export const Play: React.FC = () => {
   }, []);
 
   useEffect(() => {
-    // Check if it's a new day
-    const todayPuzzle = getTodaysPuzzle();
-    if (todayPuzzle.date !== puzzle.date) {
-      setPuzzle(todayPuzzle);
-      updateGameState({
-        currentExpression: '',
-        todayCompleted: false,
-        hintsUsed: {
-          operators: [],
-          subtrees: []
-        }
-      });
-    }
-  }, [puzzle.date]);
+    let rolloverTimer: number | undefined;
+
+    const syncToCurrentDay = () => {
+      const todayPuzzle = getTodaysPuzzle();
+      startNewDay(todayPuzzle.date);
+
+      if (todayPuzzle.date !== puzzleDateRef.current) {
+        puzzleDateRef.current = todayPuzzle.date;
+        completionRef.current = false;
+        setPuzzle(todayPuzzle);
+        setEvaluation(null);
+      }
+    };
+
+    const scheduleRollover = () => {
+      window.clearTimeout(rolloverTimer);
+      rolloverTimer = window.setTimeout(() => {
+        syncToCurrentDay();
+        scheduleRollover();
+      }, getMillisecondsUntilNextPuzzle() + 1000);
+    };
+
+    const handleVisibilityChange = () => {
+      if (document.visibilityState === 'visible') syncToCurrentDay();
+    };
+
+    syncToCurrentDay();
+    scheduleRollover();
+    window.addEventListener('focus', syncToCurrentDay);
+    document.addEventListener('visibilitychange', handleVisibilityChange);
+
+    return () => {
+      window.clearTimeout(rolloverTimer);
+      window.removeEventListener('focus', syncToCurrentDay);
+      document.removeEventListener('visibilitychange', handleVisibilityChange);
+    };
+  }, [startNewDay]);
+
+  useEffect(() => {
+    logGameEvent('game_view', puzzle.date, puzzle.puzzleNumber);
+  }, [puzzle.date, puzzle.puzzleNumber]);
+
+  useEffect(() => {
+    completionRef.current = gameState.todayCompleted;
+  }, [gameState.date, gameState.todayCompleted]);
 
   useEffect(() => {
     if (!gameState.todayCompleted) return;
 
     const updateCountdown = () => {
-      const now = new Date();
-      const tomorrow = new Date(now);
-      tomorrow.setDate(tomorrow.getDate() + 1);
-      tomorrow.setHours(0, 0, 0, 0);
-      
-      const diff = tomorrow.getTime() - now.getTime();
+      const diff = getMillisecondsUntilNextPuzzle();
       const hours = Math.floor(diff / (1000 * 60 * 60));
       const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
       const seconds = Math.floor((diff % (1000 * 60)) / 1000);
@@ -84,15 +116,21 @@ export const Play: React.FC = () => {
   const validateExpression = (expr: string) => {
     if (!expr.trim()) {
       setEvaluation(null);
-      setResultSpace('');
       return;
     }
 
     const result = validateAndEvaluate(expr, puzzle);
     setEvaluation(result);
 
-    if (result.isValid && result.value === puzzle.target) {
-      updateGameState({ todayCompleted: true });
+    if (
+      result.isValid
+      && result.value === puzzle.target
+      && !completionRef.current
+      && !gameState.todayCompleted
+    ) {
+      completionRef.current = true;
+      completeGame('solved', expr);
+      logGameEvent('game_solved', puzzle.date, getTotalHintsUsed());
     }
   };
 
@@ -176,14 +214,16 @@ export const Play: React.FC = () => {
       }
     });
 
-    await shareResults(shareText);
+    const shareMethod = await shareResults(shareText);
+    if (shareMethod !== 'cancelled') {
+      logGameEvent('result_shared', shareMethod, getTotalHintsUsed());
+    }
   };
 
   const handleRevealHint = () => {
     if (!puzzle.solution?.hints) return;
 
     const totalOperators = puzzle.solution.hints.operators.length;
-    const totalSubtrees = puzzle.solution.hints.subtrees.length;
     const currentHints = getTotalHintsUsed();
 
     const newHints: HintState = {
@@ -196,14 +236,14 @@ export const Play: React.FC = () => {
     };
 
     updateGameState({ hintsUsed: newHints });
-    setShowHint(true);
+    logGameEvent('hint_revealed', puzzle.date, currentHints + 1);
   };
 
   const handleGiveUp = () => {
-    updateGameState({ 
-      todayCompleted: true,
-      gaveUp: true
-    });
+    if (completionRef.current || gameState.todayCompleted) return;
+    completionRef.current = true;
+    completeGame('gave_up');
+    logGameEvent('game_gave_up', puzzle.date, getTotalHintsUsed());
   };
 
   const getTotalHintsUsed = () => {

@@ -1,75 +1,70 @@
-import React, { createContext, useContext, useState, useEffect } from 'react';
-import { GameState, DEFAULT_GAME_STATE, HintState } from '../types/GameState';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
+import type { GameOutcome, GameState } from '../types/GameState';
+import {
+  completeGame as completeGameState,
+  createDefaultGameState,
+  GAME_STATE_STORAGE_KEY,
+  LEGACY_GAME_STATE_STORAGE_KEY,
+  migrateGameState,
+  startNewDay as startNewDayState,
+} from '../utils/gameState';
+import { getLocalDateKey } from '../utils/gameLogic';
+import { GameStateContext } from './gameStateContextValue';
 
-interface GameStateContextType {
-  gameState: GameState;
-  updateGameState: (updates: Partial<GameState>) => void;
-  resetGameState: () => void;
-  updateSettings: (updates: Partial<GameState['settings']>) => void;
-}
-
-const GameStateContext = createContext<GameStateContextType | undefined>(undefined);
-
-const STORAGE_KEY = 'gameState';
-
-export const GameStateProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  const [gameState, setGameState] = useState<GameState>(() => {
-    const stored = localStorage.getItem(STORAGE_KEY);
-    if (stored) {
-      const parsed = JSON.parse(stored);
-      // Ensure hintsUsed has the correct structure
-      if (!parsed.hintsUsed || typeof parsed.hintsUsed !== 'object') {
-        parsed.hintsUsed = {
-          operators: [],
-          subtrees: []
-        };
-      }
-      return parsed;
-    }
-    return DEFAULT_GAME_STATE;
-  });
-
-  useEffect(() => {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(gameState));
-  }, [gameState]);
-
-  const updateGameState = (updates: Partial<GameState>) => {
-    setGameState(current => ({
-      ...current,
-      ...updates,
-    }));
-  };
-
-  const resetGameState = () => {
-    const now = new Date();
-    setGameState({
-      ...DEFAULT_GAME_STATE,
-      lastPlayed: now.toISOString(),
-      streak: 1,
-    });
-  };
-
-  const updateSettings = (updates: Partial<GameState['settings']>) => {
-    setGameState(current => ({
-      ...current,
-      settings: {
-        ...current.settings,
-        ...updates,
-      },
-    }));
-  };
-
-  return (
-    <GameStateContext.Provider value={{ gameState, updateGameState, resetGameState, updateSettings }}>
-      {children}
-    </GameStateContext.Provider>
-  );
+const loadGameState = () => {
+  try {
+    const stored = localStorage.getItem(GAME_STATE_STORAGE_KEY)
+      ?? localStorage.getItem(LEGACY_GAME_STATE_STORAGE_KEY);
+    return stored ? migrateGameState(JSON.parse(stored)) : createDefaultGameState();
+  } catch (error) {
+    console.warn('Four Nines could not read saved progress; starting with a clean state.', error);
+    return createDefaultGameState();
+  }
 };
 
-export const useGameState = () => {
-  const context = useContext(GameStateContext);
-  if (context === undefined) {
-    throw new Error('useGameState must be used within a GameStateProvider');
-  }
-  return context;
-}; 
+export const GameStateProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+  const [gameState, setGameState] = useState<GameState>(loadGameState);
+
+  useEffect(() => {
+    try {
+      localStorage.setItem(GAME_STATE_STORAGE_KEY, JSON.stringify(gameState));
+      localStorage.removeItem(LEGACY_GAME_STATE_STORAGE_KEY);
+    } catch (error) {
+      console.warn('Four Nines could not save progress.', error);
+    }
+  }, [gameState]);
+
+  const updateGameState = useCallback((updates: Partial<GameState>) => {
+    setGameState(current => ({ ...current, ...updates }));
+  }, []);
+
+  const resetGameState = useCallback(() => {
+    setGameState(createDefaultGameState(getLocalDateKey()));
+  }, []);
+
+  const updateSettings = useCallback((updates: Partial<GameState['settings']>) => {
+    setGameState(current => ({
+      ...current,
+      settings: { ...current.settings, ...updates },
+    }));
+  }, []);
+
+  const startNewDay = useCallback((date = getLocalDateKey()) => {
+    setGameState(current => startNewDayState(current, date));
+  }, []);
+
+  const completeGame = useCallback((outcome: GameOutcome, expression?: string) => {
+    setGameState(current => completeGameState(current, outcome, expression));
+  }, []);
+
+  const value = useMemo(() => ({
+    gameState,
+    updateGameState,
+    resetGameState,
+    updateSettings,
+    startNewDay,
+    completeGame,
+  }), [gameState, updateGameState, resetGameState, updateSettings, startNewDay, completeGame]);
+
+  return <GameStateContext.Provider value={value}>{children}</GameStateContext.Provider>;
+};
