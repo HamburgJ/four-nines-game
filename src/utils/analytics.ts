@@ -61,4 +61,37 @@ export const logGameEvent = (action: string, label?: string, value?: number) => 
       console.warn('Failed to log game event:', error);
     }
   }
-}; 
+};
+
+export type PortfolioGameEvent =
+  | 'game_view'
+  | 'game_start'
+  | 'meaningful_play'
+  | 'game_complete'
+  | 'game_fail'
+  | 'share_click'
+  | 'challenge_created'
+  | 'challenge_accepted'
+  | 'next_game_impression'
+  | 'next_game_click';
+
+type PortfolioEventParameters = Record<string, string | number | boolean | undefined>;
+
+export const logPortfolioGameEvent = (
+  action: PortfolioGameEvent,
+  parameters: PortfolioEventParameters = {},
+) => {
+  if (!GA_ID) return;
+
+  try {
+    ReactGA.event(action, {
+      game_id: 'four-nines',
+      source_path: window.location.pathname,
+      ...parameters,
+    });
+  } catch (error) {
+    if (!isProduction) {
+      console.warn('Failed to log portfolio event:', error);
+    }
+  }
+};

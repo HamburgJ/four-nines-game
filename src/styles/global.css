@@ -22,6 +22,64 @@
   --radius-sm: 8px;
 }
 
+.next-game {
+  box-sizing: border-box;
+  display: grid;
+  gap: 0.35rem;
+  width: min(100%, 34rem);
+  margin: 1.25rem auto 0;
+  padding: 1rem 1.1rem;
+  color: #18120e;
+  background: #fff8e8;
+  border: 3px solid #18120e;
+  border-radius: 1rem;
+  box-shadow: 6px 6px 0 #ffb400;
+  text-align: left;
+}
+
+.next-game__eyebrow {
+  color: #a92b1e;
+  font-size: 0.72rem;
+  font-weight: 900;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.next-game__title {
+  font-size: clamp(1.3rem, 4vw, 1.75rem);
+  line-height: 1;
+}
+
+.next-game__description {
+  max-width: 46ch;
+  font-size: 0.94rem;
+  font-weight: 600;
+  line-height: 1.35;
+}
+
+.next-game__link {
+  justify-self: start;
+  margin-top: 0.35rem;
+  padding: 0.62rem 0.82rem;
+  color: #fff;
+  background: #15110e;
+  border: 2px solid #15110e;
+  border-radius: 0.6rem;
+  font-size: 0.82rem;
+  font-weight: 900;
+  letter-spacing: 0.03em;
+  text-decoration: none;
+  text-transform: uppercase;
+}
+
+.next-game__link:hover,
+.next-game__link:focus-visible {
+  color: #15110e;
+  background: #ffb400;
+  outline: 3px solid #fff;
+  outline-offset: 2px;
+}
+
 * {
   box-sizing: border-box;
 }

@@ -11,7 +11,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faLightbulb, faShare, faBackspace, faFlag } from '@fortawesome/free-solid-svg-icons';
 import { generateShareText, shareResults } from '../utils/shareUtils';
 import { HintState } from '../types/GameState';
-import { logGameEvent } from '../utils/analytics';
+import { NextGameRecommendation } from '../components/NextGameRecommendation';
+import { logGameEvent, logPortfolioGameEvent } from '../utils/analytics';
 
 // Define operator groups for the keyboard
 const OPERATORS = {
@@ -25,6 +26,8 @@ export const Play: React.FC = () => {
   const [puzzle, setPuzzle] = useState<DailyPuzzle>(getTodaysPuzzle());
   const puzzleDateRef = useRef(puzzle.date);
   const completionRef = useRef(gameState.todayCompleted);
+  const startedRef = useRef(false);
+  const meaningfulPlayRef = useRef(false);
   const [evaluation, setEvaluation] = useState<{ 
     value?: number; 
     error?: string;
@@ -59,6 +62,8 @@ export const Play: React.FC = () => {
       if (todayPuzzle.date !== puzzleDateRef.current) {
         puzzleDateRef.current = todayPuzzle.date;
         completionRef.current = false;
+        startedRef.current = false;
+        meaningfulPlayRef.current = false;
         setPuzzle(todayPuzzle);
         setEvaluation(null);
       }
@@ -89,12 +94,24 @@ export const Play: React.FC = () => {
   }, [startNewDay]);
 
   useEffect(() => {
-    logGameEvent('game_view', puzzle.date, puzzle.puzzleNumber);
+    logPortfolioGameEvent('game_view', {
+      puzzle_date: puzzle.date,
+      puzzle_number: puzzle.puzzleNumber,
+    });
   }, [puzzle.date, puzzle.puzzleNumber]);
 
   useEffect(() => {
     completionRef.current = gameState.todayCompleted;
   }, [gameState.date, gameState.todayCompleted]);
+
+  const recordStart = () => {
+    if (startedRef.current) return;
+    startedRef.current = true;
+    logPortfolioGameEvent('game_start', {
+      start_action: 'expression_input',
+      puzzle_date: puzzle.date,
+    });
+  };
 
   useEffect(() => {
     if (!gameState.todayCompleted) return;
@@ -122,6 +139,14 @@ export const Play: React.FC = () => {
     const result = validateAndEvaluate(expr, puzzle);
     setEvaluation(result);
 
+    if (result.isValid && !meaningfulPlayRef.current) {
+      meaningfulPlayRef.current = true;
+      logPortfolioGameEvent('meaningful_play', {
+        milestone: 'first_valid_expression',
+        puzzle_date: puzzle.date,
+      });
+    }
+
     if (
       result.isValid
       && result.value === puzzle.target
@@ -131,10 +156,16 @@ export const Play: React.FC = () => {
       completionRef.current = true;
       completeGame('solved', expr);
       logGameEvent('game_solved', puzzle.date, getTotalHintsUsed());
+      logPortfolioGameEvent('game_complete', {
+        outcome: 'solved',
+        puzzle_date: puzzle.date,
+        hints_used: getTotalHintsUsed(),
+      });
     }
   };
 
   const handleExpressionChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    recordStart();
     // Convert × to * for evaluation
     const expr = e.target.value.replace(/×/g, '*');
     updateGameState({ currentExpression: expr });
@@ -143,6 +174,7 @@ export const Play: React.FC = () => {
   };
 
   const handleKeyPress = (key: string) => {
+    recordStart();
     const expr = gameState.currentExpression;
     const pos = cursorPosition;
     
@@ -217,6 +249,11 @@ export const Play: React.FC = () => {
     const shareMethod = await shareResults(shareText);
     if (shareMethod !== 'cancelled') {
       logGameEvent('result_shared', shareMethod, getTotalHintsUsed());
+      logPortfolioGameEvent('share_click', {
+        share_method: shareMethod,
+        share_kind: 'daily_result',
+        puzzle_date: puzzle.date,
+      });
     }
   };
 
@@ -244,6 +281,11 @@ export const Play: React.FC = () => {
     completionRef.current = true;
     completeGame('gave_up');
     logGameEvent('game_gave_up', puzzle.date, getTotalHintsUsed());
+    logPortfolioGameEvent('game_fail', {
+      outcome: 'gave_up',
+      puzzle_date: puzzle.date,
+      hints_used: getTotalHintsUsed(),
+    });
   };
 
   const getTotalHintsUsed = () => {
@@ -363,6 +405,7 @@ export const Play: React.FC = () => {
         <div className="next-puzzle-timer">
           Next puzzle in {timeUntilNext}
         </div>
+        <NextGameRecommendation />
       </div>
     );
   };
