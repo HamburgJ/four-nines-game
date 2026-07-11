@@ -519,6 +519,264 @@ body {
   margin-top: 0.25rem;
 }
 
+/* Hint progress indicator */
+.hint-indicator {
+  display: flex;
+  gap: 0.5rem;
+  justify-content: center;
+  padding: 0.25rem 0;
+}
+
+.hint-circle {
+  width: 0.5rem;
+  height: 0.5rem;
+  border-radius: 50%;
+  background: var(--text-secondary);
+  opacity: 0.3;
+}
+
+.hint-circle.used {
+  opacity: 1;
+  background: var(--primary-color);
+}
+
+/* Completion / share styles */
+.result-line {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin: 0;
+}
+
+.share-controls {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.share-controls .share-score-button {
+  margin: 0.5rem 0 0.25rem;
+}
+
+.challenge-toggle {
+  font-size: 0.875rem;
+  color: var(--text-secondary);
+}
+
+/* Archive styles */
+.archive-banner {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  width: 100%;
+  padding: 0.25rem 0.5rem;
+  font-size: 0.9rem;
+}
+
+.archive-banner-date {
+  color: var(--text-secondary);
+}
+
+.archive-return-link {
+  color: var(--primary-color);
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.archive-return-link:hover {
+  text-decoration: underline;
+}
+
+.archive-page {
+  max-width: 480px;
+}
+
+.archive-title {
+  font-family: var(--font-game);
+  font-weight: 700;
+  font-size: 2rem;
+  color: var(--primary-color);
+  text-align: center;
+}
+
+.archive-subtitle {
+  text-align: center;
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+}
+
+.archive-month-nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 0.5rem 0;
+}
+
+.archive-month-label {
+  font-weight: 600;
+  font-size: 1.1rem;
+}
+
+.archive-nav-button {
+  color: var(--text-secondary);
+  font-size: 1.1rem;
+}
+
+.archive-nav-button:disabled {
+  opacity: 0.3;
+}
+
+.archive-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 0.35rem;
+}
+
+.archive-weekday {
+  text-align: center;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  padding-bottom: 0.25rem;
+}
+
+.archive-day {
+  aspect-ratio: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px;
+  border: 1px solid var(--border-color);
+  background: var(--input-bg);
+  color: var(--text-primary);
+  font-weight: 600;
+  font-size: 0.9rem;
+  padding: 0;
+  transition: transform 0.1s ease;
+}
+
+button.archive-day:hover {
+  transform: translateY(-2px);
+  border-color: var(--primary-color);
+}
+
+.archive-day-solved {
+  background: var(--primary-color);
+  border-color: var(--primary-color);
+  color: #fff;
+}
+
+.archive-day-gave-up {
+  background: var(--keyboard-bg);
+  color: var(--text-secondary);
+  text-decoration: line-through;
+}
+
+.archive-day-in-progress {
+  border-style: dashed;
+  border-color: var(--primary-color);
+}
+
+.archive-day-today {
+  box-shadow: 0 0 0 2px var(--primary-color);
+}
+
+.archive-day-disabled {
+  opacity: 0.25;
+  border-style: dotted;
+}
+
+.archive-legend {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin-top: 0.75rem;
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+}
+
+.archive-legend-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.archive-legend-swatch {
+  width: 1rem;
+  height: 1rem;
+  aspect-ratio: auto;
+  border-radius: 4px;
+}
+
+.archive-month-summary {
+  text-align: center;
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+  margin-top: 0.5rem;
+}
+
+/* Stats histogram */
+.histogram-title {
+  margin-top: 0.5rem;
+  font-weight: 700;
+  text-align: center;
+}
+
+.histogram-empty {
+  text-align: center;
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+}
+
+.histogram {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  padding: 0.5rem 0.75rem;
+}
+
+.histogram-row {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.histogram-label {
+  width: 5.5rem;
+  text-align: right;
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  flex-shrink: 0;
+}
+
+.histogram-track {
+  flex: 1;
+}
+
+.histogram-bar {
+  background: var(--primary-color);
+  color: #fff;
+  font-size: 0.8rem;
+  font-weight: 600;
+  border-radius: 4px;
+  padding: 0.1rem 0.4rem;
+  text-align: right;
+  min-width: 1.5rem;
+}
+
+.histogram-bar-empty {
+  background: var(--keyboard-bg);
+  color: var(--text-secondary);
+}
+
+.stats-footnote {
+  text-align: center;
+  color: var(--text-secondary);
+  font-size: 0.85rem;
+  margin: 0.5rem 0 0;
+}
+
 /* Home card styles */
 .home-card {
   border-radius: 12px;

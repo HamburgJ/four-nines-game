@@ -1,7 +1,9 @@
 import ReactGA from 'react-ga4';
 
-const GA_ID = process.env.CF_GA_ID || process.env.VITE_GA_ID;
-const isProduction = process.env.NODE_ENV === 'production';
+// import.meta.env is the Vite-safe way to read env vars in browser code
+// (process.env throws "process is not defined" at runtime).
+const GA_ID = import.meta.env.VITE_GA_ID as string | undefined;
+const isProduction = import.meta.env.PROD;
 
 export const initGA = () => {
   if (!GA_ID) {
