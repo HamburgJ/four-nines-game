@@ -123,6 +123,25 @@ export const previousDay = (dateStr: string): string =>
 const isLiveSolve = (record: DayRecord | undefined): boolean =>
   !!record && record.solved && record.live;
 
+/** Streak lengths worth an analytics event. */
+export const STREAK_MILESTONES: readonly number[] = [3, 7, 30];
+
+/**
+ * The streak length produced by a live solve on `dateStr`: 1 for the solve
+ * itself plus consecutive live solves on the preceding days. `dateStr`'s own
+ * record does not need to be persisted yet, so this is safe to call at the
+ * moment of solving.
+ */
+export const streakAfterLiveSolve = (records: RecordMap, dateStr: string): number => {
+  let streak = 1;
+  let cursor = previousDay(dateStr);
+  while (isLiveSolve(records[cursor])) {
+    streak++;
+    cursor = previousDay(cursor);
+  }
+  return streak;
+};
+
 export const computeStats = (records: RecordMap, todayStr: string): GameStats => {
   const all = Object.values(records);
   const finished = all.filter((r) => r.solved || r.gaveUp);
