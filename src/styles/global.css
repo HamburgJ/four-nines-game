@@ -184,7 +184,9 @@ body {
 .key-button {
   flex: 1;
   min-width: 2.5rem;
-  height: 2.5rem;
+  /* Never shrink below the 44px touch-target minimum, even where the base
+     2.5rem (40px) would otherwise apply at small root font sizes. */
+  height: max(2.5rem, 44px);
   font-size: 1.25rem;
   display: flex;
   align-items: center;
@@ -896,7 +898,7 @@ body, .game-container, .home-card, .nav-icons .nav-link {
   .game-content {
     padding: 0.25rem;
   }
-  
+
   .target-display {
     margin: 0.25rem 0;
     font-size: 1.5rem;
@@ -919,7 +921,7 @@ body, .game-container, .home-card, .nav-icons .nav-link {
     height: 1.25rem;
     margin: 0.15rem 0;
   }
-  
+
   .keyboard {
     padding: 0.15rem;
   }
@@ -928,18 +930,20 @@ body, .game-container, .home-card, .nav-icons .nav-link {
     gap: 0.15rem;
     margin-bottom: 0.15rem;
   }
-  
+
+  /* Buttons never shrink below the 44px touch-target minimum: reclaim the
+     vertical space by trimming keyboard/row padding and gaps instead. */
   .key-button {
     min-width: 2rem;
-    height: 2rem;
+    height: max(2rem, 44px);
     font-size: 1rem;
   }
-  
+
   .hint-buttons {
     padding: 0 0.25rem;
     gap: 0.15rem;
   }
-  
+
   .hint-type-button {
     padding: 0.35rem 0.75rem;
     font-size: 0.9rem;
@@ -970,16 +974,45 @@ body, .game-container, .home-card, .nav-icons .nav-link {
 
   .target-display {
     font-size: 1.25rem;
+    margin: 0.15rem 0;
+    padding: 0.15rem;
   }
 
+  .expression-container {
+    padding: 0.15rem;
+    gap: 0.15rem;
+  }
+
+  .keyboard {
+    padding: 0.1rem;
+  }
+
+  .keyboard-row {
+    gap: 0.1rem;
+    margin-bottom: 0.1rem;
+  }
+
+  /* Still floored at 44px here — this is the shortest breakpoint, so all the
+     slack has to come from surrounding padding/margins/gaps, not the button. */
   .key-button {
     min-width: 1.75rem;
-    height: 1.75rem;
+    height: max(1.75rem, 44px);
     font-size: 0.9rem;
+  }
+
+  .hint-buttons {
+    padding: 0 0.15rem;
+    gap: 0.1rem;
   }
 
   .hint-type-button {
     padding: 0.25rem 0.5rem;
     font-size: 0.8rem;
+    margin: 0.15rem auto;
+  }
+
+  .hint-summary {
+    padding: 0.15rem;
+    margin: 0.1rem auto;
   }
 }
