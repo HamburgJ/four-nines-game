@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { Navbar, Nav, Button } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faInfoCircle, faCog, faSun, faMoon, faChartColumn, faCalendarDays } from '@fortawesome/free-solid-svg-icons';
+import { faInfoCircle, faSun, faMoon, faChartColumn, faCalendarDays } from '@fortawesome/free-solid-svg-icons';
 import { useTheme } from '../hooks/useTheme';
 import { SettingsModal } from './SettingsModal';
 import { InfoModal } from './InfoModal';

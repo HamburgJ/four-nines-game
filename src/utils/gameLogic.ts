@@ -170,7 +170,7 @@ export const validateAndEvaluate = (expression: string, puzzle: DailyPuzzle): {
       error,
       digitCount
     };
-  } catch (e) {
+  } catch {
     return { isValid: false, error: 'Invalid expression' };
   }
 }; 
