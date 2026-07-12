@@ -1,14 +1,6 @@
-import React, { createContext, useContext, useState, useEffect } from 'react';
-import { GameState, DEFAULT_GAME_STATE, HintState } from '../types/GameState';
-
-interface GameStateContextType {
-  gameState: GameState;
-  updateGameState: (updates: Partial<GameState>) => void;
-  resetGameState: () => void;
-  updateSettings: (updates: Partial<GameState['settings']>) => void;
-}
-
-const GameStateContext = createContext<GameStateContextType | undefined>(undefined);
+import React, { useState, useEffect } from 'react';
+import { GameState, DEFAULT_GAME_STATE } from '../types/GameState';
+import { GameStateContext } from './gameStateContextInstance';
 
 const STORAGE_KEY = 'gameState';
 
@@ -65,11 +57,3 @@ export const GameStateProvider: React.FC<{ children: React.ReactNode }> = ({ chi
     </GameStateContext.Provider>
   );
 };
-
-export const useGameState = () => {
-  const context = useContext(GameStateContext);
-  if (context === undefined) {
-    throw new Error('useGameState must be used within a GameStateProvider');
-  }
-  return context;
-}; 

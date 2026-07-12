@@ -79,11 +79,16 @@ export const Play: React.FC = () => {
   const [includeChallenge, setIncludeChallenge] = useState(false);
   const [isMobile, setIsMobile] = useState<boolean>(false);
 
-  const finished = record.solved || record.gaveUp;
-
-  // Reload the record when the puzzle changes (archive navigation, day rollover)
-  useEffect(() => {
+  // Reload the record when the puzzle changes (archive navigation, day rollover).
+  // Adjusting state during render — rather than in an effect — is React's
+  // recommended way to reset state in response to a changed key, and avoids the
+  // extra commit/repaint an effect would cause. The guard means initRecord (and
+  // its localStorage writes) only runs when the date actually changes, exactly
+  // as often as the previous effect did.
+  const [trackedDate, setTrackedDate] = useState(puzzle.date);
+  if (trackedDate !== puzzle.date) {
     const loaded = initRecord(puzzle, !isArchive);
+    setTrackedDate(puzzle.date);
     setRecord(loaded);
     setCursorPosition(loaded.currentExpression.length);
     setEvaluation(
@@ -91,10 +96,17 @@ export const Play: React.FC = () => {
         ? validateAndEvaluate(loaded.currentExpression, puzzle)
         : null
     );
+  }
+
+  const finished = record.solved || record.gaveUp;
+
+  // Log archive plays. Analytics is an external side effect, so it belongs in
+  // an effect; it fires once per distinct archived puzzle the player opens.
+  useEffect(() => {
     if (isArchive) {
       logArchivePlay(puzzle.date);
     }
-  }, [puzzle.date]);
+  }, [puzzle.date, isArchive]);
 
   // Detect mobile device
   useEffect(() => {
