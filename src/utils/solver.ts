@@ -117,11 +117,11 @@ interface Entry {
 
 type Level = Map<number, Entry>;
 
-const MAX_ABS = 1e6; // cap on intermediate value magnitude
-const QUANT = 1e7; // value quantization for map keys (1e6 * 1e7 = 1e13 < 2^53)
+const MAX_ABS = 1e9;
+const QUANT = 1e6;
 const SNAP_EPS = 1e-9; // near-integer snapping
-const MAX_COST = 8; // prune partial expressions above this symbol cost
-const UNARY_PASSES = 3; // max nested unary (sqrt/!) applications per level
+const MAX_COST = 12;
+const UNARY_PASSES = 4;
 
 const FACTORIALS: Record<number, number> = {};
 {
@@ -203,12 +203,16 @@ const combine = (from: Level, other: Level, emit: Emit): void => {
   }
 };
 
-/** Expand a level with sqrt / factorial, up to UNARY_PASSES nested applications. */
+/** Expand a level with unary minus / sqrt / factorial, up to a bounded depth. */
 const unaryClosure = (level: Level): void => {
   let frontier = [...level.values()];
   for (let pass = 0; pass < UNARY_PASSES && frontier.length > 0; pass++) {
     const added: Entry[] = [];
     for (const e of frontier) {
+      if (e.v !== 0) {
+        const inserted = insert(level, -e.v, e.cost + 1, `-(${e.expr})`);
+        if (inserted) added.push(inserted);
+      }
       if (e.v > 0) {
         const inserted = insert(level, Math.sqrt(e.v), e.cost + 1, `sqrt(${e.expr})`);
         if (inserted) added.push(inserted);

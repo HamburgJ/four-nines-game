@@ -2,21 +2,21 @@ import { useState } from 'react';
 import { Navbar, Nav, Button } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faInfoCircle, faSun, faMoon, faChartColumn, faCalendarDays } from '@fortawesome/free-solid-svg-icons';
+import { faInfoCircle, faChartColumn, faCalendarDays } from '@fortawesome/free-solid-svg-icons';
 import { useTheme } from '../hooks/useTheme';
 import { SettingsModal } from './SettingsModal';
 import { InfoModal } from './InfoModal';
 import { StatsModal } from './StatsModal';
 
 export const Navigation = () => {
-  const { theme, toggleTheme } = useTheme();
+  useTheme();
   const [showSettings, setShowSettings] = useState(false);
   const [showInfo, setShowInfo] = useState(false);
   const [showStats, setShowStats] = useState(false);
 
   return (
     <>
-      <Navbar className="px-3">
+      <Navbar className="app-nav">
         <Navbar.Brand as={Link} to="/" className="game-title me-auto">Four Nines</Navbar.Brand>
         <Nav className="nav-icons">
           <Link to="/archive" className="nav-link" aria-label="Puzzle archive">
@@ -29,14 +29,6 @@ export const Navigation = () => {
             aria-label="Statistics"
           >
             <FontAwesomeIcon icon={faChartColumn} />
-          </Button>
-          <Button
-            variant="link"
-            onClick={toggleTheme}
-            className="nav-link"
-            aria-label="Toggle theme"
-          >
-            <FontAwesomeIcon icon={theme === 'dark' ? faSun : faMoon} />
           </Button>
           <Button
             variant="link"
@@ -64,4 +56,4 @@ export const Navigation = () => {
       <StatsModal show={showStats} onHide={() => setShowStats(false)} />
     </>
   );
-}; 
+};

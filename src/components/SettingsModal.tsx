@@ -1,6 +1,5 @@
 import { Modal, Form, Button } from 'react-bootstrap';
 import { useGameState } from '../context/useGameState';
-import { useTheme } from '../hooks/useTheme';
 
 interface SettingsModalProps {
   show: boolean;
@@ -9,7 +8,6 @@ interface SettingsModalProps {
 
 export const SettingsModal = ({ show, onHide }: SettingsModalProps) => {
   const { resetGameState } = useGameState();
-  const { theme, toggleTheme } = useTheme();
 
   const handleReset = () => {
     if (window.confirm('Are you sure you want to reset all game progress?')) {
@@ -25,18 +23,9 @@ export const SettingsModal = ({ show, onHide }: SettingsModalProps) => {
       </Modal.Header>
       <Modal.Body>
         <Form>
-          <Form.Group className="mb-4">
-            <Form.Label>Theme</Form.Label>
-            <Form.Check 
-              type="switch"
-              id="theme-switch"
-              label={`${theme.charAt(0).toUpperCase() + theme.slice(1)} Mode`}
-              checked={theme === 'dark'}
-              onChange={toggleTheme}
-            />
-          </Form.Group>
-
-          {/* TODO: Add your game-specific settings here */}
+          <p className="settings-note">
+            Reset your saved progress and daily puzzle records.
+          </p>
         </Form>
       </Modal.Body>
       <Modal.Footer>
@@ -52,4 +41,4 @@ export const SettingsModal = ({ show, onHide }: SettingsModalProps) => {
       </Modal.Footer>
     </Modal>
   );
-}; 
+};

@@ -8,7 +8,9 @@
  */
 
 export interface DayRecord {
+  id: string;
   date: string;
+  difficulty?: 'easy' | 'medium' | 'hard' | 'expert';
   seed: number;
   target: number;
   solved: boolean;
@@ -47,7 +49,13 @@ export const loadRecords = (): RecordMap => {
     const raw = localStorage.getItem(STORAGE_KEY);
     if (!raw) return {};
     const parsed = JSON.parse(raw);
-    return parsed && typeof parsed === 'object' && parsed.days ? parsed.days : {};
+    if (!parsed || typeof parsed !== 'object' || !parsed.days) return {};
+    return Object.fromEntries(
+      Object.entries(parsed.days as Record<string, DayRecord>).map(([key, record]) => [
+        key,
+        { ...record, id: record.id || key },
+      ])
+    );
   } catch {
     return {};
   }
@@ -55,22 +63,33 @@ export const loadRecords = (): RecordMap => {
 
 const persist = (days: RecordMap): void => {
   try {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify({ version: 1, days }));
+    localStorage.setItem(STORAGE_KEY, JSON.stringify({ version: 2, days }));
   } catch {
     // Storage full or unavailable; play on without persistence.
   }
 };
 
-export const getRecord = (date: string): DayRecord | undefined => loadRecords()[date];
+export const getRecord = (id: string): DayRecord | undefined => loadRecords()[id];
+
+export const getRecordsForDate = (records: RecordMap, date: string): DayRecord[] =>
+  Object.values(records).filter((record) => record.date === date);
 
 export const saveRecord = (record: DayRecord): void => {
   const days = loadRecords();
-  days[record.date] = record;
+  days[record.id] = record;
   persist(days);
 };
 
-export const createRecord = (date: string, seed: number, target: number): DayRecord => ({
+export const createRecord = (
+  date: string,
+  seed: number,
+  target: number,
+  id = date,
+  difficulty?: DayRecord['difficulty']
+): DayRecord => ({
+  id,
   date,
+  difficulty,
   seed,
   target,
   solved: false,
@@ -123,6 +142,9 @@ export const previousDay = (dateStr: string): string =>
 const isLiveSolve = (record: DayRecord | undefined): boolean =>
   !!record && record.solved && record.live;
 
+const isLiveSolveDate = (records: RecordMap, date: string): boolean =>
+  getRecordsForDate(records, date).some(isLiveSolve);
+
 /** Streak lengths worth an analytics event. */
 export const STREAK_MILESTONES: readonly number[] = [3, 7, 30];
 
@@ -135,7 +157,7 @@ export const STREAK_MILESTONES: readonly number[] = [3, 7, 30];
 export const streakAfterLiveSolve = (records: RecordMap, dateStr: string): number => {
   let streak = 1;
   let cursor = previousDay(dateStr);
-  while (isLiveSolve(records[cursor])) {
+  while (isLiveSolveDate(records, cursor)) {
     streak++;
     cursor = previousDay(cursor);
   }
@@ -150,24 +172,24 @@ export const computeStats = (records: RecordMap, todayStr: string): GameStats =>
   // Current streak: consecutive live solves ending today (or yesterday, if
   // today has not been finished yet).
   let cursor = todayStr;
-  const today = records[todayStr];
-  if (!isLiveSolve(today)) {
+  const todayRecords = getRecordsForDate(records, todayStr);
+  if (!todayRecords.some(isLiveSolve)) {
     cursor = previousDay(todayStr);
     // An unfinished (or unstarted) today keeps the streak alive; a finished
     // but unsolved today breaks it.
-    if (today && (today.solved || today.gaveUp)) {
+    if (todayRecords.length > 0 && todayRecords.every((record) => record.solved || record.gaveUp)) {
       cursor = '';
     }
   }
   let currentStreak = 0;
-  while (cursor && isLiveSolve(records[cursor])) {
+  while (cursor && isLiveSolveDate(records, cursor)) {
     currentStreak++;
     cursor = previousDay(cursor);
   }
 
   // Max streak over all live solves.
   let maxStreak = 0;
-  const liveDates = all.filter(isLiveSolve).map((r) => r.date).sort();
+  const liveDates = [...new Set(all.filter(isLiveSolve).map((r) => r.date))].sort();
   let run = 0;
   let previous = '';
   for (const date of liveDates) {
