@@ -3,37 +3,19 @@ import { useGameState } from '../context/useGameState';
 
 export const useTheme = () => {
   const { gameState, updateSettings } = useGameState();
-  const theme = gameState.settings?.theme;
-
-  // Initialize theme and listen for system preference changes
   useEffect(() => {
-    const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
-    
-    // Set initial theme if not set
-    if (!theme) {
-      updateSettings({ theme: mediaQuery.matches ? 'dark' : 'light' });
+    document.documentElement.setAttribute('data-bs-theme', 'light');
+    if (gameState.settings?.theme !== 'light') {
+      updateSettings({ theme: 'light' });
     }
-
-    // Update document theme
-    document.documentElement.setAttribute('data-bs-theme', theme || 'light');
-
-    // Listen for system theme changes
-    const handleChange = (e: MediaQueryListEvent) => {
-      if (!localStorage.getItem('gameState')) {
-        updateSettings({ theme: e.matches ? 'dark' : 'light' });
-      }
-    };
-
-    mediaQuery.addEventListener('change', handleChange);
-    return () => mediaQuery.removeEventListener('change', handleChange);
-  }, [theme, updateSettings]);
+  }, [gameState.settings?.theme, updateSettings]);
 
   const toggleTheme = () => {
-    updateSettings({ theme: theme === 'light' ? 'dark' : 'light' });
+    updateSettings({ theme: 'light' });
   };
 
   return {
-    theme: theme || 'light',
+    theme: 'light' as const,
     toggleTheme,
   };
-}; 
+};

@@ -2,6 +2,7 @@ import { describe, it, expect } from 'vitest';
 import {
   getPuzzleForDate,
   getPuzzleForDateString,
+  getPuzzlesForDateString,
   validateAndEvaluate,
   isPlayableDateString,
   FIRST_PUZZLE_DATE,
@@ -28,6 +29,25 @@ describe('daily puzzle generation', () => {
   it('numbers puzzles from the first puzzle date', () => {
     expect(getPuzzleForDateString(FIRST_PUZZLE_DATE).puzzleNumber).toBe(1);
     expect(getPuzzleForDateString('2024-01-02').puzzleNumber).toBe(2);
+  });
+
+  it('serves easy, medium, and hard every day after the catalog cutover', () => {
+    const hardSources = new Set<string>();
+    for (let offset = 0; offset < 30; offset++) {
+      const date = new Date(Date.parse('2026-07-14') + offset * 24 * 3600 * 1000)
+        .toISOString()
+        .split('T')[0];
+      const puzzles = getPuzzlesForDateString(date);
+      expect(puzzles.map((puzzle) => puzzle.difficulty)).toEqual(['easy', 'medium', 'hard']);
+      expect(new Set(puzzles.map((puzzle) => puzzle.id)).size).toBe(3);
+      expect(new Set(puzzles.map((puzzle) => puzzle.seed)).size).toBe(3);
+      hardSources.add(puzzles[2].solution!.difficulty!);
+    }
+    expect(hardSources).toEqual(new Set(['hard', 'expert']));
+  });
+
+  it('keeps one legacy puzzle per archived day before the cutover', () => {
+    expect(getPuzzlesForDateString('2026-07-13')).toHaveLength(1);
   });
 
   it('every day for a year has a puzzle with a known par', () => {

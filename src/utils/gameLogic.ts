@@ -1,5 +1,6 @@
 import { evaluate } from 'mathjs';
-import allPuzzles from '../../puzzles/all_puzzles_with_hints.json';
+import generatedCatalog from '../../puzzles/puzzle_catalog.json';
+import legacyScheduleData from '../../puzzles/legacy_schedule.json';
 
 export interface PuzzleHints {
   leaf_values: string[];
@@ -11,6 +12,10 @@ export interface Puzzle {
   expression: string;
   complexity: number;
   unique_operators: number;
+  par?: number;
+  difficulty?: CatalogDifficulty;
+  difficulty_score?: number;
+  traits?: string[];
   hints: PuzzleHints;
 }
 
@@ -20,15 +25,22 @@ type PuzzleMap = {
   };
 };
 
-const puzzleData = allPuzzles as PuzzleMap;
+const puzzleData = generatedCatalog as PuzzleMap;
+const legacySchedule = legacyScheduleData as Record<string, number[]>;
 
 export interface DailyPuzzle {
+  id: string;
   seed: number;
   target: number;
   date: string;
   puzzleNumber: number;
+  difficulty?: DailyDifficulty;
   solution?: Puzzle;  // The solution with hints, if available
 }
+
+export type CatalogDifficulty = 'easy' | 'medium' | 'hard' | 'expert';
+export const DIFFICULTIES = ['easy', 'medium', 'hard'] as const;
+export type DailyDifficulty = (typeof DIFFICULTIES)[number];
 
 // Generate a pseudo-random number between min and max (inclusive) based on a seed
 const seededRandom = (seed: number, min: number, max: number): number => {
@@ -39,6 +51,7 @@ const seededRandom = (seed: number, min: number, max: number): number => {
 
 // The date of puzzle #1
 export const FIRST_PUZZLE_DATE = '2024-01-01';
+export const GENERATED_CATALOG_START_DATE = '2026-07-14';
 
 // Today's puzzle date key (UTC, matching the original daily scheme)
 export const getTodayDateString = (): string => new Date().toISOString().split('T')[0];
@@ -56,39 +69,83 @@ export const isPlayableDateString = (dateStr: string, todayStr: string): boolean
   return dateStr >= FIRST_PUZZLE_DATE && dateStr <= todayStr;
 };
 
-// Get puzzle for a specific date key (YYYY-MM-DD). This is the canonical,
-// deterministic mapping used by both the daily puzzle and the archive.
-export const getPuzzleForDateString = (dateStr: string): DailyPuzzle => {
-  // Create a seed from the date
-  const dateSeed = Date.parse(dateStr);
+const puzzleNumberForDate = (dateSeed: number): number =>
+  Math.floor((dateSeed - Date.parse(FIRST_PUZZLE_DATE)) / (1000 * 60 * 60 * 24)) + 1;
 
-  // Generate puzzle number (days since Jan 1, 2024). Equivalent to the
-  // original Date-based computation since dateStr is the UTC date.
-  const puzzleNumber = Math.floor((dateSeed - Date.parse(FIRST_PUZZLE_DATE)) / (1000 * 60 * 60 * 24)) + 1;
-
-  // Get all available seeds and their targets
-  const availableSeeds = Object.keys(puzzleData).map(Number);
-  
-  // Use puzzle number to help with seed selection to ensure variety
+const getLegacyPuzzleForDateString = (dateStr: string, dateSeed: number): DailyPuzzle => {
+  const puzzleNumber = puzzleNumberForDate(dateSeed);
+  const availableSeeds = Object.keys(legacySchedule).map(Number);
   const seedIndex = seededRandom(dateSeed + puzzleNumber, 0, availableSeeds.length - 1);
   const seed = availableSeeds[seedIndex];
-  
-  // Use a different part of the date seed for target selection
-  const availableTargets = Object.keys(puzzleData[seed.toString()]).map(Number);
+  const availableTargets = legacySchedule[String(seed)];
   const targetIndex = seededRandom(dateSeed * 31 + puzzleNumber * 17, 0, availableTargets.length - 1);
   const target = availableTargets[targetIndex];
-
-  // Get the solution with hints
-  const solution = puzzleData[seed.toString()][target.toString()];
+  const solution = puzzleData[String(seed)][String(target)];
 
   return {
+    id: dateStr,
     seed,
     target,
     date: dateStr,
     puzzleNumber,
-    solution
+    difficulty: solution.difficulty === 'expert' ? 'hard' : solution.difficulty,
+    solution,
   };
 };
+
+/** One deterministic puzzle in each difficulty lane for a calendar date. */
+export const getPuzzlesForDateString = (dateStr: string): DailyPuzzle[] => {
+  // Create a seed from the date
+  const dateSeed = Date.parse(dateStr);
+  if (dateStr < GENERATED_CATALOG_START_DATE) {
+    return [getLegacyPuzzleForDateString(dateStr, dateSeed)];
+  }
+
+  const puzzleNumber = puzzleNumberForDate(dateSeed);
+  const usedSeeds = new Set<number>();
+  return DIFFICULTIES.map((difficulty, difficultyIndex) => {
+    const sourceDifficulty: CatalogDifficulty = difficulty === 'hard'
+      ? (seededRandom(dateSeed + puzzleNumber * 43, 0, 1) === 0 ? 'hard' : 'expert')
+      : difficulty;
+    const eligibleSeeds = Object.keys(puzzleData)
+      .map(Number)
+      .filter((seed) => Object.values(puzzleData[String(seed)]).some((puzzle) => puzzle.difficulty === sourceDifficulty));
+    const firstSeedIndex = seededRandom(
+      dateSeed + puzzleNumber * (29 + difficultyIndex * 11),
+      0,
+      eligibleSeeds.length - 1
+    );
+    let seed = eligibleSeeds[firstSeedIndex];
+    for (let offset = 0; offset < eligibleSeeds.length && usedSeeds.has(seed); offset++) {
+      seed = eligibleSeeds[(firstSeedIndex + offset + 1) % eligibleSeeds.length];
+    }
+    usedSeeds.add(seed);
+
+    const targets = Object.entries(puzzleData[String(seed)])
+      .filter(([, puzzle]) => puzzle.difficulty === sourceDifficulty)
+      .map(([target]) => Number(target));
+    const targetIndex = seededRandom(
+      dateSeed * (31 + difficultyIndex * 6) + puzzleNumber * (17 + difficultyIndex * 8),
+      0,
+      targets.length - 1
+    );
+    const target = targets[targetIndex];
+
+    return {
+      id: `${dateStr}:${difficulty}`,
+      seed,
+      target,
+      date: dateStr,
+      puzzleNumber,
+      difficulty,
+      solution: puzzleData[String(seed)][String(target)],
+    };
+  });
+};
+
+// Compatibility helper: the first lane is the easy daily puzzle.
+export const getPuzzleForDateString = (dateStr: string): DailyPuzzle =>
+  getPuzzlesForDateString(dateStr)[0];
 
 // Get puzzle for a specific date
 export const getPuzzleForDate = (date: Date): DailyPuzzle => {
@@ -99,6 +156,9 @@ export const getPuzzleForDate = (date: Date): DailyPuzzle => {
 export const getTodaysPuzzle = (): DailyPuzzle => {
   return getPuzzleForDate(new Date());
 };
+
+export const getTodaysPuzzles = (): DailyPuzzle[] =>
+  getPuzzlesForDateString(getTodayDateString());
 
 // Count occurrences of a digit in an expression
 export const countDigitOccurrences = (expression: string, digit: number): number => {
@@ -173,4 +233,4 @@ export const validateAndEvaluate = (expression: string, puzzle: DailyPuzzle): {
   } catch {
     return { isValid: false, error: 'Invalid expression' };
   }
-}; 
+};

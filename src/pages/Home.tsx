@@ -1,37 +1,34 @@
 import React from 'react';
-import { Container, Button } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 
 export const Home: React.FC = () => {
   return (
-    <Container className="py-4 text-center">
-      <h1 className="game-title mb-4">Four Nines</h1>
-      
-      <p className="lead mb-5">
-        Find a mathematical formula using exactly four of the same digit to reach today's goal number!
-      </p>
+    <main className="home-shell">
+      <section className="home-card" aria-labelledby="home-title">
+        <div className="home-card-inner">
+          <div className="title-plate">
+            <h1 id="home-title" className="home-title">Four Nines</h1>
+            <p className="home-subtitle">
+              Make the target with exactly four matching digits.
+            </p>
+          </div>
 
-      <div className="mb-5">
-        <h2>Example</h2>
-        <p>
-          If you have the digit 4 and need to reach 1, you could write:<br/>
-          <code className="lead">4.4/4.4</code> = 1<br/>
-          <code className="lead">4-sqrt(4)-4/4</code> = 4-2-1 = 1
-        </p>
-      </div>
+          <div className="home-example">
+            <p>If the digit is 4 and the target is 1, both of these work:</p>
+            <code>4.4 / 4.4 = 1</code>
+            <code>4 - sqrt(4) - 4 / 4 = 1</code>
+          </div>
 
-      <div className="d-grid gap-2 col-md-6 mx-auto">
-        <Link to="/play">
-          <Button variant="primary" size="lg" className="w-100">
-            Play Today's Puzzle
-          </Button>
-        </Link>
-        <Link to="/archive">
-          <Button variant="outline-secondary" className="w-100">
-            Play the Archive
-          </Button>
-        </Link>
-      </div>
-    </Container>
+          <div className="home-actions">
+            <Link to="/play" className="primary-action">
+              Play Today's Puzzles
+            </Link>
+            <Link to="/archive" className="secondary-action">
+              Play the Archive
+            </Link>
+          </div>
+        </div>
+      </section>
+    </main>
   );
-}; 
+};

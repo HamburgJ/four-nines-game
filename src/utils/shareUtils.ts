@@ -8,6 +8,7 @@ export const SHARE_URL = 'burgerfun.ca/four-nines';
 
 export interface ShareResult {
   puzzleNumber: number;
+  difficulty?: string;
   solved: boolean;
   isArchive: boolean;
   hintsUsed: number;
@@ -59,7 +60,8 @@ export const buildResultLine = (result: ShareResult): string => {
 
 export const generateShareText = (result: ShareResult): string => {
   const lines: string[] = [];
-  lines.push(`Four Nines #${result.puzzleNumber}${result.isArchive ? ' (archive)' : ''}`);
+  const difficulty = result.difficulty ? ` — ${result.difficulty}` : '';
+  lines.push(`Four Nines #${result.puzzleNumber}${difficulty}${result.isArchive ? ' (archive)' : ''}`);
   lines.push(buildResultLine(result));
 
   if (result.includeChallenge && result.par !== undefined) {

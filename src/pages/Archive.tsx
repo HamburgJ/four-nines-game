@@ -3,8 +3,8 @@ import { Container, Button } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronLeft, faChevronRight } from '@fortawesome/free-solid-svg-icons';
-import { FIRST_PUZZLE_DATE, getTodayDateString } from '../utils/gameLogic';
-import { loadRecords, DayRecord } from '../utils/records';
+import { FIRST_PUZZLE_DATE, getPuzzlesForDateString, getTodayDateString } from '../utils/gameLogic';
+import { loadRecords, DayRecord, getRecordsForDate } from '../utils/records';
 
 const WEEKDAYS = ['S', 'M', 'T', 'W', 'T', 'F', 'S'];
 
@@ -15,11 +15,11 @@ const MONTH_NAMES = [
 
 const pad = (n: number): string => n.toString().padStart(2, '0');
 
-const cellState = (record: DayRecord | undefined): string => {
-  if (!record) return 'unplayed';
-  if (record.solved) return 'solved';
-  if (record.gaveUp) return 'gave-up';
-  if (record.currentExpression) return 'in-progress';
+const cellState = (dayRecords: DayRecord[], puzzleIds: string[]): string => {
+  if (dayRecords.length === 0) return 'unplayed';
+  if (puzzleIds.every((id) => dayRecords.some((record) => record.id === id && record.solved))) return 'solved';
+  if (puzzleIds.every((id) => dayRecords.some((record) => record.id === id && (record.solved || record.gaveUp)))) return 'gave-up';
+  if (dayRecords.some((record) => record.currentExpression || record.solved || record.gaveUp)) return 'in-progress';
   return 'unplayed';
 };
 
@@ -63,7 +63,8 @@ export const Archive: React.FC = () => {
       const date = `${year}-${pad(month)}-${pad(day)}`;
       if (date < FIRST_PUZZLE_DATE || date > todayStr) continue;
       available++;
-      if (records[date]?.solved) solved++;
+      const puzzleIds = getPuzzlesForDateString(date).map((puzzle) => puzzle.id);
+      if (puzzleIds.every((id) => records[id]?.solved)) solved++;
     }
     return { solved, available };
   }, [records, year, month, daysInMonth, todayStr]);
@@ -121,7 +122,8 @@ export const Archive: React.FC = () => {
               </div>
             );
           }
-          const state = cellState(records[date]);
+          const puzzleIds = getPuzzlesForDateString(date).map((puzzle) => puzzle.id);
+          const state = cellState(getRecordsForDate(records, date), puzzleIds);
           return (
             <button
               type="button"

@@ -5,6 +5,7 @@ const day = (
   date: string,
   overrides: Partial<DayRecord> = {}
 ): DayRecord => ({
+  id: date,
   date,
   seed: 9,
   target: 42,
@@ -20,7 +21,7 @@ const liveSolve = (date: string, overrides: Partial<DayRecord> = {}): DayRecord 
   day(date, { solved: true, live: true, ...overrides });
 
 const asMap = (records: DayRecord[]): RecordMap =>
-  Object.fromEntries(records.map((r) => [r.date, r]));
+  Object.fromEntries(records.map((r) => [r.id, r]));
 
 const TODAY = '2026-07-11';
 

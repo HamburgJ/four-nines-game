@@ -5,11 +5,12 @@ import { toast } from 'react-toastify';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faLightbulb, faShare, faFlag, faBackspace, faArrowLeft } from '@fortawesome/free-solid-svg-icons';
 import {
-  getPuzzleForDateString,
+  getPuzzlesForDateString,
   getTodayDateString,
   validateAndEvaluate,
   isPlayableDateString,
   DailyPuzzle,
+  DailyDifficulty,
 } from '../utils/gameLogic';
 import { countSymbols } from '../utils/solver';
 import { getParInfo, buildHints, TOTAL_HINTS } from '../utils/parData';
@@ -44,9 +45,9 @@ const initRecord = (puzzle: DailyPuzzle, live: boolean): DayRecord => {
   if (live) {
     migrateLegacyState(puzzle.date, puzzle.seed, puzzle.target);
   }
-  const existing = getRecord(puzzle.date);
+  const existing = getRecord(puzzle.id);
   if (existing) return existing;
-  const record = createRecord(puzzle.date, puzzle.seed, puzzle.target);
+  const record = createRecord(puzzle.date, puzzle.seed, puzzle.target, puzzle.id, puzzle.difficulty);
   saveRecord(record);
   return record;
 };
@@ -62,7 +63,9 @@ export const Play: React.FC = () => {
   const dateStr = validDate && dateParam ? dateParam : todayStr;
   const isArchive = dateStr !== todayStr;
 
-  const puzzle = useMemo(() => getPuzzleForDateString(dateStr), [dateStr]);
+  const puzzleSet = useMemo(() => getPuzzlesForDateString(dateStr), [dateStr]);
+  const [selectedDifficulty, setSelectedDifficulty] = useState<DailyDifficulty>('easy');
+  const puzzle = puzzleSet.find((candidate) => candidate.difficulty === selectedDifficulty) || puzzleSet[0];
   const parInfo = useMemo(() => getParInfo(puzzle.seed, puzzle.target), [puzzle.seed, puzzle.target]);
   const hints = useMemo(() => (parInfo ? buildHints(parInfo) : []), [parInfo]);
 
@@ -85,10 +88,10 @@ export const Play: React.FC = () => {
   // extra commit/repaint an effect would cause. The guard means initRecord (and
   // its localStorage writes) only runs when the date actually changes, exactly
   // as often as the previous effect did.
-  const [trackedDate, setTrackedDate] = useState(puzzle.date);
-  if (trackedDate !== puzzle.date) {
+  const [trackedPuzzleId, setTrackedPuzzleId] = useState(puzzle.id);
+  if (trackedPuzzleId !== puzzle.id) {
     const loaded = initRecord(puzzle, !isArchive);
-    setTrackedDate(puzzle.date);
+    setTrackedPuzzleId(puzzle.id);
     setRecord(loaded);
     setCursorPosition(loaded.currentExpression.length);
     setEvaluation(
@@ -106,7 +109,7 @@ export const Play: React.FC = () => {
     if (isArchive) {
       logArchivePlay(puzzle.date);
     }
-  }, [puzzle.date, isArchive]);
+  }, [puzzle.date, puzzle.difficulty, isArchive]);
 
   // Detect mobile device
   useEffect(() => {
@@ -170,8 +173,12 @@ export const Play: React.FC = () => {
     if (!isArchive) {
       // streakAfterLiveSolve does not need today's record persisted yet, so
       // this is safe even though updateRecord saves asynchronously.
-      const streak = streakAfterLiveSolve(loadRecords(), puzzle.date);
-      if (STREAK_MILESTONES.includes(streak)) {
+      const records = loadRecords();
+      const alreadySolvedToday = Object.values(records).some(
+        (saved) => saved.date === puzzle.date && saved.solved && saved.live
+      );
+      const streak = streakAfterLiveSolve(records, puzzle.date);
+      if (!alreadySolvedToday && STREAK_MILESTONES.includes(streak)) {
         logStreakMilestone(streak);
       }
     }
@@ -247,6 +254,7 @@ export const Play: React.FC = () => {
 
   const shareResult = () => ({
     puzzleNumber: puzzle.puzzleNumber,
+    difficulty: puzzle.difficulty,
     solved: record.solved,
     isArchive,
     hintsUsed: record.hintsUsed,
@@ -289,6 +297,13 @@ export const Play: React.FC = () => {
   // Function to display expression with × instead of *
   const displayExpression = (expr: string) => {
     return expr.replace(/\*/g, '×');
+  };
+
+  const puzzleStatus = (candidate: DailyPuzzle): 'open' | 'solved' | 'gave-up' => {
+    const candidateRecord = candidate.id === puzzle.id ? record : getRecord(candidate.id);
+    if (candidateRecord?.solved) return 'solved';
+    if (candidateRecord?.gaveUp) return 'gave-up';
+    return 'open';
   };
 
   const renderHintSummary = () => {
@@ -360,6 +375,8 @@ export const Play: React.FC = () => {
     if (!finished) return null;
 
     const revealedSolution = parInfo?.expression || puzzle.solution?.expression;
+    const nextPuzzle = puzzleSet.find((candidate) => puzzleStatus(candidate) === 'open');
+    const completedSet = puzzleSet.every((candidate) => puzzleStatus(candidate) !== 'open');
 
     return (
       <div className="completion-state">
@@ -384,7 +401,15 @@ export const Play: React.FC = () => {
         )}
         <p className="result-line">{buildResultLine(shareResult())}</p>
         {renderShareControls()}
-        {isArchive ? (
+        {nextPuzzle && nextPuzzle.id !== puzzle.id ? (
+          <Button
+            variant="outline-primary"
+            className="next-difficulty-button"
+            onClick={() => setSelectedDifficulty(nextPuzzle.difficulty || 'easy')}
+          >
+            Next: {nextPuzzle.difficulty}
+          </Button>
+        ) : isArchive ? (
           <Link to="/archive" className="archive-return-link">
             <FontAwesomeIcon icon={faArrowLeft} className="me-2" />
             Back to the archive
@@ -392,7 +417,7 @@ export const Play: React.FC = () => {
         ) : (
           <div className="next-puzzle-timer">Next puzzle in {timeUntilNext}</div>
         )}
-        {!isArchive && <CrossPromo dateStr={puzzle.date} />}
+        {!isArchive && completedSet && <CrossPromo dateStr={puzzle.date} />}
       </div>
     );
   };
@@ -424,7 +449,9 @@ export const Play: React.FC = () => {
 
   return (
     <div className="game-container">
-      <div className="game-content">
+      <div className="game-panel">
+        <div className="game-panel-inner">
+          <div className="game-content">
         {isArchive && (
           <div className="archive-banner">
             <Link to="/archive" className="archive-return-link">
@@ -437,9 +464,32 @@ export const Play: React.FC = () => {
           </div>
         )}
 
-        <div className="target-display">
-          Make {puzzle.target} with four {puzzle.seed}s
-        </div>
+            {puzzleSet.length > 1 && (
+              <div className="difficulty-switcher" aria-label="Today's difficulty">
+                {puzzleSet.map((candidate) => {
+                  const status = puzzleStatus(candidate);
+                  const active = candidate.id === puzzle.id;
+                  return (
+                    <button
+                      type="button"
+                      key={candidate.id}
+                      className={`difficulty-option difficulty-${candidate.difficulty} is-${status} ${active ? 'is-active' : ''}`}
+                      onClick={() => setSelectedDifficulty(candidate.difficulty || 'easy')}
+                      aria-pressed={active}
+                    >
+                      <span>{candidate.difficulty}</span>
+                      <span className="difficulty-status" aria-hidden="true">
+                        {status === 'solved' ? '✓' : status === 'gave-up' ? '—' : '○'}
+                      </span>
+                    </button>
+                  );
+                })}
+              </div>
+            )}
+
+            <h1 className="puzzle-instruction">
+              Make <span>{puzzle.target}</span> with four <span>{puzzle.seed}s</span>
+            </h1>
 
         <div className="expression-container">
           <input
@@ -454,27 +504,30 @@ export const Play: React.FC = () => {
             readOnly={isMobile}
             inputMode={isMobile ? 'none' : 'text'}
           />
-          <div className="evaluation-display">
+          <div className={`evaluation-display ${evaluation?.isValid ? 'is-correct' : ''}`} aria-live="polite">
             {evaluation && evaluation.value !== undefined && (
               <span className="value-text">= {evaluation.value}</span>
             )}
+            {evaluation && <span className="status-detail">{evaluation.isValid ? 'Solved' : evaluation.error}</span>}
           </div>
         </div>
 
-        {renderCompletionState()}
-      </div>
+            {renderCompletionState()}
+          </div>
 
-      {!finished && (
-        <div className="bottom-controls">
-          {renderHintSummary()}
-          {renderHintIndicator()}
-          <div className="hint-controls">{renderHintButtons()}</div>
-          <div className="keyboard">
-            <div className="keyboard-row">
+          {!finished && (
+            <div className="bottom-controls">
+              {renderHintSummary()}
+              <div className="hint-controls">
+                {renderHintButtons()}
+                {renderHintIndicator()}
+              </div>
+              <div className="keyboard" aria-label="Expression keypad">
+                <div className="keyboard-row keyboard-row-main">
               <Button
                 variant="secondary"
                 onClick={() => handleKeyPress(puzzle.seed.toString())}
-                className="key-button"
+                className="key-button key-button-digit"
               >
                 {puzzle.seed}
               </Button>
@@ -488,11 +541,11 @@ export const Play: React.FC = () => {
                   {op === '*' ? '×' : op}
                 </Button>
               ))}
-              <Button variant="secondary" onClick={handleBackspace} className="key-button">
+              <Button variant="secondary" onClick={handleBackspace} className="key-button key-button-icon" aria-label="Backspace">
                 <FontAwesomeIcon icon={faBackspace} />
               </Button>
             </div>
-            <div className="keyboard-row">
+            <div className="keyboard-row keyboard-row-advanced">
               {OPERATORS.advanced.map((op) => (
                 <Button
                   key={op}
@@ -504,7 +557,7 @@ export const Play: React.FC = () => {
                 </Button>
               ))}
             </div>
-            <div className="keyboard-row">
+            <div className="keyboard-row keyboard-row-compact">
               {OPERATORS.parentheses.map((op) => (
                 <Button
                   key={op}
@@ -515,13 +568,15 @@ export const Play: React.FC = () => {
                   {op}
                 </Button>
               ))}
-              <Button variant="danger" onClick={handleClear} className="key-button">
+              <Button variant="danger" onClick={handleClear} className="key-button key-button-clear">
                 Clear
               </Button>
             </div>
-          </div>
+              </div>
+            </div>
+          )}
         </div>
-      )}
+      </div>
       {renderGiveUpModal()}
     </div>
   );
