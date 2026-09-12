@@ -34,15 +34,10 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700&display=swap" rel="stylesheet">
     
-    <!-- Google Analytics -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=%VITE_GA_ID%"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-      gtag('config', '%VITE_GA_ID%');
-    </script>
-    
+    <!-- Google Analytics is bootstrapped once, by src/utils/analytics.ts
+         (react-ga4). A second loader here made every visit count as three
+         page_views: this config, react-ga4's config, and its explicit send. -->
+
     <title>Four Nines - Daily Math Puzzle</title>
   </head>
   <body>
