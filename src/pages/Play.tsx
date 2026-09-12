@@ -26,7 +26,10 @@ import {
 } from '../utils/records';
 import { generateShareText, buildResultLine, copyShareText } from '../utils/shareUtils';
 import {
-  logGameEvent,
+  logGameStart,
+  logPuzzleSolved,
+  logGiveUp,
+  logShare,
   logShareClicked,
   logHintUsed,
   logArchivePlay,
@@ -169,7 +172,7 @@ export const Play: React.FC = () => {
       par,
       timeMs: startedAt !== undefined ? Date.now() - startedAt : undefined,
     });
-    logGameEvent('solve', isArchive ? 'archive' : 'daily', symbols);
+    logPuzzleSolved(isArchive ? 'archive' : 'daily', symbols, record.hintsUsed);
     if (!isArchive) {
       // streakAfterLiveSolve does not need today's record persisted yet, so
       // this is safe even though updateRecord saves asynchronously.
@@ -199,6 +202,8 @@ export const Play: React.FC = () => {
   };
 
   const setExpression = (expr: string) => {
+    // First keystroke into this puzzle = game_start (once per puzzle record).
+    if (record.startedAt === undefined && expr.trim()) logGameStart(isArchive ? 'archive' : 'daily');
     const startedAt = record.startedAt ?? Date.now();
     updateRecord({ currentExpression: expr, startedAt });
     validateExpression(expr, startedAt);
@@ -270,7 +275,7 @@ export const Play: React.FC = () => {
     const copied = await copyShareText(text);
     if (copied) {
       toast.success('Result copied to clipboard');
-      logGameEvent('share', isArchive ? 'archive' : 'daily');
+      logShare(isArchive ? 'archive' : 'daily');
     } else {
       toast.error('Could not copy to clipboard');
     }
@@ -279,7 +284,6 @@ export const Play: React.FC = () => {
   const handleRevealHint = () => {
     if (record.hintsUsed >= TOTAL_HINTS) return;
     updateRecord({ hintsUsed: record.hintsUsed + 1 });
-    logGameEvent('hint', `hint-${record.hintsUsed + 1}`);
     logHintUsed(record.hintsUsed + 1);
   };
 
@@ -291,7 +295,7 @@ export const Play: React.FC = () => {
       live: !isArchive,
       par: parInfo?.par,
     });
-    logGameEvent('give-up', isArchive ? 'archive' : 'daily');
+    logGiveUp(isArchive ? 'archive' : 'daily', record.hintsUsed);
   };
 
   // Function to display expression with × instead of *
