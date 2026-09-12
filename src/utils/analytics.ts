@@ -1,8 +1,11 @@
 import ReactGA from 'react-ga4';
 
 // import.meta.env is the Vite-safe way to read env vars in browser code
-// (process.env throws "process is not defined" at runtime).
-const GA_ID = import.meta.env.VITE_GA_ID as string | undefined;
+// (process.env throws "process is not defined" at runtime). The literal is
+// burgerfun.ca's public GA4 measurement id: it is the fallback so a build
+// without VITE_GA_ID reports instead of silently shipping dark (which is what
+// happened to /four-nines/play/ from 2026-09-03 to 2026-09-11).
+const GA_ID = (import.meta.env.VITE_GA_ID as string | undefined) || 'G-3ZP8KNH2V1';
 const isProduction = import.meta.env.PROD;
 
 export const initGA = () => {
@@ -17,6 +20,11 @@ export const initGA = () => {
     ReactGA.initialize(GA_ID, {
       gaOptions: {
         debug_mode: !isProduction
+      },
+      gtagOptions: {
+        // ReactGA.send below owns the initial page view. Without this, the
+        // config call and the explicit send both record the same visit.
+        send_page_view: false
       }
     });
     // Send initial pageview
