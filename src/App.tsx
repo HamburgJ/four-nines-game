@@ -1,34 +1,55 @@
-import { HashRouter as Router, Routes, Route } from 'react-router-dom';
-import { Container } from 'react-bootstrap';
-import { ToastContainer } from 'react-toastify';
-import 'bootstrap/dist/css/bootstrap.min.css';
-import 'react-toastify/dist/ReactToastify.css';
-import './styles/global.css';
+import { useState } from 'react';
+import { HashRouter as Router, Navigate, Route, Routes } from 'react-router-dom';
+import './styles/numberLab.css';
+import './styles/app.css';
 
-import { Navigation } from './components/Navigation';
-import { Home } from './pages/Home';
+import { TopBar } from './components/TopBar';
+import { HelpSheet } from './components/HelpSheet';
+import { StatsSheet } from './components/StatsSheet';
 import { Play } from './pages/Play';
 import { Archive } from './pages/Archive';
-import { GameStateProvider } from './context/GameStateContext';
+
+const SEEN_HELP_KEY = 'fourNinesSeenHelp';
+
+const hasSeenHelp = (): boolean => {
+  try {
+    return localStorage.getItem(SEEN_HELP_KEY) === '1';
+  } catch {
+    return true;
+  }
+};
 
 function App() {
+  // First visit opens the rules once; after that they live behind "?".
+  const [helpOpen, setHelpOpen] = useState(() => !hasSeenHelp());
+  const [statsOpen, setStatsOpen] = useState(false);
+
+  const closeHelp = () => {
+    setHelpOpen(false);
+    try {
+      localStorage.setItem(SEEN_HELP_KEY, '1');
+    } catch {
+      // Storage unavailable; the sheet will just open again next visit.
+    }
+  };
+
   return (
-    <GameStateProvider>
-      <Router>
-        <div className="d-flex flex-column min-vh-100">
-          <Navigation />
-          <Container fluid className="flex-grow-1 px-0">
-            <Routes>
-              <Route path="/" element={<Home />} />
-              <Route path="/play" element={<Play />} />
-              <Route path="/play/:date" element={<Play />} />
-              <Route path="/archive" element={<Archive />} />
-            </Routes>
-          </Container>
-          <ToastContainer position="top-center" autoClose={2000} hideProgressBar closeOnClick />
-        </div>
-      </Router>
-    </GameStateProvider>
+    <Router>
+      <div className="nl fn-app">
+        <TopBar onHelp={() => setHelpOpen(true)} onStats={() => setStatsOpen(true)} />
+        <main className="fn-main">
+          <Routes>
+            <Route path="/" element={<Play onShowStats={() => setStatsOpen(true)} onShowHelp={() => setHelpOpen(true)} />} />
+            <Route path="/play" element={<Navigate to="/" replace />} />
+            <Route path="/play/:date" element={<Play onShowStats={() => setStatsOpen(true)} onShowHelp={() => setHelpOpen(true)} />} />
+            <Route path="/archive" element={<Archive />} />
+            <Route path="*" element={<Navigate to="/" replace />} />
+          </Routes>
+        </main>
+        <HelpSheet open={helpOpen} onClose={closeHelp} />
+        <StatsSheet open={statsOpen} onClose={() => setStatsOpen(false)} />
+      </div>
+    </Router>
   );
 }
 

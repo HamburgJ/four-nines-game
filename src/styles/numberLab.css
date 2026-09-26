@@ -1,0 +1,768 @@
+/*
+ * The Number Lab design system: a black calculator on a white page.
+ *
+ * Shared by /four-nines/, /four-fours/, /make-24/ and every solver / target
+ * page. THIS FILE is the game's copy of burgerfun's
+ * src/components/numberLab/numberLab.css — keep the two in step.
+ * Spec: docs/NUMBER-LAB-DESIGN.md.
+ *
+ * Every class is prefixed `nl-` and scoped under `.nl` so nothing here leaks
+ * into the rest of burgerfun.
+ */
+
+.nl {
+  /* Surfaces */
+  --nl-paper: #ffffff;
+  --nl-ink: #0d0d0d;
+  --nl-body: #141414; /* calculator housing */
+  --nl-screen: #050505; /* display glass */
+  --nl-key: #2a2a2c; /* operator key */
+  --nl-key-edge: #0a0a0a;
+  --nl-key-util: #d6d6d6; /* clear / backspace */
+  --nl-key-util-edge: #9d9d9d;
+
+  /* Neutrals (cool, never cream) */
+  --nl-gray-50: #f5f5f5;
+  --nl-gray-100: #ededed;
+  --nl-gray-200: #e0e0e0;
+  --nl-gray-300: #c7c7c7;
+  --nl-gray-500: #8a8a8a;
+  --nl-gray-600: #6b6b6b;
+  --nl-gray-700: #474747;
+
+  /* Pops — each one means something, never decoration */
+  --nl-orange: #ff5a1f; /* the digit key, primary action */
+  --nl-orange-deep: #d9430d;
+  --nl-green: #17c26b; /* exact match, solved, easy */
+  --nl-green-deep: #0e8f4d;
+  --nl-yellow: #ffc933; /* hints, medium */
+  --nl-yellow-deep: #d99d00;
+  --nl-red: #ff3d5e; /* hard, impossible */
+  --nl-red-deep: #cc1f3f;
+  --nl-blue: #3d7bff; /* links on dark */
+
+  /* Type */
+  --nl-font-ui: 'Archivo', system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  --nl-font-mono: 'Martian Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+
+  /* Shape */
+  --nl-radius-body: 28px;
+  --nl-radius-screen: 14px;
+  --nl-radius-key: 12px;
+  --nl-radius-card: 16px;
+
+  background: var(--nl-paper);
+  color: var(--nl-ink);
+  font-family: var(--nl-font-ui);
+  font-variation-settings: 'wdth' 100;
+  -webkit-font-smoothing: antialiased;
+  min-height: 100vh;
+}
+
+.nl *,
+.nl *::before,
+.nl *::after {
+  box-sizing: border-box;
+}
+
+/* ------------------------------------------------------------------------ */
+/* Page frame                                                               */
+/* ------------------------------------------------------------------------ */
+
+.nl-wrap {
+  width: 100%;
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.nl-wrap--narrow {
+  max-width: 780px;
+}
+
+.nl-topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 18px 0;
+}
+
+.nl-brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--nl-ink);
+  text-decoration: none;
+  font-weight: 700;
+  font-size: 15px;
+  letter-spacing: -0.01em;
+}
+
+.nl-brand:hover {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.nl-crumbs {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  font-family: var(--nl-font-mono);
+  font-size: 11px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--nl-gray-600);
+}
+
+.nl-crumbs a {
+  color: var(--nl-ink);
+  text-decoration: none;
+  border-bottom: 1px solid var(--nl-gray-300);
+}
+
+.nl-crumbs a:hover {
+  border-bottom-color: var(--nl-ink);
+}
+
+.nl-crumbs li + li::before {
+  content: '/';
+  margin-right: 6px;
+  color: var(--nl-gray-300);
+}
+
+/* ------------------------------------------------------------------------ */
+/* Type                                                                     */
+/* ------------------------------------------------------------------------ */
+
+.nl-display-title {
+  margin: 0;
+  font-family: var(--nl-font-ui);
+  font-weight: 850;
+  font-variation-settings: 'wdth' 118;
+  font-size: clamp(44px, 8vw, 96px);
+  line-height: 0.9;
+  letter-spacing: -0.035em;
+}
+
+.nl-h1 {
+  margin: 0;
+  font-weight: 800;
+  font-variation-settings: 'wdth' 112;
+  font-size: clamp(32px, 5.4vw, 56px);
+  line-height: 0.98;
+  letter-spacing: -0.03em;
+}
+
+.nl-h2 {
+  margin: 0;
+  font-weight: 800;
+  font-variation-settings: 'wdth' 108;
+  font-size: clamp(24px, 3.2vw, 34px);
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+}
+
+.nl-h3 {
+  margin: 0;
+  font-weight: 750;
+  font-size: 18px;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+}
+
+.nl-lede {
+  margin: 0;
+  font-size: clamp(17px, 1.6vw, 20px);
+  line-height: 1.5;
+  color: var(--nl-gray-700);
+  max-width: 60ch;
+}
+
+.nl-body {
+  margin: 0;
+  font-size: 16px;
+  line-height: 1.65;
+  color: var(--nl-gray-700);
+  max-width: 68ch;
+}
+
+.nl-small {
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.5;
+  color: var(--nl-gray-600);
+}
+
+/* Label in the calculator's own voice: mono, caps, tracked. */
+.nl-label {
+  font-family: var(--nl-font-mono);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--nl-gray-600);
+}
+
+.nl-mono {
+  font-family: var(--nl-font-mono);
+  font-variant-numeric: tabular-nums;
+}
+
+.nl-link {
+  color: var(--nl-ink);
+  font-weight: 650;
+  text-decoration: underline;
+  text-decoration-color: var(--nl-gray-300);
+  text-decoration-thickness: 2px;
+  text-underline-offset: 3px;
+}
+
+.nl-link:hover {
+  text-decoration-color: var(--nl-orange);
+}
+
+.nl-section {
+  padding: clamp(40px, 6vw, 72px) 0;
+}
+
+.nl-section + .nl-section {
+  border-top: 1px solid var(--nl-gray-200);
+}
+
+.nl-stack > * + * {
+  margin-top: var(--nl-stack-gap, 16px);
+}
+
+/* ------------------------------------------------------------------------ */
+/* Buttons                                                                  */
+/* ------------------------------------------------------------------------ */
+
+.nl-btn {
+  --btn-bg: var(--nl-ink);
+  --btn-fg: #ffffff;
+  --btn-edge: #000000;
+  appearance: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  min-height: 52px;
+  padding: 0 24px;
+  border: 0;
+  border-radius: 999px;
+  background: var(--btn-bg);
+  color: var(--btn-fg);
+  font-family: var(--nl-font-ui);
+  font-weight: 750;
+  font-size: 16px;
+  letter-spacing: -0.005em;
+  text-decoration: none;
+  cursor: pointer;
+  box-shadow: 0 4px 0 var(--btn-edge);
+  transform: translateY(0);
+  transition: transform 90ms ease, box-shadow 90ms ease, background-color 120ms ease;
+}
+
+.nl-btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 5px 0 var(--btn-edge);
+}
+
+.nl-btn:active {
+  transform: translateY(4px);
+  box-shadow: 0 0 0 var(--btn-edge);
+}
+
+.nl-btn--primary {
+  --btn-bg: var(--nl-orange);
+  --btn-edge: var(--nl-orange-deep);
+}
+
+.nl-btn--ghost {
+  --btn-bg: #ffffff;
+  --btn-fg: var(--nl-ink);
+  --btn-edge: var(--nl-ink);
+  border: 2px solid var(--nl-ink);
+}
+
+.nl-btn--small {
+  min-height: 40px;
+  padding: 0 16px;
+  font-size: 14px;
+}
+
+.nl-btn:focus-visible,
+.nl-key:focus-visible,
+.nl-link:focus-visible,
+.nl-cell:focus-visible,
+.nl-chip:focus-visible {
+  outline: 3px solid var(--nl-blue);
+  outline-offset: 3px;
+}
+
+/* ------------------------------------------------------------------------ */
+/* Chips (tiers, difficulties, statuses)                                    */
+/* ------------------------------------------------------------------------ */
+
+.nl-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 5px 10px 5px 8px;
+  border: 1.5px solid var(--nl-gray-300);
+  border-radius: 999px;
+  background: #ffffff;
+  font-family: var(--nl-font-mono);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--nl-ink);
+  white-space: nowrap;
+}
+
+.nl-chip::before {
+  content: '';
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--chip-dot, var(--nl-gray-500));
+}
+
+.nl-chip--green { --chip-dot: var(--nl-green); }
+.nl-chip--yellow { --chip-dot: var(--nl-yellow); }
+.nl-chip--orange { --chip-dot: var(--nl-orange); }
+.nl-chip--red { --chip-dot: var(--nl-red); }
+.nl-chip--ink { --chip-dot: var(--nl-ink); }
+
+/* ------------------------------------------------------------------------ */
+/* The calculator                                                           */
+/* ------------------------------------------------------------------------ */
+
+.nl-calc {
+  position: relative;
+  width: 100%;
+  max-width: 420px;
+  padding: 18px;
+  border-radius: var(--nl-radius-body);
+  background: var(--nl-body);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.08),
+    inset 0 -3px 0 rgba(0, 0, 0, 0.5),
+    0 1px 0 #000,
+    0 24px 48px -18px rgba(0, 0, 0, 0.45);
+  color: #ffffff;
+}
+
+.nl-calc--wide {
+  max-width: 560px;
+}
+
+.nl-screen {
+  position: relative;
+  padding: 16px 18px 14px;
+  border-radius: var(--nl-radius-screen);
+  background: var(--nl-screen);
+  box-shadow: inset 0 2px 0 rgba(0, 0, 0, 0.9), inset 0 0 0 1px rgba(255, 255, 255, 0.05);
+  font-family: var(--nl-font-mono);
+  color: #ffffff;
+  overflow: hidden;
+}
+
+.nl-screen-row {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.nl-screen-label {
+  font-family: var(--nl-font-mono);
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #8f8f8f;
+}
+
+.nl-screen-target {
+  font-family: var(--nl-font-mono);
+  font-weight: 700;
+  font-size: clamp(40px, 9vw, 56px);
+  line-height: 1;
+  letter-spacing: -0.04em;
+  font-variant-numeric: tabular-nums;
+}
+
+.nl-screen-expr {
+  min-height: 1.6em;
+  font-family: var(--nl-font-mono);
+  font-weight: 500;
+  font-size: clamp(18px, 4.4vw, 24px);
+  line-height: 1.35;
+  letter-spacing: -0.02em;
+  word-break: break-all;
+  text-align: right;
+}
+
+.nl-screen-expr--placeholder {
+  color: #6a6a6a;
+  font-size: 14px;
+  letter-spacing: 0;
+  line-height: 2.4;
+}
+
+.nl-screen-value {
+  font-family: var(--nl-font-mono);
+  font-size: 15px;
+  text-align: right;
+  color: #bdbdbd;
+  min-height: 1.4em;
+}
+
+.nl-screen-value--exact {
+  color: var(--nl-green);
+}
+
+.nl-screen-value--error {
+  color: var(--nl-yellow);
+}
+
+.nl-caret {
+  display: inline-block;
+  width: 2px;
+  height: 1.05em;
+  margin: 0 1px;
+  vertical-align: -0.15em;
+  background: var(--nl-orange);
+  animation: nl-blink 1.05s steps(1) infinite;
+}
+
+@keyframes nl-blink {
+  50% { opacity: 0; }
+}
+
+/* Four digit pips: lit = used. */
+.nl-pips {
+  display: inline-flex;
+  gap: 5px;
+}
+
+.nl-pip {
+  display: grid;
+  place-items: center;
+  width: 20px;
+  height: 24px;
+  border-radius: 5px;
+  border: 1px solid #2c2c2c;
+  font-family: var(--nl-font-mono);
+  font-size: 12px;
+  font-weight: 700;
+  color: #3a3a3a;
+  transition: background-color 120ms ease, color 120ms ease, border-color 120ms ease;
+}
+
+.nl-pip--on {
+  background: var(--nl-orange);
+  border-color: var(--nl-orange);
+  color: #ffffff;
+}
+
+.nl-pip--over {
+  background: var(--nl-red);
+  border-color: var(--nl-red);
+  color: #ffffff;
+}
+
+/* Keypad */
+.nl-keypad {
+  display: grid;
+  grid-template-columns: repeat(var(--nl-cols, 4), 1fr);
+  gap: 10px;
+  margin-top: 16px;
+}
+
+.nl-key {
+  --key-bg: var(--nl-key);
+  --key-fg: #ffffff;
+  --key-edge: var(--nl-key-edge);
+  appearance: none;
+  position: relative;
+  display: grid;
+  place-items: center;
+  min-height: 56px;
+  padding: 0 6px;
+  border: 0;
+  border-radius: var(--nl-radius-key);
+  background: var(--key-bg);
+  background-image: linear-gradient(180deg, rgba(255, 255, 255, 0.07), rgba(255, 255, 255, 0) 55%);
+  color: var(--key-fg);
+  font-family: var(--nl-font-mono);
+  font-weight: 600;
+  font-size: 20px;
+  line-height: 1;
+  cursor: pointer;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+  box-shadow: 0 4px 0 var(--key-edge), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  transform: translateY(0);
+  transition: transform 70ms ease, box-shadow 70ms ease, filter 120ms ease;
+}
+
+.nl-key:hover {
+  filter: brightness(1.12);
+}
+
+.nl-key:active,
+.nl-key--pressed {
+  transform: translateY(3px);
+  box-shadow: 0 1px 0 var(--key-edge), inset 0 1px 0 rgba(255, 255, 255, 0.06);
+}
+
+.nl-key:disabled {
+  cursor: default;
+  opacity: 0.4;
+  filter: none;
+}
+
+.nl-key--digit {
+  --key-bg: var(--nl-orange);
+  --key-edge: var(--nl-orange-deep);
+  min-height: 64px;
+  font-size: 30px;
+  font-weight: 700;
+}
+
+.nl-key--util {
+  --key-bg: var(--nl-key-util);
+  --key-fg: var(--nl-ink);
+  --key-edge: var(--nl-key-util-edge);
+  font-family: var(--nl-font-ui);
+  font-size: 14px;
+  font-weight: 750;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+}
+
+.nl-key--hint {
+  --key-bg: var(--nl-yellow);
+  --key-fg: var(--nl-ink);
+  --key-edge: var(--nl-yellow-deep);
+  font-family: var(--nl-font-ui);
+  font-size: 14px;
+  font-weight: 750;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+}
+
+/* A tiny key used as an inline, non-interactive glyph in copy. */
+.nl-keycap {
+  display: inline-grid;
+  place-items: center;
+  min-width: 1.9em;
+  height: 1.9em;
+  padding: 0 0.45em;
+  border-radius: 7px;
+  background: var(--nl-key);
+  color: #ffffff;
+  font-family: var(--nl-font-mono);
+  font-size: 0.85em;
+  font-weight: 600;
+  box-shadow: 0 2px 0 var(--nl-key-edge);
+  vertical-align: 0.05em;
+}
+
+.nl-keycap--digit {
+  background: var(--nl-orange);
+  box-shadow: 0 2px 0 var(--nl-orange-deep);
+}
+
+/* ------------------------------------------------------------------------ */
+/* Paper tape — the printing-calculator receipt. Solutions live on tape.     */
+/* ------------------------------------------------------------------------ */
+
+.nl-tape {
+  --tape-tooth: 8px;
+  position: relative;
+  padding: 18px 20px 20px;
+  /* White paper; the bottom fades to gray so the torn teeth read against a
+     white page (a drop-shadow would be clipped by the mask). */
+  background: linear-gradient(to top, #cfcfcf 0, #e9e9e9 3px, #ffffff calc(var(--tape-tooth) + 10px));
+  color: var(--nl-ink);
+  font-family: var(--nl-font-mono);
+  font-size: 14px;
+  line-height: 1.7;
+  font-variant-numeric: tabular-nums;
+  border-left: 1px solid var(--nl-gray-200);
+  border-right: 1px solid var(--nl-gray-200);
+  /* Torn zigzag bottom: each tile is a 90° wedge opening upward from its
+     bottom centre, so only the last --tape-tooth pixels are toothed. */
+  -webkit-mask: conic-gradient(from -45deg at bottom, #0000, #000 1deg 89deg, #0000 90deg) 50% / calc(var(--tape-tooth) * 2) 100%;
+  mask: conic-gradient(from -45deg at bottom, #0000, #000 1deg 89deg, #0000 90deg) 50% / calc(var(--tape-tooth) * 2) 100%;
+  padding-bottom: calc(20px + var(--tape-tooth));
+}
+
+.nl-tape-line {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.nl-tape-rule {
+  height: 0;
+  margin: 8px 0;
+  border: 0;
+  border-top: 1.5px dashed var(--nl-gray-300);
+}
+
+.nl-tape-expr {
+  font-weight: 600;
+  font-size: 16px;
+  overflow-wrap: anywhere;
+}
+
+.nl-tape-muted {
+  color: var(--nl-gray-600);
+}
+
+/* ------------------------------------------------------------------------ */
+/* Number grid (solver 1–100, archive calendars)                            */
+/* ------------------------------------------------------------------------ */
+
+.nl-grid {
+  display: grid;
+  grid-template-columns: repeat(10, 1fr);
+  gap: 6px;
+}
+
+@media (max-width: 560px) {
+  .nl-grid {
+    grid-template-columns: repeat(5, 1fr);
+  }
+}
+
+.nl-cell {
+  display: grid;
+  place-items: center;
+  aspect-ratio: 1 / 1;
+  min-height: 44px;
+  border-radius: 10px;
+  border: 1.5px solid var(--nl-gray-200);
+  background: #ffffff;
+  color: var(--nl-ink);
+  font-family: var(--nl-font-mono);
+  font-weight: 600;
+  font-size: 15px;
+  text-decoration: none;
+  cursor: pointer;
+  transition: transform 80ms ease, border-color 120ms ease, background-color 120ms ease;
+}
+
+.nl-cell:hover {
+  border-color: var(--nl-ink);
+  transform: translateY(-1px);
+}
+
+.nl-cell[aria-current='true'],
+.nl-cell--active {
+  background: var(--nl-ink);
+  border-color: var(--nl-ink);
+  color: #ffffff;
+}
+
+/* ------------------------------------------------------------------------ */
+/* Cards / panels                                                           */
+/* ------------------------------------------------------------------------ */
+
+.nl-card {
+  padding: 22px;
+  border: 1.5px solid var(--nl-gray-200);
+  border-radius: var(--nl-radius-card);
+  background: #ffffff;
+}
+
+.nl-card--ink {
+  border-color: var(--nl-ink);
+  background: var(--nl-ink);
+  color: #ffffff;
+}
+
+.nl-card--ink .nl-body,
+.nl-card--ink .nl-small {
+  color: #bdbdbd;
+}
+
+.nl-card-link {
+  display: block;
+  color: inherit;
+  text-decoration: none;
+  transition: border-color 120ms ease, transform 120ms ease;
+}
+
+.nl-card-link:hover {
+  border-color: var(--nl-ink);
+  transform: translateY(-2px);
+}
+
+/* FAQ */
+.nl-faq {
+  border-top: 1.5px solid var(--nl-ink);
+}
+
+.nl-faq details {
+  border-bottom: 1px solid var(--nl-gray-200);
+}
+
+.nl-faq summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 18px 0;
+  font-weight: 700;
+  font-size: 17px;
+  cursor: pointer;
+  list-style: none;
+}
+
+.nl-faq summary::-webkit-details-marker {
+  display: none;
+}
+
+.nl-faq summary::after {
+  content: '+';
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 8px;
+  background: var(--nl-gray-100);
+  font-family: var(--nl-font-mono);
+  font-weight: 600;
+}
+
+.nl-faq details[open] summary::after {
+  content: '\2212';
+  background: var(--nl-ink);
+  color: #ffffff;
+}
+
+.nl-faq details > :not(summary) {
+  padding-bottom: 18px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .nl *,
+  .nl *::before,
+  .nl *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+}

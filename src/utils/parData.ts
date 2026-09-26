@@ -19,7 +19,7 @@ const data = parData as ParMap;
 export const getParInfo = (seed: number, target: number): ParInfo | undefined =>
   data[seed.toString()]?.[target.toString()];
 
-const displayOperator = (op: string): string => (op === '*' ? '×' : op);
+const displayOperator = (op: string): string => (op === '*' ? '×' : op === '/' ? '÷' : op === 'sqrt' ? '√' : op);
 
 export interface Hint {
   label: string;
@@ -46,7 +46,7 @@ export const buildHints = (parInfo: ParInfo): Hint[] => {
     },
     {
       label: 'Solution shape',
-      text: expressionShape(parInfo.expression).replace(/\*/g, '×'),
+      text: expressionShape(parInfo.expression).replace(/\*/g, '×').replace(/\//g, '÷'),
     },
   ];
 };

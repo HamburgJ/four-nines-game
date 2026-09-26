@@ -1,48 +1,53 @@
-import React, { useState, useEffect, useMemo } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import { Link, Navigate, useParams } from 'react-router-dom';
-import { Button, Modal, Form } from 'react-bootstrap';
-import { toast } from 'react-toastify';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faLightbulb, faShare, faFlag, faBackspace, faArrowLeft } from '@fortawesome/free-solid-svg-icons';
 import {
+  DIFFICULTIES,
+  DailyDifficulty,
+  DailyPuzzle,
+  countDigitOccurrences,
   getPuzzlesForDateString,
   getTodayDateString,
-  validateAndEvaluate,
   isPlayableDateString,
-  DailyPuzzle,
-  DailyDifficulty,
+  validateAndEvaluate,
 } from '../utils/gameLogic';
 import { countSymbols } from '../utils/solver';
-import { getParInfo, buildHints, TOTAL_HINTS } from '../utils/parData';
+import { TOTAL_HINTS, buildHints, getParInfo } from '../utils/parData';
 import {
   DayRecord,
   STREAK_MILESTONES,
+  computeStats,
   createRecord,
   getRecord,
   loadRecords,
-  saveRecord,
   migrateLegacyState,
+  saveRecord,
   streakAfterLiveSolve,
 } from '../utils/records';
-import { generateShareText, buildResultLine, copyShareText } from '../utils/shareUtils';
+import { copyShareText, formatDuration, generateShareText } from '../utils/shareUtils';
 import {
+  logArchivePlay,
   logGameStart,
-  logPuzzleSolved,
   logGiveUp,
+  logHintUsed,
+  logPuzzleSolved,
   logShare,
   logShareClicked,
-  logHintUsed,
-  logArchivePlay,
   logStreakMilestone,
 } from '../utils/analytics';
+import { DigitPips, ExpressionCalculator } from '../components/Calculator';
+import { type KeySpec, prettyExpression } from '../components/expression';
 import { CrossPromo } from '../components/CrossPromo';
+import { Sheet } from '../components/Sheet';
 
-// Define operator groups for the keyboard
-const OPERATORS = {
-  basic: ['+', '-', '*', '/'],
-  advanced: ['^', '%', '!', 'sqrt', '.'],
-  parentheses: ['(', ')'],
+const LANE_TONE: Record<DailyDifficulty, 'green' | 'yellow' | 'red'> = {
+  easy: 'green',
+  medium: 'yellow',
+  hard: 'red',
 };
+
+const capitalize = (word: string): string => word.charAt(0).toUpperCase() + word.slice(1);
+
+const MAX_REPORTED_TIME_MS = 3 * 60 * 60 * 1000;
 
 const initRecord = (puzzle: DailyPuzzle, live: boolean): DayRecord => {
   if (live) {
@@ -55,100 +60,119 @@ const initRecord = (puzzle: DailyPuzzle, live: boolean): DayRecord => {
   return record;
 };
 
-export const Play: React.FC = () => {
+const statusOf = (record: DayRecord | undefined): 'open' | 'solved' | 'gave-up' => {
+  if (record?.solved) return 'solved';
+  if (record?.gaveUp) return 'gave-up';
+  return 'open';
+};
+
+/** Keep huge factorial/power results readable on a narrow display. */
+const formatValue = (value: number): string => {
+  if (!Number.isFinite(value)) return String(value);
+  if (Math.abs(value) >= 1e10) return value.toExponential(4).replace('e+', 'e');
+  return String(Number(value.toFixed(6)));
+};
+
+/** Milliseconds until the next UTC midnight — puzzle dates are UTC. */
+const msUntilNextUtcMidnight = (now: Date): number => {
+  const next = Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate() + 1);
+  return next - now.getTime();
+};
+
+const formatCountdown = (ms: number): string => {
+  const total = Math.max(0, Math.floor(ms / 1000));
+  const hours = Math.floor(total / 3600);
+  const minutes = Math.floor((total % 3600) / 60);
+  const seconds = total % 60;
+  return `${hours}h ${minutes.toString().padStart(2, '0')}m ${seconds.toString().padStart(2, '0')}s`;
+};
+
+const formatDate = (dateStr: string): string =>
+  new Date(`${dateStr}T00:00:00Z`).toLocaleDateString('en-US', {
+    month: 'short',
+    day: 'numeric',
+    year: 'numeric',
+    timeZone: 'UTC',
+  });
+
+interface PlayProps {
+  onShowStats: () => void;
+  onShowHelp: () => void;
+}
+
+export const Play = ({ onShowStats, onShowHelp }: PlayProps) => {
   const { date: dateParam } = useParams<{ date: string }>();
   const todayStr = getTodayDateString();
-  // Validate BEFORE computing the puzzle: getPuzzleForDateString crashes on
-  // unparseable dates, and lenient rollover dates (2024-02-30) would create
-  // phantom puzzles. When invalid, fall back to today so the hooks below stay
-  // safe; the <Navigate> guard before render then redirects to /play.
+  // Validate BEFORE computing the puzzle: unparseable or rollover dates
+  // (2024-02-30) would crash seed selection or create phantom puzzles. When
+  // invalid, fall back to today so the hooks stay safe; the <Navigate> guard
+  // before render then redirects.
   const validDate = !dateParam || isPlayableDateString(dateParam, todayStr);
   const dateStr = validDate && dateParam ? dateParam : todayStr;
   const isArchive = dateStr !== todayStr;
+  const context = isArchive ? 'archive' : 'daily';
 
   const puzzleSet = useMemo(() => getPuzzlesForDateString(dateStr), [dateStr]);
-  const [selectedDifficulty, setSelectedDifficulty] = useState<DailyDifficulty>('easy');
+
+  // Land on the first lane you haven't finished yet.
+  const [selectedDifficulty, setSelectedDifficulty] = useState<DailyDifficulty>(() => {
+    const open = puzzleSet.find((candidate) => statusOf(getRecord(candidate.id)) === 'open');
+    return open?.difficulty ?? 'easy';
+  });
   const puzzle = puzzleSet.find((candidate) => candidate.difficulty === selectedDifficulty) || puzzleSet[0];
   const parInfo = useMemo(() => getParInfo(puzzle.seed, puzzle.target), [puzzle.seed, puzzle.target]);
   const hints = useMemo(() => (parInfo ? buildHints(parInfo) : []), [parInfo]);
 
   const [record, setRecord] = useState<DayRecord>(() => initRecord(puzzle, !isArchive));
-  const [evaluation, setEvaluation] = useState<{
-    value?: number;
-    error?: string;
-    digitCount?: number;
-    isValid?: boolean;
-  } | null>(null);
-  const [cursorPosition, setCursorPosition] = useState<number>(0);
-  const [timeUntilNext, setTimeUntilNext] = useState<string>('');
-  const [showGiveUpModal, setShowGiveUpModal] = useState(false);
+  const [confirmGiveUp, setConfirmGiveUp] = useState(false);
   const [includeChallenge, setIncludeChallenge] = useState(false);
-  const [isMobile, setIsMobile] = useState<boolean>(false);
+  const [copyState, setCopyState] = useState<'idle' | 'copied' | 'failed'>('idle');
+  const [countdown, setCountdown] = useState('');
+  const [justFinished, setJustFinished] = useState(false);
+  const tapeRef = useRef<HTMLDivElement>(null);
 
-  // Reload the record when the puzzle changes (archive navigation, day rollover).
-  // Adjusting state during render — rather than in an effect — is React's
-  // recommended way to reset state in response to a changed key, and avoids the
-  // extra commit/repaint an effect would cause. The guard means initRecord (and
-  // its localStorage writes) only runs when the date actually changes, exactly
-  // as often as the previous effect did.
+  // Reload the record when the puzzle changes (lane switch, archive
+  // navigation, day rollover). Adjusting state during render is React's
+  // recommended way to reset state on a changed key.
   const [trackedPuzzleId, setTrackedPuzzleId] = useState(puzzle.id);
   if (trackedPuzzleId !== puzzle.id) {
-    const loaded = initRecord(puzzle, !isArchive);
     setTrackedPuzzleId(puzzle.id);
-    setRecord(loaded);
-    setCursorPosition(loaded.currentExpression.length);
-    setEvaluation(
-      loaded.currentExpression.trim() && !loaded.solved && !loaded.gaveUp
-        ? validateAndEvaluate(loaded.currentExpression, puzzle)
-        : null
-    );
+    setRecord(initRecord(puzzle, !isArchive));
+    setCopyState('idle');
+    setJustFinished(false);
   }
 
   const finished = record.solved || record.gaveUp;
+  const expression = record.currentExpression;
+  const evaluation = useMemo(
+    () => (expression.trim() && !finished ? validateAndEvaluate(expression, puzzle) : null),
+    [expression, finished, puzzle],
+  );
+  const digitsUsed = countDigitOccurrences(expression, puzzle.seed);
+  const liveSymbols = countSymbols(expression);
+  const par = record.par ?? parInfo?.par;
 
-  // Log archive plays. Analytics is an external side effect, so it belongs in
-  // an effect; it fires once per distinct archived puzzle the player opens.
   useEffect(() => {
-    if (isArchive) {
-      logArchivePlay(puzzle.date);
-    }
-  }, [puzzle.date, puzzle.difficulty, isArchive]);
+    if (isArchive) logArchivePlay(puzzle.date);
+  }, [puzzle.date, isArchive]);
 
-  // Detect mobile device
+  // Countdown to the next daily set, once today's lane is done.
   useEffect(() => {
-    const checkMobile = () => {
-      const userAgent = navigator.userAgent.toLowerCase();
-      const isMobileDevice = /mobile|android|ios|iphone|ipad|ipod|windows phone/i.test(userAgent);
-      setIsMobile(isMobileDevice);
-    };
-
-    checkMobile();
-    window.addEventListener('resize', checkMobile);
-    return () => window.removeEventListener('resize', checkMobile);
-  }, []);
-
-  // Countdown to the next daily puzzle
-  useEffect(() => {
-    if (!finished || isArchive) return;
-
-    const updateCountdown = () => {
-      const now = new Date();
-      const tomorrow = new Date(now);
-      tomorrow.setDate(tomorrow.getDate() + 1);
-      tomorrow.setHours(0, 0, 0, 0);
-
-      const diff = tomorrow.getTime() - now.getTime();
-      const hours = Math.floor(diff / (1000 * 60 * 60));
-      const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-      const seconds = Math.floor((diff % (1000 * 60)) / 1000);
-
-      setTimeUntilNext(`${hours}h ${minutes}m ${seconds}s`);
-    };
-
-    updateCountdown();
-    const interval = setInterval(updateCountdown, 1000);
-    return () => clearInterval(interval);
+    if (!finished || isArchive) return undefined;
+    const tick = () => setCountdown(formatCountdown(msUntilNextUtcMidnight(new Date())));
+    tick();
+    const interval = window.setInterval(tick, 1000);
+    return () => window.clearInterval(interval);
   }, [finished, isArchive]);
+
+  // Bring the freshly printed tape into view on short screens.
+  useEffect(() => {
+    if (!justFinished) return;
+    const timer = window.setTimeout(() => {
+      tapeRef.current?.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }, 380);
+    return () => window.clearTimeout(timer);
+  }, [justFinished]);
 
   const updateRecord = (patch: Partial<DayRecord>) => {
     setRecord((current) => {
@@ -158,103 +182,60 @@ export const Play: React.FC = () => {
     });
   };
 
-  const finalizeSolve = (expression: string, startedAt: number | undefined) => {
-    const symbols = countSymbols(expression);
+  const finalizeSolve = (solution: string, startedAt: number | undefined) => {
+    const symbols = countSymbols(solution);
     // Never report a par above what the player just achieved: their solution
     // is proof of achievability.
-    const par = parInfo ? Math.min(parInfo.par, symbols) : undefined;
-    updateRecord({
-      solved: true,
-      gaveUp: false,
-      live: !isArchive,
-      expression,
-      symbols,
-      par,
-      timeMs: startedAt !== undefined ? Date.now() - startedAt : undefined,
-    });
-    logPuzzleSolved(isArchive ? 'archive' : 'daily', symbols, record.hintsUsed);
+    const solvedPar = parInfo ? Math.min(parInfo.par, symbols) : undefined;
     if (!isArchive) {
-      // streakAfterLiveSolve does not need today's record persisted yet, so
-      // this is safe even though updateRecord saves asynchronously.
+      // Check before saving: streakAfterLiveSolve doesn't need today's record.
       const records = loadRecords();
       const alreadySolvedToday = Object.values(records).some(
-        (saved) => saved.date === puzzle.date && saved.solved && saved.live
+        (saved) => saved.date === puzzle.date && saved.solved && saved.live,
       );
       const streak = streakAfterLiveSolve(records, puzzle.date);
       if (!alreadySolvedToday && STREAK_MILESTONES.includes(streak)) {
         logStreakMilestone(streak);
       }
     }
+    updateRecord({
+      currentExpression: solution,
+      startedAt,
+      solved: true,
+      gaveUp: false,
+      live: !isArchive,
+      expression: solution,
+      symbols,
+      par: solvedPar,
+      timeMs: startedAt !== undefined ? Date.now() - startedAt : undefined,
+    });
+    logPuzzleSolved(context, symbols, record.hintsUsed);
+    setJustFinished(true);
   };
 
-  const validateExpression = (expr: string, startedAt: number | undefined) => {
-    if (!expr.trim()) {
-      setEvaluation(null);
-      return;
-    }
-
-    const result = validateAndEvaluate(expr, puzzle);
-    setEvaluation(result);
-
-    if (result.isValid && result.value === puzzle.target && !record.solved) {
-      finalizeSolve(expr, startedAt);
-    }
-  };
-
-  const setExpression = (expr: string) => {
-    // First keystroke into this puzzle = game_start (once per puzzle record).
-    if (record.startedAt === undefined && expr.trim()) logGameStart(isArchive ? 'archive' : 'daily');
+  const handleExpression = (next: string) => {
+    if (finished) return;
+    if (record.startedAt === undefined && next.trim()) logGameStart(context);
     const startedAt = record.startedAt ?? Date.now();
-    updateRecord({ currentExpression: expr, startedAt });
-    validateExpression(expr, startedAt);
-  };
-
-  const handleExpressionChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    // Convert × to * for evaluation
-    const expr = e.target.value.replace(/×/g, '*');
-    setCursorPosition(e.target.selectionStart || 0);
-    setExpression(expr);
-  };
-
-  const handleKeyPress = (key: string) => {
-    const expr = record.currentExpression;
-    const pos = cursorPosition;
-
-    // Special handling for sqrt
-    if (key === 'sqrt') {
-      const newExpr = expr.slice(0, pos) + 'sqrt(' + expr.slice(pos);
-      setCursorPosition(pos + 5);
-      setExpression(newExpr);
+    const result = next.trim() ? validateAndEvaluate(next, puzzle) : null;
+    if (result?.isValid && result.value === puzzle.target) {
+      finalizeSolve(next, startedAt);
       return;
     }
-
-    const newExpr = expr.slice(0, pos) + key + expr.slice(pos);
-    setCursorPosition(pos + key.length);
-    setExpression(newExpr);
+    updateRecord({ currentExpression: next, startedAt });
   };
 
-  const handleInputFocus = (e: React.FocusEvent<HTMLInputElement>) => {
-    setCursorPosition(e.target.selectionStart || 0);
+  const revealHint = () => {
+    if (record.hintsUsed >= TOTAL_HINTS || hints.length === 0) return;
+    updateRecord({ hintsUsed: record.hintsUsed + 1 });
+    logHintUsed(record.hintsUsed + 1);
   };
 
-  const handleInputClick = (e: React.MouseEvent<HTMLInputElement>) => {
-    const input = e.target as HTMLInputElement;
-    setCursorPosition(input.selectionStart || 0);
-  };
-
-  const handleBackspace = () => {
-    const expr = record.currentExpression;
-    const pos = cursorPosition;
-    if (pos > 0) {
-      const newExpr = expr.slice(0, pos - 1) + expr.slice(pos);
-      setCursorPosition(pos - 1);
-      setExpression(newExpr);
-    }
-  };
-
-  const handleClear = () => {
-    setCursorPosition(0);
-    setExpression('');
+  const giveUp = () => {
+    setConfirmGiveUp(false);
+    updateRecord({ gaveUp: true, solved: false, live: !isArchive, par: parInfo?.par });
+    logGiveUp(context, record.hintsUsed);
+    setJustFinished(true);
   };
 
   const shareResult = () => ({
@@ -263,325 +244,345 @@ export const Play: React.FC = () => {
     solved: record.solved,
     isArchive,
     hintsUsed: record.hintsUsed,
-    timeMs: record.timeMs !== undefined && record.timeMs < 3 * 60 * 60 * 1000 ? record.timeMs : undefined,
+    timeMs: record.timeMs !== undefined && record.timeMs < MAX_REPORTED_TIME_MS ? record.timeMs : undefined,
     symbols: record.symbols,
-    par: record.par ?? parInfo?.par,
+    par,
     includeChallenge,
   });
 
-  const handleShare = async () => {
-    logShareClicked(isArchive ? 'archive' : 'daily');
-    const text = generateShareText(shareResult());
-    const copied = await copyShareText(text);
-    if (copied) {
-      toast.success('Result copied to clipboard');
-      logShare(isArchive ? 'archive' : 'daily');
-    } else {
-      toast.error('Could not copy to clipboard');
-    }
+  const share = async () => {
+    logShareClicked(context);
+    const copied = await copyShareText(generateShareText(shareResult()));
+    setCopyState(copied ? 'copied' : 'failed');
+    if (copied) logShare(context);
+    window.setTimeout(() => setCopyState('idle'), 2200);
   };
 
-  const handleRevealHint = () => {
-    if (record.hintsUsed >= TOTAL_HINTS) return;
-    updateRecord({ hintsUsed: record.hintsUsed + 1 });
-    logHintUsed(record.hintsUsed + 1);
-  };
-
-  const handleGiveUp = () => {
-    setShowGiveUpModal(false);
-    updateRecord({
-      gaveUp: true,
-      solved: false,
-      live: !isArchive,
-      par: parInfo?.par,
-    });
-    logGiveUp(isArchive ? 'archive' : 'daily', record.hintsUsed);
-  };
-
-  // Function to display expression with × instead of *
-  const displayExpression = (expr: string) => {
-    return expr.replace(/\*/g, '×');
-  };
-
-  const puzzleStatus = (candidate: DailyPuzzle): 'open' | 'solved' | 'gave-up' => {
-    const candidateRecord = candidate.id === puzzle.id ? record : getRecord(candidate.id);
-    if (candidateRecord?.solved) return 'solved';
-    if (candidateRecord?.gaveUp) return 'gave-up';
-    return 'open';
-  };
-
-  const renderHintSummary = () => {
-    if (record.hintsUsed === 0 || hints.length === 0) return null;
-
-    return (
-      <div className="hint-summary">
-        {hints.slice(0, record.hintsUsed).map((hint) => (
-          <div className="hint-item" key={hint.label}>
-            <div className="hint-label">{hint.label}:</div>
-            <div className="hint-content">{hint.text}</div>
-          </div>
-        ))}
-      </div>
-    );
-  };
-
-  const renderHintButtons = () => {
-    const allHintsUsed = hints.length === 0 || record.hintsUsed >= TOTAL_HINTS;
-
-    return (
-      <div className="hint-buttons">
-        <Button
-          variant={allHintsUsed ? 'danger' : 'outline-secondary'}
-          onClick={allHintsUsed ? () => setShowGiveUpModal(true) : handleRevealHint}
-          disabled={finished}
-          className={`hint-type-button ${allHintsUsed ? 'give-up-button' : ''}`}
-          size={allHintsUsed ? 'lg' : undefined}
-        >
-          <FontAwesomeIcon icon={allHintsUsed ? faFlag : faLightbulb} className="me-2" />
-          {allHintsUsed ? 'Give Up' : `Hint (${record.hintsUsed}/${TOTAL_HINTS})`}
-        </Button>
-      </div>
-    );
-  };
-
-  const renderHintIndicator = () => {
-    if (record.hintsUsed === 0 || hints.length === 0) return null;
-
-    return (
-      <div className="hint-indicator">
-        {Array.from({ length: TOTAL_HINTS }).map((_, i) => (
-          <div key={i} className={`hint-circle ${i < record.hintsUsed ? 'used' : ''}`} />
-        ))}
-      </div>
-    );
-  };
-
-  const renderShareControls = () => (
-    <div className="share-controls">
-      <Button variant="primary" size="lg" onClick={handleShare} className="share-score-button">
-        <FontAwesomeIcon icon={faShare} className="me-2" />
-        Share Result
-      </Button>
-      {(record.par ?? parInfo?.par) !== undefined && (
-        <Form.Check
-          type="checkbox"
-          id="include-challenge"
-          className="challenge-toggle"
-          label="Add a challenge line for friends"
-          checked={includeChallenge}
-          onChange={(e) => setIncludeChallenge(e.target.checked)}
-        />
-      )}
-    </div>
+  const streak = useMemo(
+    () => (finished && !isArchive ? computeStats(loadRecords(), todayStr).currentStreak : 0),
+    // Recompute when this puzzle's outcome changes.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [finished, record.solved, isArchive, todayStr, puzzle.id],
   );
 
-  const renderCompletionState = () => {
-    if (!finished) return null;
-
-    const revealedSolution = parInfo?.expression || puzzle.solution?.expression;
-    const nextPuzzle = puzzleSet.find((candidate) => puzzleStatus(candidate) === 'open');
-    const completedSet = puzzleSet.every((candidate) => puzzleStatus(candidate) !== 'open');
-
-    return (
-      <div className="completion-state">
-        {record.gaveUp ? (
-          <>
-            <h2 className="completion-title completion-title-gave-up">You'll get it next time!</h2>
-            {revealedSolution && (
-              <p className="completion-text">
-                The par solution was: <code>{displayExpression(revealedSolution)}</code>
-              </p>
-            )}
-          </>
-        ) : (
-          <>
-            <h2 className="completion-title">You got it!</h2>
-            {record.expression && (
-              <p className="completion-text">
-                <code>{displayExpression(record.expression)}</code> = {puzzle.target}
-              </p>
-            )}
-          </>
-        )}
-        <p className="result-line">{buildResultLine(shareResult())}</p>
-        {renderShareControls()}
-        {nextPuzzle && nextPuzzle.id !== puzzle.id ? (
-          <Button
-            variant="outline-primary"
-            className="next-difficulty-button"
-            onClick={() => setSelectedDifficulty(nextPuzzle.difficulty || 'easy')}
-          >
-            Next: {nextPuzzle.difficulty}
-          </Button>
-        ) : isArchive ? (
-          <Link to="/archive" className="archive-return-link">
-            <FontAwesomeIcon icon={faArrowLeft} className="me-2" />
-            Back to the archive
-          </Link>
-        ) : (
-          <div className="next-puzzle-timer">Next puzzle in {timeUntilNext}</div>
-        )}
-        {!isArchive && completedSet && <CrossPromo dateStr={puzzle.date} />}
-      </div>
-    );
-  };
-
-  const renderGiveUpModal = () => {
-    return (
-      <Modal show={showGiveUpModal} onHide={() => setShowGiveUpModal(false)} centered>
-        <Modal.Header closeButton>
-          <Modal.Title>Give Up?</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          Are you sure you want to give up? The solution will be revealed.
-        </Modal.Body>
-        <Modal.Footer>
-          <Button variant="secondary" onClick={() => setShowGiveUpModal(false)}>
-            Cancel
-          </Button>
-          <Button variant="danger" onClick={handleGiveUp}>
-            Yes, Give Up
-          </Button>
-        </Modal.Footer>
-      </Modal>
-    );
-  };
-
   if (!validDate) {
-    return <Navigate to="/play" replace />;
+    return <Navigate to="/" replace />;
   }
 
+  const hintsLeft = hints.length > 0 && record.hintsUsed < TOTAL_HINTS;
+  const actionKey: KeySpec = hintsLeft
+    ? {
+        onPress: revealHint,
+        label: (
+          <span className="fn-key-stack">
+            Hint
+            <small>
+              {record.hintsUsed}/{TOTAL_HINTS}
+            </small>
+          </span>
+        ),
+        kind: 'hint',
+        ariaLabel: `Reveal hint ${record.hintsUsed + 1} of ${TOTAL_HINTS}`,
+      }
+    : { onPress: () => setConfirmGiveUp(true), label: 'Give up', kind: 'danger', ariaLabel: 'Give up and see the solution' };
+
+  const keys: KeySpec[] = finished
+    ? []
+    : [
+        { action: 'clear', label: 'AC', kind: 'util', ariaLabel: 'Clear' },
+        { token: '(', label: '(', ariaLabel: 'Open parenthesis' },
+        { token: ')', label: ')', ariaLabel: 'Close parenthesis' },
+        { action: 'back', label: '⌫', kind: 'util', ariaLabel: 'Backspace' },
+        { token: '+', label: '+', ariaLabel: 'Plus' },
+        { token: '-', label: '−', ariaLabel: 'Minus' },
+        { token: '*', label: '×', ariaLabel: 'Times' },
+        { token: '/', label: '÷', ariaLabel: 'Divided by' },
+        { token: 'sqrt(', label: '√', ariaLabel: 'Square root' },
+        { token: '!', label: 'x!', ariaLabel: 'Factorial' },
+        { token: '^', label: 'xʸ', ariaLabel: 'Power' },
+        { token: '%', label: '%', ariaLabel: 'Remainder (modulo)' },
+        actionKey,
+        { token: '.', label: '.', ariaLabel: 'Decimal point' },
+        { token: String(puzzle.seed), label: puzzle.seed, kind: 'digit', span: 2, ariaLabel: `Digit ${puzzle.seed}` },
+      ];
+
+  let status: { text: React.ReactNode; tone: 'neutral' | 'exact' | 'error' } | undefined;
+  if (record.solved) {
+    status = { text: `= ${puzzle.target}  SOLVED`, tone: 'exact' };
+  } else if (record.gaveUp) {
+    status = { text: 'Solution revealed below', tone: 'error' };
+  } else if (evaluation && evaluation.value !== undefined) {
+    const offCount = digitsUsed !== 4;
+    status = {
+      text: offCount
+        ? `= ${formatValue(evaluation.value)}  ·  ${digitsUsed < 4 ? `${4 - digitsUsed} more ${puzzle.seed}` : `${digitsUsed - 4} too many`}`
+        : `= ${formatValue(evaluation.value)}`,
+      tone: 'neutral',
+    };
+  } else if (evaluation) {
+    status = { text: '…', tone: 'neutral' };
+  }
+
+  const shownExpression = record.gaveUp ? '' : expression;
+  const overPar = record.solved && record.symbols !== undefined && par !== undefined ? record.symbols - par : undefined;
+  const nextOpen = puzzleSet.find(
+    (candidate) => candidate.id !== puzzle.id && statusOf(candidate.id === puzzle.id ? record : getRecord(candidate.id)) === 'open',
+  );
+  const setComplete = puzzleSet.every(
+    (candidate) => statusOf(candidate.id === puzzle.id ? record : getRecord(candidate.id)) !== 'open',
+  );
+  const revealed = parInfo?.expression || puzzle.solution?.expression;
+
   return (
-    <div className="game-container">
-      <div className="game-panel">
-        <div className="game-panel-inner">
-          <div className="game-content">
-        {isArchive && (
-          <div className="archive-banner">
-            <Link to="/archive" className="archive-return-link">
-              <FontAwesomeIcon icon={faArrowLeft} className="me-1" />
-              Archive
-            </Link>
-            <span className="archive-banner-date">
-              #{puzzle.puzzleNumber} — {puzzle.date}
-            </span>
+    <div className="fn-play">
+      <div className="fn-meta">
+        {isArchive ? (
+          <Link to="/archive" className="fn-meta-back">
+            ← Archive
+          </Link>
+        ) : (
+          <span className="nl-label">Today</span>
+        )}
+        <span className="nl-label">
+          No. {puzzle.puzzleNumber} · {formatDate(puzzle.date)}
+        </span>
+      </div>
+
+      {puzzleSet.length > 1 && (
+        <div className="fn-lanes" role="tablist" aria-label="Difficulty">
+          {DIFFICULTIES.map((difficulty) => {
+            const candidate = puzzleSet.find((item) => item.difficulty === difficulty);
+            if (!candidate) return null;
+            const laneStatus = statusOf(candidate.id === puzzle.id ? record : getRecord(candidate.id));
+            const active = candidate.id === puzzle.id;
+            return (
+              <button
+                key={candidate.id}
+                type="button"
+                role="tab"
+                aria-selected={active}
+                className={`fn-lane fn-lane--${LANE_TONE[difficulty]}${active ? ' is-active' : ''} is-${laneStatus}`}
+                onClick={() => setSelectedDifficulty(difficulty)}
+              >
+                <span className="fn-lane-dot" aria-hidden="true" />
+                <span className="fn-lane-name">{difficulty}</span>
+                <span className="fn-lane-mark" aria-label={laneStatus === 'open' ? 'not finished' : laneStatus.replace('-', ' ')}>
+                  {laneStatus === 'solved' ? '✓' : laneStatus === 'gave-up' ? '–' : ''}
+                </span>
+              </button>
+            );
+          })}
+        </div>
+      )}
+
+      <div className={`fn-machine${finished ? ' is-finished' : ''}${record.solved ? ' is-solved' : ''}`}>
+        <ExpressionCalculator
+          value={shownExpression}
+          onChange={handleExpression}
+          keys={keys}
+          captureGlobalKeys={!finished}
+          disabled={finished}
+          typeableDigits={String(puzzle.seed)}
+          ariaLabel={`Your expression. Make ${puzzle.target} with four ${puzzle.seed}s.`}
+          placeholder={record.gaveUp ? '' : `Four ${puzzle.seed}s. Any keys.`}
+          header={
+            <div className="fn-readout">
+              <div>
+                <div className="nl-screen-label">Make</div>
+                <div className="nl-screen-target fn-target">{puzzle.target}</div>
+              </div>
+              <div className="fn-readout-right">
+                <div className="nl-screen-label">Use four</div>
+                <DigitPips digit={puzzle.seed} used={record.gaveUp ? 0 : digitsUsed} />
+              </div>
+            </div>
+          }
+          status={status}
+          screenFooter={
+            <>
+              {record.hintsUsed > 0 && hints.length > 0 && !finished && (
+                <ol className="fn-hints" aria-label="Hints">
+                  {hints.slice(0, record.hintsUsed).map((hint, index) => (
+                    <li key={hint.label}>
+                      <span className="fn-hint-n">H{index + 1}</span>
+                      <span>{index === 2 ? <>Shape: <span className="fn-hint-shape">{hint.text}</span></> : hint.text}</span>
+                    </li>
+                  ))}
+                </ol>
+              )}
+              <div className="fn-scoreline">
+                <button type="button" className="fn-score" onClick={onShowHelp} aria-label="How scoring works">
+                  <span className="nl-screen-label">Symbols</span>
+                  <span
+                    className={`fn-score-n${
+                      record.solved && overPar === 0 ? ' is-par' : ''
+                    }${!finished && par !== undefined && liveSymbols > par ? ' is-over' : ''}`}
+                  >
+                    {record.solved ? record.symbols : record.gaveUp ? '–' : liveSymbols}
+                  </span>
+                </button>
+                <button type="button" className="fn-score" onClick={onShowHelp} aria-label="How scoring works">
+                  <span className="nl-screen-label">Par</span>
+                  <span className="fn-score-n">{par ?? '–'}</span>
+                </button>
+              </div>
+            </>
+          }
+        />
+
+        {finished && (
+          <div className="fn-printer">
+            <div className="fn-slot" aria-hidden="true" />
+            <div className={`fn-tape-roll${justFinished ? ' is-printing' : ''}`} ref={tapeRef}>
+              <div className="nl-tape fn-tape" aria-label="Your result">
+                <div className="nl-tape-line">
+                  <span className="fn-tape-strong">FOUR NINES</span>
+                  <span>NO. {puzzle.puzzleNumber}</span>
+                </div>
+                <div className="nl-tape-line nl-tape-muted">
+                  <span>{(puzzle.difficulty ?? 'daily').toUpperCase()}</span>
+                  <span>{isArchive ? `ARCHIVE ${puzzle.date}` : puzzle.date}</span>
+                </div>
+                <hr className="nl-tape-rule" />
+                {record.solved && record.expression ? (
+                  <>
+                    <div className="nl-tape-expr fn-tape-expr">{prettyExpression(record.expression, { spaced: true })}</div>
+                    <div className="nl-tape-line fn-tape-total">
+                      <span />
+                      <span>= {puzzle.target}</span>
+                    </div>
+                  </>
+                ) : (
+                  <>
+                    <div className="nl-tape-line">
+                      <span className="fn-tape-strong">NOT SOLVED</span>
+                    </div>
+                    {revealed && (
+                      <>
+                        <div className="nl-tape-line nl-tape-muted">
+                          <span>PAR SOLUTION</span>
+                        </div>
+                        <div className="nl-tape-expr fn-tape-expr">{prettyExpression(revealed, { spaced: true })}</div>
+                        <div className="nl-tape-line fn-tape-total">
+                          <span />
+                          <span>= {puzzle.target}</span>
+                        </div>
+                      </>
+                    )}
+                  </>
+                )}
+                <hr className="nl-tape-rule" />
+                {record.solved && (
+                  <div className="nl-tape-line">
+                    <span>SYMBOLS</span>
+                    <span>{record.symbols}</span>
+                  </div>
+                )}
+                {par !== undefined && (
+                  <div className="nl-tape-line">
+                    <span>PAR</span>
+                    <span>{par}</span>
+                  </div>
+                )}
+                {overPar !== undefined && (
+                  <div className="nl-tape-line fn-tape-strong">
+                    <span>RESULT</span>
+                    <span className={overPar === 0 ? 'fn-tape-par' : undefined}>
+                      {overPar === 0 ? 'AT PAR' : `+${overPar} OVER`}
+                    </span>
+                  </div>
+                )}
+                {record.solved && record.timeMs !== undefined && record.timeMs < MAX_REPORTED_TIME_MS && (
+                  <div className="nl-tape-line">
+                    <span>TIME</span>
+                    <span>{formatDuration(record.timeMs)}</span>
+                  </div>
+                )}
+                <div className="nl-tape-line">
+                  <span>HINTS</span>
+                  <span>
+                    {record.hintsUsed}/{TOTAL_HINTS}
+                  </span>
+                </div>
+                {!isArchive && (
+                  <div className="nl-tape-line">
+                    <span>STREAK</span>
+                    <span>{streak}</span>
+                  </div>
+                )}
+              </div>
+            </div>
+
+            <div className="fn-after">
+              <button type="button" className="nl-btn nl-btn--primary fn-share" onClick={share}>
+                {copyState === 'copied' ? 'Copied to clipboard' : copyState === 'failed' ? "Couldn't copy" : 'Share result'}
+              </button>
+              {par !== undefined && (
+                <label className="fn-toggle">
+                  <input
+                    type="checkbox"
+                    checked={includeChallenge}
+                    onChange={(event) => setIncludeChallenge(event.target.checked)}
+                  />
+                  <span>Add a par challenge for friends</span>
+                </label>
+              )}
+              <div className="fn-after-row">
+                {nextOpen ? (
+                  <button
+                    type="button"
+                    className={`nl-btn nl-btn--ghost fn-next fn-next--${LANE_TONE[nextOpen.difficulty ?? 'easy']}`}
+                    onClick={() => setSelectedDifficulty(nextOpen.difficulty ?? 'easy')}
+                  >
+                    Next: {capitalize(nextOpen.difficulty ?? 'easy')} →
+                  </button>
+                ) : isArchive ? (
+                  <Link to="/archive" className="nl-btn nl-btn--ghost">
+                    Back to the archive
+                  </Link>
+                ) : (
+                  <p className="fn-countdown">
+                    <span className="nl-label">Next set in</span>
+                    <span className="nl-mono">{countdown}</span>
+                  </p>
+                )}
+                <button type="button" className="nl-btn nl-btn--ghost nl-btn--small" onClick={onShowStats}>
+                  Stats
+                </button>
+              </div>
+            </div>
+            {!isArchive && setComplete && <CrossPromo dateStr={puzzle.date} />}
           </div>
         )}
-
-            {puzzleSet.length > 1 && (
-              <div className="difficulty-switcher" aria-label="Today's difficulty">
-                {puzzleSet.map((candidate) => {
-                  const status = puzzleStatus(candidate);
-                  const active = candidate.id === puzzle.id;
-                  return (
-                    <button
-                      type="button"
-                      key={candidate.id}
-                      className={`difficulty-option difficulty-${candidate.difficulty} is-${status} ${active ? 'is-active' : ''}`}
-                      onClick={() => setSelectedDifficulty(candidate.difficulty || 'easy')}
-                      aria-pressed={active}
-                    >
-                      <span>{candidate.difficulty}</span>
-                      <span className="difficulty-status" aria-hidden="true">
-                        {status === 'solved' ? '✓' : status === 'gave-up' ? '—' : '○'}
-                      </span>
-                    </button>
-                  );
-                })}
-              </div>
-            )}
-
-            <h1 className="puzzle-instruction">
-              Make <span>{puzzle.target}</span> with four <span>{puzzle.seed}s</span>
-            </h1>
-
-        <div className="expression-container">
-          <input
-            type="text"
-            value={displayExpression(record.currentExpression)}
-            onChange={handleExpressionChange}
-            onFocus={handleInputFocus}
-            onClick={handleInputClick}
-            placeholder="Enter your expression..."
-            className="expression-input"
-            disabled={finished}
-            readOnly={isMobile}
-            inputMode={isMobile ? 'none' : 'text'}
-          />
-          <div className={`evaluation-display ${evaluation?.isValid ? 'is-correct' : ''}`} aria-live="polite">
-            {evaluation && evaluation.value !== undefined && (
-              <span className="value-text">= {evaluation.value}</span>
-            )}
-            {evaluation && <span className="status-detail">{evaluation.isValid ? 'Solved' : evaluation.error}</span>}
-          </div>
-        </div>
-
-            {renderCompletionState()}
-          </div>
-
-          {!finished && (
-            <div className="bottom-controls">
-              {renderHintSummary()}
-              <div className="hint-controls">
-                {renderHintButtons()}
-                {renderHintIndicator()}
-              </div>
-              <div className="keyboard" aria-label="Expression keypad">
-                <div className="keyboard-row keyboard-row-main">
-              <Button
-                variant="secondary"
-                onClick={() => handleKeyPress(puzzle.seed.toString())}
-                className="key-button key-button-digit"
-              >
-                {puzzle.seed}
-              </Button>
-              {OPERATORS.basic.map((op) => (
-                <Button
-                  key={op}
-                  variant="secondary"
-                  onClick={() => handleKeyPress(op)}
-                  className="key-button"
-                >
-                  {op === '*' ? '×' : op}
-                </Button>
-              ))}
-              <Button variant="secondary" onClick={handleBackspace} className="key-button key-button-icon" aria-label="Backspace">
-                <FontAwesomeIcon icon={faBackspace} />
-              </Button>
-            </div>
-            <div className="keyboard-row keyboard-row-advanced">
-              {OPERATORS.advanced.map((op) => (
-                <Button
-                  key={op}
-                  variant="secondary"
-                  onClick={() => handleKeyPress(op)}
-                  className="key-button"
-                >
-                  {op}
-                </Button>
-              ))}
-            </div>
-            <div className="keyboard-row keyboard-row-compact">
-              {OPERATORS.parentheses.map((op) => (
-                <Button
-                  key={op}
-                  variant="secondary"
-                  onClick={() => handleKeyPress(op)}
-                  className="key-button"
-                >
-                  {op}
-                </Button>
-              ))}
-              <Button variant="danger" onClick={handleClear} className="key-button key-button-clear">
-                Clear
-              </Button>
-            </div>
-              </div>
-            </div>
-          )}
-        </div>
       </div>
-      {renderGiveUpModal()}
+
+      {!finished && (
+        <p className="fn-kbd-hint">
+          Keyboard works: type <kbd>{puzzle.seed}</kbd> <kbd>+</kbd> <kbd>-</kbd> <kbd>*</kbd> <kbd>/</kbd> <kbd>(</kbd>{' '}
+          <kbd>)</kbd> <kbd>.</kbd> <kbd>!</kbd> <kbd>^</kbd>, <kbd>S</kbd> for √, <kbd>Esc</kbd> to clear.
+        </p>
+      )}
+
+      <Sheet
+        open={confirmGiveUp}
+        onClose={() => setConfirmGiveUp(false)}
+        title="Give up?"
+        footer={
+          <div className="fn-confirm">
+            <button type="button" className="nl-btn nl-btn--ghost" onClick={() => setConfirmGiveUp(false)}>
+              Keep trying
+            </button>
+            <button type="button" className="nl-btn fn-btn-danger" onClick={giveUp}>
+              Show the solution
+            </button>
+          </div>
+        }
+      >
+        <p className="nl-small">
+          The par solution prints on the tape and this puzzle counts as not solved.
+          {!isArchive && ' Your streak holds if you solve another of today’s puzzles.'}
+        </p>
+      </Sheet>
     </div>
   );
 };
