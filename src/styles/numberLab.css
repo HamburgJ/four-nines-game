@@ -1,0 +1,940 @@
+/*
+ * The Number Lab design system: a physical desk calculator on a white page.
+ *
+ * Shared by /four-nines/, /four-fours/, /make-24/ and every solver / target
+ * page. THIS FILE is the game's copy of burgerfun's
+ * src/components/numberLab/numberLab.css — keep the two in step.
+ * Spec: docs/NUMBER-LAB-DESIGN.md.
+ *
+ * Every class is prefixed `nl-` and scoped under `.nl` so nothing here leaks
+ * into the rest of burgerfun.
+ */
+
+.nl {
+  /* Surfaces */
+  --nl-paper: #ffffff;
+  --nl-ink: #111214;
+
+  /* Calculator housing: light cool-gray plastic, never cream */
+  --nl-body-top: #f7f8f9;
+  --nl-body: #eceef1;
+  --nl-body-rim: #d9dde2;
+  --nl-body-edge: #cdd2d8; /* the thick base you see under the face */
+  --nl-body-edge-line: #bcc2c9;
+  --nl-tray: #e1e4e8; /* recessed key well */
+
+  /* LCD */
+  --nl-bezel: #8d949c;
+  --nl-bezel-edge: #7a8189;
+  --nl-lcd-top: #cfd4cc;
+  --nl-lcd: #c3c9c0;
+  --nl-lcd-ink: #1b1f1c;
+  --nl-lcd-ink-2: #464d47;
+  --nl-lcd-ghost: rgba(27, 31, 28, 0.075);
+  --nl-lcd-ghost-line: rgba(27, 31, 28, 0.22);
+  --nl-lcd-ghost-text: rgba(27, 31, 28, 0.38);
+
+  /* Keycaps: top highlight, face, and the side wall (edge) */
+  --nl-key-light: #ffffff;
+  --nl-key-light-face: #f1f2f4;
+  --nl-key-light-edge: #c9ced4;
+  --nl-key-light-fg: #26292d;
+  --nl-key-gray: #b0b5bb;
+  --nl-key-gray-face: #9ea4ab;
+  --nl-key-gray-edge: #7b828a;
+  --nl-key-dark: #767d85;
+  --nl-key-dark-face: #666d75;
+  --nl-key-dark-edge: #4c5259;
+
+  /* Neutrals (cool, never cream) */
+  --nl-gray-50: #f5f5f5;
+  --nl-gray-100: #ededed;
+  --nl-gray-200: #e0e0e0;
+  --nl-gray-300: #c7c7c7;
+  --nl-gray-500: #8a8a8a;
+  --nl-gray-600: #6b6b6b;
+  --nl-gray-700: #474747;
+
+  /* Pops — each one means something, never decoration */
+  --nl-orange-top: #ff9a3d;
+  --nl-orange: #f7801e; /* the digit key, primary action */
+  --nl-orange-deep: #c25d08;
+  --nl-green: #17c26b; /* exact match, solved, easy */
+  --nl-green-deep: #0e8f4d;
+  --nl-yellow: #ffc933; /* hints, medium */
+  --nl-yellow-deep: #d99d00;
+  --nl-red: #ff3d5e; /* hard, impossible */
+  --nl-red-deep: #cc1f3f;
+  --nl-blue: #3d7bff; /* links on dark */
+
+  /* Type */
+  --nl-font-ui: 'Archivo', system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  --nl-font-mono: 'Martian Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+
+  /* Shape */
+  --nl-radius-body: 28px;
+  --nl-radius-screen: 14px;
+  --nl-radius-key: 12px;
+  --nl-radius-card: 16px;
+
+  background: var(--nl-paper);
+  color: var(--nl-ink);
+  font-family: var(--nl-font-ui);
+  font-variation-settings: 'wdth' 100;
+  -webkit-font-smoothing: antialiased;
+  min-height: 100vh;
+}
+
+.nl *,
+.nl *::before,
+.nl *::after {
+  box-sizing: border-box;
+}
+
+/* ------------------------------------------------------------------------ */
+/* Page frame                                                               */
+/* ------------------------------------------------------------------------ */
+
+.nl-wrap {
+  width: 100%;
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.nl-wrap--narrow {
+  max-width: 780px;
+}
+
+.nl-topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 18px 0;
+}
+
+.nl-brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--nl-ink);
+  text-decoration: none;
+  font-weight: 700;
+  font-size: 15px;
+  letter-spacing: -0.01em;
+}
+
+.nl-brand:hover {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.nl-crumbs {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  font-family: var(--nl-font-mono);
+  font-size: 11px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--nl-gray-600);
+}
+
+.nl-crumbs a {
+  color: var(--nl-ink);
+  text-decoration: none;
+  border-bottom: 1px solid var(--nl-gray-300);
+}
+
+.nl-crumbs a:hover {
+  border-bottom-color: var(--nl-ink);
+}
+
+.nl-crumbs li + li::before {
+  content: '/';
+  margin-right: 6px;
+  color: var(--nl-gray-300);
+}
+
+/* ------------------------------------------------------------------------ */
+/* Type                                                                     */
+/* ------------------------------------------------------------------------ */
+
+.nl-display-title {
+  margin: 0;
+  font-family: var(--nl-font-ui);
+  font-weight: 850;
+  font-variation-settings: 'wdth' 118;
+  font-size: clamp(44px, 8vw, 96px);
+  line-height: 0.9;
+  letter-spacing: -0.035em;
+}
+
+.nl-h1 {
+  margin: 0;
+  font-weight: 800;
+  font-variation-settings: 'wdth' 112;
+  font-size: clamp(32px, 5.4vw, 56px);
+  line-height: 0.98;
+  letter-spacing: -0.03em;
+}
+
+.nl-h2 {
+  margin: 0;
+  font-weight: 800;
+  font-variation-settings: 'wdth' 108;
+  font-size: clamp(24px, 3.2vw, 34px);
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+}
+
+.nl-h3 {
+  margin: 0;
+  font-weight: 750;
+  font-size: 18px;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+}
+
+.nl-lede {
+  margin: 0;
+  font-size: clamp(17px, 1.6vw, 20px);
+  line-height: 1.5;
+  color: var(--nl-gray-700);
+  max-width: 60ch;
+}
+
+.nl-body {
+  margin: 0;
+  font-size: 16px;
+  line-height: 1.65;
+  color: var(--nl-gray-700);
+  max-width: 68ch;
+}
+
+.nl-small {
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.5;
+  color: var(--nl-gray-600);
+}
+
+/* Label in the calculator's own voice: mono, caps, tracked. */
+.nl-label {
+  font-family: var(--nl-font-mono);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--nl-gray-600);
+}
+
+.nl-mono {
+  font-family: var(--nl-font-mono);
+  font-variant-numeric: tabular-nums;
+}
+
+.nl-link {
+  color: var(--nl-ink);
+  font-weight: 650;
+  text-decoration: underline;
+  text-decoration-color: var(--nl-gray-300);
+  text-decoration-thickness: 2px;
+  text-underline-offset: 3px;
+}
+
+.nl-link:hover {
+  text-decoration-color: var(--nl-orange);
+}
+
+.nl-section {
+  padding: clamp(40px, 6vw, 72px) 0;
+}
+
+.nl-section + .nl-section {
+  border-top: 1px solid var(--nl-gray-200);
+}
+
+.nl-stack > * + * {
+  margin-top: var(--nl-stack-gap, 16px);
+}
+
+/* ------------------------------------------------------------------------ */
+/* Buttons                                                                  */
+/* ------------------------------------------------------------------------ */
+
+.nl-btn {
+  --btn-bg: var(--nl-ink);
+  --btn-fg: #ffffff;
+  --btn-edge: #000000;
+  appearance: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  min-height: 52px;
+  padding: 0 24px;
+  border: 0;
+  border-radius: 999px;
+  background: var(--btn-bg);
+  color: var(--btn-fg);
+  font-family: var(--nl-font-ui);
+  font-weight: 750;
+  font-size: 16px;
+  letter-spacing: -0.005em;
+  text-decoration: none;
+  cursor: pointer;
+  box-shadow: 0 4px 0 var(--btn-edge);
+  transform: translateY(0);
+  transition: transform 90ms ease, box-shadow 90ms ease, background-color 120ms ease;
+}
+
+.nl-btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 5px 0 var(--btn-edge);
+}
+
+.nl-btn:active {
+  transform: translateY(4px);
+  box-shadow: 0 0 0 var(--btn-edge);
+}
+
+.nl-btn--primary {
+  --btn-bg: var(--nl-orange);
+  --btn-edge: var(--nl-orange-deep);
+}
+
+.nl-btn--ghost {
+  --btn-bg: #ffffff;
+  --btn-fg: var(--nl-ink);
+  --btn-edge: var(--nl-ink);
+  border: 2px solid var(--nl-ink);
+}
+
+.nl-btn--small {
+  min-height: 40px;
+  padding: 0 16px;
+  font-size: 14px;
+}
+
+.nl-btn:focus-visible,
+.nl-key:focus-visible,
+.nl-link:focus-visible,
+.nl-cell:focus-visible,
+.nl-chip:focus-visible {
+  outline: 3px solid var(--nl-blue);
+  outline-offset: 3px;
+}
+
+/* ------------------------------------------------------------------------ */
+/* Chips (tiers, difficulties, statuses)                                    */
+/* ------------------------------------------------------------------------ */
+
+.nl-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 5px 10px 5px 8px;
+  border: 1.5px solid var(--nl-gray-300);
+  border-radius: 999px;
+  background: #ffffff;
+  font-family: var(--nl-font-mono);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--nl-ink);
+  white-space: nowrap;
+}
+
+.nl-chip::before {
+  content: '';
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--chip-dot, var(--nl-gray-500));
+}
+
+.nl-chip--green { --chip-dot: var(--nl-green); }
+.nl-chip--yellow { --chip-dot: var(--nl-yellow); }
+.nl-chip--orange { --chip-dot: var(--nl-orange); }
+.nl-chip--red { --chip-dot: var(--nl-red); }
+.nl-chip--ink { --chip-dot: var(--nl-ink); }
+
+/* ------------------------------------------------------------------------ */
+/* The calculator — a physical desk calculator: light plastic housing with  */
+/* a thick base, a recessed gray LCD, chunky keycaps with visible walls.    */
+/* ------------------------------------------------------------------------ */
+
+.nl-calc {
+  position: relative;
+  width: 100%;
+  max-width: 420px;
+  padding: 22px 18px 18px;
+  border-radius: 30px;
+  background: linear-gradient(180deg, var(--nl-body-top) 0%, var(--nl-body) 100%);
+  box-shadow:
+    inset 0 2px 0 #ffffff,
+    inset 0 -2px 0 rgba(0, 0, 0, 0.035),
+    0 0 0 1px var(--nl-body-rim),
+    0 9px 0 var(--nl-body-edge),
+    0 9px 0 1px var(--nl-body-edge-line),
+    0 30px 44px -16px rgba(22, 28, 36, 0.34);
+  margin-bottom: 10px; /* room for the base edge */
+  color: var(--nl-ink);
+}
+
+.nl-calc--wide {
+  max-width: 560px;
+}
+
+/* LCD: glass in a gray bezel, sunk into the housing. */
+.nl-screen {
+  position: relative;
+  padding: 12px 14px 10px;
+  border-radius: 8px;
+  background: linear-gradient(180deg, var(--nl-lcd-top) 0%, var(--nl-lcd) 60%);
+  box-shadow:
+    inset 0 3px 5px rgba(0, 0, 0, 0.22),
+    inset 0 0 0 1px rgba(0, 0, 0, 0.12),
+    0 0 0 7px var(--nl-bezel),
+    0 0 0 8px var(--nl-bezel-edge),
+    0 1px 0 9px rgba(255, 255, 255, 0.9);
+  margin: 7px 7px 0;
+  font-family: var(--nl-font-mono);
+  color: var(--nl-lcd-ink);
+  overflow: hidden;
+}
+
+.nl-screen-row {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+/* Tiny LCD annunciators (MAKE, SYM, PAR…). */
+.nl-screen-label {
+  font-family: var(--nl-font-mono);
+  font-size: 9.5px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--nl-lcd-ink-2);
+}
+
+.nl-screen-target {
+  font-family: var(--nl-font-mono);
+  font-weight: 700;
+  font-size: clamp(34px, 8vw, 46px);
+  line-height: 1;
+  letter-spacing: -0.04em;
+  font-variant-numeric: tabular-nums;
+  color: var(--nl-lcd-ink);
+}
+
+/* The expression line: dot-matrix row of a scientific calculator. */
+.nl-screen-expr {
+  min-height: 1.5em;
+  font-family: var(--nl-font-mono);
+  font-weight: 500;
+  font-size: clamp(17px, 4.2vw, 21px);
+  line-height: 1.4;
+  letter-spacing: -0.01em;
+  word-break: break-all;
+  text-align: right;
+  color: var(--nl-lcd-ink);
+}
+
+.nl-screen-expr--placeholder {
+  color: var(--nl-lcd-ghost-text);
+  font-size: 13px;
+  letter-spacing: 0;
+  line-height: 2.2;
+}
+
+.nl-screen-value {
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-end;
+  gap: 10px;
+  min-height: 1.4em;
+  font-family: var(--nl-font-mono);
+  font-size: 14px;
+  text-align: right;
+  color: var(--nl-lcd-ink-2);
+}
+
+.nl-screen-value--exact {
+  color: var(--nl-lcd-ink);
+  font-weight: 700;
+}
+
+.nl-screen-value--error {
+  color: var(--nl-lcd-ink-2);
+}
+
+/* An inverted annunciator block, e.g. SOLVED. */
+.nl-lcd-flag {
+  display: inline-block;
+  padding: 2px 5px 1px;
+  border-radius: 2px;
+  background: var(--nl-lcd-ink);
+  color: var(--nl-lcd);
+  font-family: var(--nl-font-mono);
+  font-size: 9.5px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  line-height: 1.3;
+  text-transform: uppercase;
+}
+
+.nl-caret {
+  display: inline-block;
+  width: 2px;
+  height: 1.05em;
+  margin: 0 1px;
+  vertical-align: -0.15em;
+  background: var(--nl-lcd-ink);
+  animation: nl-blink 1.05s steps(1) infinite;
+}
+
+@keyframes nl-blink {
+  50% { opacity: 0; }
+}
+
+/* Seven-segment digits (SevenSegment component). */
+.nl-seg {
+  display: inline-flex;
+  align-items: flex-end;
+  height: 1em;
+  line-height: 1;
+}
+
+.nl-seg svg {
+  display: block;
+  height: 1em;
+  width: auto;
+  overflow: visible;
+}
+
+.nl-seg-on {
+  fill: var(--nl-lcd-ink);
+}
+
+.nl-seg-ghost {
+  fill: var(--nl-lcd-ghost);
+}
+
+/* Four digit pips: an LCD box per required digit, filled when used. */
+.nl-pips {
+  display: inline-flex;
+  gap: 4px;
+}
+
+.nl-pip {
+  display: grid;
+  place-items: center;
+  width: 19px;
+  height: 22px;
+  border-radius: 3px;
+  border: 1.5px solid var(--nl-lcd-ghost-line);
+  font-family: var(--nl-font-mono);
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--nl-lcd-ghost-text);
+  transition: background-color 120ms ease, color 120ms ease, border-color 120ms ease;
+}
+
+.nl-pip--on {
+  background: var(--nl-lcd-ink);
+  border-color: var(--nl-lcd-ink);
+  color: var(--nl-lcd);
+}
+
+.nl-pip--over {
+  background: var(--nl-lcd-ink);
+  border-color: var(--nl-lcd-ink);
+  color: var(--nl-lcd);
+  animation: nl-blink 0.8s steps(1) infinite;
+}
+
+/* Maker's mark printed on the housing between the LCD and the keys. */
+.nl-calc-brand {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+  margin: 18px 10px -8px;
+  font-family: var(--nl-font-ui);
+  font-size: 13px;
+  font-weight: 850;
+  font-style: italic;
+  font-variation-settings: 'wdth' 115;
+  letter-spacing: -0.01em;
+  color: #8c939b;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.nl-calc-brand small {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-family: var(--nl-font-mono);
+  font-size: 9px;
+  font-weight: 500;
+  font-style: normal;
+  letter-spacing: 0.12em;
+}
+
+/* Keypad: keys sit in a shallow recessed tray, like a real calculator. */
+.nl-keypad {
+  display: grid;
+  grid-template-columns: repeat(var(--nl-cols, 4), 1fr);
+  gap: 10px;
+  margin-top: 22px;
+  padding: 10px 10px 14px;
+  border-radius: 20px;
+  background: var(--nl-tray);
+  box-shadow: inset 0 2px 3px rgba(0, 0, 0, 0.08), inset 0 -1px 0 rgba(255, 255, 255, 0.8);
+}
+
+.nl-key {
+  --key-top: var(--nl-key-light);
+  --key-face: var(--nl-key-light-face);
+  --key-fg: var(--nl-key-light-fg);
+  --key-edge: var(--nl-key-light-edge);
+  appearance: none;
+  position: relative;
+  display: grid;
+  place-items: center;
+  min-height: 54px;
+  padding: 0 6px;
+  border: 0;
+  border-radius: 14px;
+  background: linear-gradient(180deg, var(--key-top) 0%, var(--key-face) 100%);
+  color: var(--key-fg);
+  font-family: var(--nl-font-mono);
+  font-weight: 600;
+  font-size: 19px;
+  line-height: 1;
+  cursor: pointer;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.55),
+    inset 0 -2px 0 rgba(0, 0, 0, 0.05),
+    0 5px 0 var(--key-edge),
+    0 6px 0 rgba(0, 0, 0, 0.08),
+    0 8px 10px -4px rgba(0, 0, 0, 0.25);
+  transform: translateY(0);
+  transition: transform 60ms ease, box-shadow 60ms ease, filter 120ms ease;
+}
+
+.nl-key:hover {
+  filter: brightness(1.03);
+}
+
+.nl-key:active,
+.nl-key--pressed {
+  transform: translateY(4px);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.4),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.05),
+    0 1px 0 var(--key-edge),
+    0 2px 3px -1px rgba(0, 0, 0, 0.25);
+}
+
+.nl-key:disabled {
+  cursor: default;
+  opacity: 0.45;
+  filter: none;
+}
+
+/* + − × ÷ : mid-gray keys. */
+.nl-key--op {
+  --key-top: var(--nl-key-gray);
+  --key-face: var(--nl-key-gray-face);
+  --key-fg: #ffffff;
+  --key-edge: var(--nl-key-gray-edge);
+}
+
+/* Parentheses, decimal point, functions: light keys. */
+.nl-key--fn {
+  --key-top: var(--nl-key-light);
+  --key-face: var(--nl-key-light-face);
+  --key-fg: var(--nl-key-light-fg);
+  --key-edge: var(--nl-key-light-edge);
+}
+
+.nl-key--digit {
+  --key-top: var(--nl-orange-top);
+  --key-face: var(--nl-orange);
+  --key-fg: #ffffff;
+  --key-edge: var(--nl-orange-deep);
+  min-height: 58px;
+  font-size: 28px;
+  font-weight: 700;
+}
+
+.nl-key--util {
+  --key-top: var(--nl-key-dark);
+  --key-face: var(--nl-key-dark-face);
+  --key-fg: #ffffff;
+  --key-edge: var(--nl-key-dark-edge);
+  font-family: var(--nl-font-ui);
+  font-size: 14px;
+  font-weight: 750;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+}
+
+.nl-key--hint {
+  --key-top: #ffd65c;
+  --key-face: var(--nl-yellow);
+  --key-fg: var(--nl-ink);
+  --key-edge: var(--nl-yellow-deep);
+  font-family: var(--nl-font-ui);
+  font-size: 14px;
+  font-weight: 750;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+}
+
+.nl-key--danger {
+  --key-top: #ff6179;
+  --key-face: var(--nl-red);
+  --key-fg: #ffffff;
+  --key-edge: var(--nl-red-deep);
+  font-family: var(--nl-font-ui);
+  font-size: 13px;
+  font-weight: 750;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  line-height: 1.05;
+}
+
+/* A tiny key used as an inline, non-interactive glyph in copy. */
+.nl-keycap {
+  display: inline-grid;
+  place-items: center;
+  min-width: 1.9em;
+  height: 1.9em;
+  padding: 0 0.45em;
+  border-radius: 7px;
+  background: linear-gradient(180deg, var(--nl-key-light) 0%, var(--nl-key-light-face) 100%);
+  color: var(--nl-key-light-fg);
+  font-family: var(--nl-font-mono);
+  font-size: 0.85em;
+  font-weight: 600;
+  box-shadow: 0 0 0 1px var(--nl-gray-200), 0 2.5px 0 var(--nl-key-light-edge);
+  vertical-align: 0.05em;
+}
+
+.nl-keycap--op {
+  background: linear-gradient(180deg, var(--nl-key-gray) 0%, var(--nl-key-gray-face) 100%);
+  color: #ffffff;
+  box-shadow: 0 2.5px 0 var(--nl-key-gray-edge);
+}
+
+.nl-keycap--digit {
+  background: linear-gradient(180deg, var(--nl-orange-top) 0%, var(--nl-orange) 100%);
+  color: #ffffff;
+  box-shadow: 0 2.5px 0 var(--nl-orange-deep);
+}
+
+/* ------------------------------------------------------------------------ */
+/* Paper tape — the printing-calculator receipt. Solutions live on tape.     */
+/* ------------------------------------------------------------------------ */
+
+.nl-tape {
+  --tape-tooth: 8px;
+  position: relative;
+  padding: 18px 20px 20px;
+  /* White paper; the bottom fades to gray so the torn teeth read against a
+     white page (a drop-shadow would be clipped by the mask). */
+  background: linear-gradient(to top, #cfcfcf 0, #e9e9e9 3px, #ffffff calc(var(--tape-tooth) + 10px));
+  color: var(--nl-ink);
+  font-family: var(--nl-font-mono);
+  font-size: 14px;
+  line-height: 1.7;
+  font-variant-numeric: tabular-nums;
+  border-left: 1px solid var(--nl-gray-200);
+  border-right: 1px solid var(--nl-gray-200);
+  /* Torn zigzag bottom: each tile is a 90° wedge opening upward from its
+     bottom centre, so only the last --tape-tooth pixels are toothed. */
+  -webkit-mask: conic-gradient(from -45deg at bottom, #0000, #000 1deg 89deg, #0000 90deg) 50% / calc(var(--tape-tooth) * 2) 100%;
+  mask: conic-gradient(from -45deg at bottom, #0000, #000 1deg 89deg, #0000 90deg) 50% / calc(var(--tape-tooth) * 2) 100%;
+  padding-bottom: calc(20px + var(--tape-tooth));
+}
+
+.nl-tape-line {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.nl-tape-rule {
+  height: 0;
+  margin: 8px 0;
+  border: 0;
+  border-top: 1.5px dashed var(--nl-gray-300);
+}
+
+.nl-tape-expr {
+  font-weight: 600;
+  font-size: 16px;
+  overflow-wrap: anywhere;
+}
+
+.nl-tape-muted {
+  color: var(--nl-gray-600);
+}
+
+/* ------------------------------------------------------------------------ */
+/* Number grid (solver 1–100, archive calendars)                            */
+/* ------------------------------------------------------------------------ */
+
+.nl-grid {
+  display: grid;
+  grid-template-columns: repeat(10, 1fr);
+  gap: 6px;
+}
+
+@media (max-width: 560px) {
+  .nl-grid {
+    grid-template-columns: repeat(5, 1fr);
+  }
+}
+
+.nl-cell {
+  display: grid;
+  place-items: center;
+  aspect-ratio: 1 / 1;
+  min-height: 44px;
+  border-radius: 10px;
+  border: 1.5px solid var(--nl-gray-200);
+  background: #ffffff;
+  color: var(--nl-ink);
+  font-family: var(--nl-font-mono);
+  font-weight: 600;
+  font-size: 15px;
+  text-decoration: none;
+  cursor: pointer;
+  transition: transform 80ms ease, border-color 120ms ease, background-color 120ms ease;
+}
+
+.nl-cell:hover {
+  border-color: var(--nl-ink);
+  transform: translateY(-1px);
+}
+
+.nl-cell[aria-current='true'],
+.nl-cell--active {
+  background: var(--nl-ink);
+  border-color: var(--nl-ink);
+  color: #ffffff;
+}
+
+/* ------------------------------------------------------------------------ */
+/* Cards / panels                                                           */
+/* ------------------------------------------------------------------------ */
+
+.nl-card {
+  padding: 22px;
+  border: 1.5px solid var(--nl-gray-200);
+  border-radius: var(--nl-radius-card);
+  background: #ffffff;
+}
+
+.nl-card--ink {
+  border-color: var(--nl-ink);
+  background: var(--nl-ink);
+  color: #ffffff;
+}
+
+.nl-card--ink .nl-body,
+.nl-card--ink .nl-small {
+  color: #bdbdbd;
+}
+
+.nl-card-link {
+  display: block;
+  color: inherit;
+  text-decoration: none;
+  transition: border-color 120ms ease, transform 120ms ease;
+}
+
+.nl-card-link.nl-card--ink {
+  color: #ffffff;
+}
+
+.nl-card-link:hover {
+  border-color: var(--nl-ink);
+  transform: translateY(-2px);
+}
+
+/* FAQ */
+.nl-faq {
+  border-top: 1.5px solid var(--nl-ink);
+}
+
+.nl-faq details {
+  border-bottom: 1px solid var(--nl-gray-200);
+}
+
+.nl-faq summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 18px 0;
+  font-weight: 700;
+  font-size: 17px;
+  cursor: pointer;
+  list-style: none;
+}
+
+.nl-faq summary::-webkit-details-marker {
+  display: none;
+}
+
+.nl-faq summary::after {
+  content: '+';
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 8px;
+  background: var(--nl-gray-100);
+  font-family: var(--nl-font-mono);
+  font-weight: 600;
+}
+
+.nl-faq details[open] summary::after {
+  content: '\2212';
+  background: var(--nl-ink);
+  color: #ffffff;
+}
+
+.nl-faq details > :not(summary) {
+  padding-bottom: 18px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .nl *,
+  .nl *::before,
+  .nl *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+}

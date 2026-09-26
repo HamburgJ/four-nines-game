@@ -1,29 +1,28 @@
-import React, { useMemo, useState } from 'react';
-import { Container, Button } from 'react-bootstrap';
+import { useMemo, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faChevronLeft, faChevronRight } from '@fortawesome/free-solid-svg-icons';
-import { FIRST_PUZZLE_DATE, getPuzzlesForDateString, getTodayDateString } from '../utils/gameLogic';
-import { loadRecords, DayRecord, getRecordsForDate } from '../utils/records';
+import { DIFFICULTIES, FIRST_PUZZLE_DATE, getPuzzlesForDateString, getTodayDateString } from '../utils/gameLogic';
+import { DayRecord, loadRecords } from '../utils/records';
 
 const WEEKDAYS = ['S', 'M', 'T', 'W', 'T', 'F', 'S'];
-
 const MONTH_NAMES = [
   'January', 'February', 'March', 'April', 'May', 'June',
   'July', 'August', 'September', 'October', 'November', 'December',
 ];
+const LANE_TONE = { easy: 'green', medium: 'yellow', hard: 'red' } as const;
 
 const pad = (n: number): string => n.toString().padStart(2, '0');
 
-const cellState = (dayRecords: DayRecord[], puzzleIds: string[]): string => {
-  if (dayRecords.length === 0) return 'unplayed';
-  if (puzzleIds.every((id) => dayRecords.some((record) => record.id === id && record.solved))) return 'solved';
-  if (puzzleIds.every((id) => dayRecords.some((record) => record.id === id && (record.solved || record.gaveUp)))) return 'gave-up';
-  if (dayRecords.some((record) => record.currentExpression || record.solved || record.gaveUp)) return 'in-progress';
-  return 'unplayed';
+type LaneState = 'solved' | 'gave-up' | 'started' | 'open';
+
+const laneState = (record: DayRecord | undefined): LaneState => {
+  if (!record) return 'open';
+  if (record.solved) return 'solved';
+  if (record.gaveUp) return 'gave-up';
+  if (record.currentExpression) return 'started';
+  return 'open';
 };
 
-export const Archive: React.FC = () => {
+export const Archive = () => {
   const navigate = useNavigate();
   const todayStr = getTodayDateString();
   const records = useMemo(() => loadRecords(), []);
@@ -33,11 +32,8 @@ export const Archive: React.FC = () => {
 
   const firstYear = Number(FIRST_PUZZLE_DATE.slice(0, 4));
   const firstMonth = Number(FIRST_PUZZLE_DATE.slice(5, 7));
-  const todayYear = Number(todayStr.slice(0, 4));
-  const todayMonth = Number(todayStr.slice(5, 7));
-
   const atFirstMonth = year === firstYear && month === firstMonth;
-  const atCurrentMonth = year === todayYear && month === todayMonth;
+  const atCurrentMonth = year === Number(todayStr.slice(0, 4)) && month === Number(todayStr.slice(5, 7));
 
   const changeMonth = (delta: number) => {
     let m = month + delta;
@@ -56,103 +52,112 @@ export const Archive: React.FC = () => {
   const daysInMonth = new Date(Date.UTC(year, month, 0)).getUTCDate();
   const firstWeekday = new Date(Date.UTC(year, month - 1, 1)).getUTCDay();
 
-  const solvedThisMonth = useMemo(() => {
-    let solved = 0;
-    let available = 0;
+  const days = useMemo(() => {
+    const out: Array<{ date: string; day: number; playable: boolean; lanes: Array<{ tone: string; state: LaneState }> }> = [];
     for (let day = 1; day <= daysInMonth; day++) {
       const date = `${year}-${pad(month)}-${pad(day)}`;
-      if (date < FIRST_PUZZLE_DATE || date > todayStr) continue;
-      available++;
-      const puzzleIds = getPuzzlesForDateString(date).map((puzzle) => puzzle.id);
-      if (puzzleIds.every((id) => records[id]?.solved)) solved++;
+      const playable = date >= FIRST_PUZZLE_DATE && date <= todayStr;
+      const lanes = playable
+        ? getPuzzlesForDateString(date).map((puzzle) => ({
+            tone: LANE_TONE[puzzle.difficulty ?? 'easy'],
+            state: laneState(records[puzzle.id]),
+          }))
+        : [];
+      out.push({ date, day, playable, lanes });
     }
-    return { solved, available };
+    return out;
   }, [records, year, month, daysInMonth, todayStr]);
 
-  return (
-    <Container className="archive-page py-3">
-      <h1 className="archive-title">Archive</h1>
-      <p className="archive-subtitle">
-        Play any past daily puzzle. Archive solves count in your stats, but only
-        same-day solves extend your streak.
-      </p>
+  const playableDays = days.filter((day) => day.playable);
+  const fullySolved = playableDays.filter((day) => day.lanes.every((lane) => lane.state === 'solved')).length;
 
-      <div className="archive-month-nav">
-        <Button
-          variant="link"
-          className="archive-nav-button"
+  return (
+    <div className="fn-archive">
+      <div className="fn-archive-head">
+        <h1 className="nl-h2">Archive</h1>
+        <p className="nl-small">
+          Every past puzzle, playable. They count toward your stats; only same-day solves extend your streak.
+        </p>
+      </div>
+
+      <div className="fn-month">
+        <button
+          type="button"
+          className="fn-month-btn"
           onClick={() => changeMonth(-1)}
           disabled={atFirstMonth}
           aria-label="Previous month"
         >
-          <FontAwesomeIcon icon={faChevronLeft} />
-        </Button>
-        <div className="archive-month-label">
+          ←
+        </button>
+        <div className="fn-month-label">
           {MONTH_NAMES[month - 1]} {year}
         </div>
-        <Button
-          variant="link"
-          className="archive-nav-button"
+        <button
+          type="button"
+          className="fn-month-btn"
           onClick={() => changeMonth(1)}
           disabled={atCurrentMonth}
           aria-label="Next month"
         >
-          <FontAwesomeIcon icon={faChevronRight} />
-        </Button>
+          →
+        </button>
       </div>
 
-      <div className="archive-grid">
-        {WEEKDAYS.map((d, i) => (
-          <div className="archive-weekday" key={`${d}-${i}`}>
-            {d}
+      <div className="fn-cal" role="grid" aria-label={`${MONTH_NAMES[month - 1]} ${year}`}>
+        {WEEKDAYS.map((weekday, index) => (
+          <div className="fn-cal-weekday" key={`${weekday}-${index}`} aria-hidden="true">
+            {weekday}
           </div>
         ))}
-        {Array.from({ length: firstWeekday }).map((_, i) => (
-          <div key={`pad-${i}`} />
+        {Array.from({ length: firstWeekday }).map((_, index) => (
+          <div key={`pad-${index}`} aria-hidden="true" />
         ))}
-        {Array.from({ length: daysInMonth }).map((_, i) => {
-          const day = i + 1;
-          const date = `${year}-${pad(month)}-${pad(day)}`;
-          const playable = date >= FIRST_PUZZLE_DATE && date <= todayStr;
-          const isToday = date === todayStr;
+        {days.map(({ date, day, playable, lanes }) => {
           if (!playable) {
             return (
-              <div className="archive-day archive-day-disabled" key={date}>
-                {day}
+              <div className="fn-cal-day is-future" key={date} aria-hidden="true">
+                <span className="fn-cal-num">{day}</span>
               </div>
             );
           }
-          const puzzleIds = getPuzzlesForDateString(date).map((puzzle) => puzzle.id);
-          const state = cellState(getRecordsForDate(records, date), puzzleIds);
+          const isToday = date === todayStr;
+          const allSolved = lanes.every((lane) => lane.state === 'solved');
+          const solvedCount = lanes.filter((lane) => lane.state === 'solved').length;
           return (
             <button
               type="button"
               key={date}
-              className={`archive-day archive-day-${state} ${isToday ? 'archive-day-today' : ''}`}
-              onClick={() => navigate(isToday ? '/play' : `/play/${date}`)}
-              aria-label={`${isToday ? "Today's puzzle" : `Puzzle for ${date}`} (${state.replace('-', ' ')})`}
+              className={`fn-cal-day${isToday ? ' is-today' : ''}${allSolved ? ' is-complete' : ''}`}
+              onClick={() => navigate(isToday ? '/' : `/play/${date}`)}
+              aria-label={`${isToday ? "Today's puzzles" : `Puzzles for ${date}`}: ${solvedCount} of ${lanes.length} solved`}
             >
-              {day}
+              <span className="fn-cal-num">{day}</span>
+              <span className="fn-cal-dots" aria-hidden="true">
+                {lanes.map((lane, index) => (
+                  <span key={index} className={`fn-cal-dot fn-cal-dot--${lane.tone} is-${lane.state}`} />
+                ))}
+              </span>
             </button>
           );
         })}
       </div>
 
-      <div className="archive-legend">
-        <span className="archive-legend-item">
-          <span className="archive-day archive-day-solved archive-legend-swatch" /> Solved
-        </span>
-        <span className="archive-legend-item">
-          <span className="archive-day archive-day-gave-up archive-legend-swatch" /> Given up
-        </span>
-        <span className="archive-legend-item">
-          <span className="archive-day archive-day-unplayed archive-legend-swatch" /> Unplayed
+      <div className="fn-legend">
+        {DIFFICULTIES.map((difficulty) => (
+          <span key={difficulty} className="fn-legend-item">
+            <span className={`fn-cal-dot fn-cal-dot--${LANE_TONE[difficulty]} is-solved`} />{' '}
+            {difficulty.charAt(0).toUpperCase() + difficulty.slice(1)} solved
+          </span>
+        ))}
+        <span className="fn-legend-item">
+          <span className="fn-cal-dot is-open" /> Not yet
         </span>
       </div>
 
-      <p className="archive-month-summary">
-        {solvedThisMonth.solved} of {solvedThisMonth.available} solved this month
+      <p className="fn-archive-summary nl-mono">
+        {fullySolved} of {playableDays.length} days fully solved this month
       </p>
-    </Container>
+    </div>
   );
 };
