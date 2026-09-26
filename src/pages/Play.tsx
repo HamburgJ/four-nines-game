@@ -34,7 +34,7 @@ import {
   logShareClicked,
   logStreakMilestone,
 } from '../utils/analytics';
-import { DigitPips, ExpressionCalculator } from '../components/Calculator';
+import { DigitPips, ExpressionCalculator, SevenSegment } from '../components/Calculator';
 import { type KeySpec, prettyExpression } from '../components/expression';
 import { CrossPromo } from '../components/CrossPromo';
 import { Sheet } from '../components/Sheet';
@@ -66,11 +66,14 @@ const statusOf = (record: DayRecord | undefined): 'open' | 'solved' | 'gave-up' 
   return 'open';
 };
 
-/** Keep huge factorial/power results readable on a narrow display. */
-const formatValue = (value: number): string => {
-  if (!Number.isFinite(value)) return String(value);
-  if (Math.abs(value) >= 1e10) return value.toExponential(4).replace('e+', 'e');
-  return String(Number(value.toFixed(6)));
+/** Fit a value into the eight-digit LCD. */
+const formatLcd = (value: number): string => {
+  if (!Number.isFinite(value)) return 'Error';
+  const plain = String(Number(value.toFixed(6)));
+  if (plain.replace(/[-.]/g, '').length <= 8) return plain;
+  const intDigits = Math.trunc(Math.abs(value)).toString().length;
+  if (intDigits < 8) return String(Number(value.toFixed(8 - intDigits)));
+  return value.toExponential(2).replace('e+', 'E').replace('e', 'E');
 };
 
 /** Milliseconds until the next UTC midnight — puzzle dates are UTC. */
@@ -290,38 +293,54 @@ export const Play = ({ onShowStats, onShowHelp }: PlayProps) => {
     ? []
     : [
         { action: 'clear', label: 'AC', kind: 'util', ariaLabel: 'Clear' },
-        { token: '(', label: '(', ariaLabel: 'Open parenthesis' },
-        { token: ')', label: ')', ariaLabel: 'Close parenthesis' },
+        { token: '(', label: '(', ariaLabel: 'Open parenthesis', kind: 'fn' },
+        { token: ')', label: ')', ariaLabel: 'Close parenthesis', kind: 'fn' },
         { action: 'back', label: '⌫', kind: 'util', ariaLabel: 'Backspace' },
         { token: '+', label: '+', ariaLabel: 'Plus' },
         { token: '-', label: '−', ariaLabel: 'Minus' },
         { token: '*', label: '×', ariaLabel: 'Times' },
         { token: '/', label: '÷', ariaLabel: 'Divided by' },
-        { token: 'sqrt(', label: '√', ariaLabel: 'Square root' },
-        { token: '!', label: 'x!', ariaLabel: 'Factorial' },
-        { token: '^', label: 'xʸ', ariaLabel: 'Power' },
-        { token: '%', label: '%', ariaLabel: 'Remainder (modulo)' },
+        { token: 'sqrt(', label: '√', ariaLabel: 'Square root', kind: 'fn' },
+        { token: '!', label: 'x!', ariaLabel: 'Factorial', kind: 'fn' },
+        { token: '^', label: 'xʸ', ariaLabel: 'Power', kind: 'fn' },
+        { token: '%', label: '%', ariaLabel: 'Remainder (modulo)', kind: 'fn' },
         actionKey,
-        { token: '.', label: '.', ariaLabel: 'Decimal point' },
+        { token: '.', label: '.', ariaLabel: 'Decimal point', kind: 'fn' },
         { token: String(puzzle.seed), label: puzzle.seed, kind: 'digit', span: 2, ariaLabel: `Digit ${puzzle.seed}` },
       ];
 
-  let status: { text: React.ReactNode; tone: 'neutral' | 'exact' | 'error' } | undefined;
+  // The big seven-segment row shows the live value, like any calculator.
+  let lcdValue = '0';
+  let lcdNote: React.ReactNode = null;
+  let tone: 'neutral' | 'exact' | 'error' = 'neutral';
   if (record.solved) {
-    status = { text: `= ${puzzle.target}  SOLVED`, tone: 'exact' };
+    lcdValue = String(puzzle.target);
+    lcdNote = <span className="nl-lcd-flag">Solved</span>;
+    tone = 'exact';
   } else if (record.gaveUp) {
-    status = { text: 'Solution revealed below', tone: 'error' };
+    lcdNote = <span className="nl-lcd-flag">Answer on tape</span>;
+    tone = 'error';
   } else if (evaluation && evaluation.value !== undefined) {
-    const offCount = digitsUsed !== 4;
-    status = {
-      text: offCount
-        ? `= ${formatValue(evaluation.value)}  ·  ${digitsUsed < 4 ? `${4 - digitsUsed} more ${puzzle.seed}` : `${digitsUsed - 4} too many`}`
-        : `= ${formatValue(evaluation.value)}`,
-      tone: 'neutral',
-    };
+    lcdValue = formatLcd(evaluation.value);
+    if (digitsUsed !== 4) {
+      lcdNote = (
+        <span className="nl-screen-label">
+          {digitsUsed < 4 ? `${4 - digitsUsed} more ${puzzle.seed}` : `${digitsUsed - 4} too many`}
+        </span>
+      );
+    }
   } else if (evaluation) {
-    status = { text: '…', tone: 'neutral' };
+    lcdValue = '';
   }
+  const status = {
+    text: (
+      <>
+        {lcdNote}
+        <SevenSegment value={lcdValue} slots={8} className="fn-lcd-number" />
+      </>
+    ),
+    tone,
+  };
 
   const shownExpression = record.gaveUp ? '' : expression;
   const overPar = record.solved && record.symbols !== undefined && par !== undefined ? record.symbols - par : undefined;
@@ -362,6 +381,7 @@ export const Play = ({ onShowStats, onShowHelp }: PlayProps) => {
                 role="tab"
                 aria-selected={active}
                 className={`fn-lane fn-lane--${LANE_TONE[difficulty]}${active ? ' is-active' : ''} is-${laneStatus}`}
+                onMouseDown={(event) => event.preventDefault()}
                 onClick={() => setSelectedDifficulty(difficulty)}
               >
                 <span className="fn-lane-dot" aria-hidden="true" />
@@ -375,6 +395,11 @@ export const Play = ({ onShowStats, onShowHelp }: PlayProps) => {
         </div>
       )}
 
+      <h1 className="fn-puzzle">
+        Make <span className="fn-puzzle-n">{puzzle.target}</span> with four{' '}
+        <span className="fn-puzzle-n fn-puzzle-digit">{puzzle.seed}</span>s
+      </h1>
+
       <div className={`fn-machine${finished ? ' is-finished' : ''}${record.solved ? ' is-solved' : ''}`}>
         <ExpressionCalculator
           value={shownExpression}
@@ -386,47 +411,46 @@ export const Play = ({ onShowStats, onShowHelp }: PlayProps) => {
           ariaLabel={`Your expression. Make ${puzzle.target} with four ${puzzle.seed}s.`}
           placeholder={record.gaveUp ? '' : `Four ${puzzle.seed}s. Any keys.`}
           header={
-            <div className="fn-readout">
-              <div>
-                <div className="nl-screen-label">Make</div>
-                <div className="nl-screen-target fn-target">{puzzle.target}</div>
-              </div>
-              <div className="fn-readout-right">
-                <div className="nl-screen-label">Use four</div>
-                <DigitPips digit={puzzle.seed} used={record.gaveUp ? 0 : digitsUsed} />
-              </div>
+            <div className="fn-annunciators">
+              <button type="button" className="fn-score" onClick={onShowHelp} aria-label="How scoring works">
+                <span className="nl-screen-label">Sym</span>
+                <span className={`fn-score-n${!finished && par !== undefined && liveSymbols > par ? ' is-over' : ''}`}>
+                  {record.solved ? record.symbols : record.gaveUp ? '-' : liveSymbols}
+                </span>
+                <span className="nl-screen-label">Par</span>
+                <span className="fn-score-n">{par ?? '-'}</span>
+              </button>
+              <DigitPips digit={puzzle.seed} used={record.gaveUp ? 0 : digitsUsed} />
             </div>
           }
           status={status}
+          brand={
+            finished ? undefined : (
+              <>
+                <span>Four Nines</span>
+                <small>One-key puzzle calculator</small>
+              </>
+            )
+          }
           screenFooter={
-            <>
-              {record.hintsUsed > 0 && hints.length > 0 && !finished && (
-                <ol className="fn-hints" aria-label="Hints">
-                  {hints.slice(0, record.hintsUsed).map((hint, index) => (
-                    <li key={hint.label}>
-                      <span className="fn-hint-n">H{index + 1}</span>
-                      <span>{index === 2 ? <>Shape: <span className="fn-hint-shape">{hint.text}</span></> : hint.text}</span>
-                    </li>
-                  ))}
-                </ol>
-              )}
-              <div className="fn-scoreline">
-                <button type="button" className="fn-score" onClick={onShowHelp} aria-label="How scoring works">
-                  <span className="nl-screen-label">Symbols</span>
-                  <span
-                    className={`fn-score-n${
-                      record.solved && overPar === 0 ? ' is-par' : ''
-                    }${!finished && par !== undefined && liveSymbols > par ? ' is-over' : ''}`}
-                  >
-                    {record.solved ? record.symbols : record.gaveUp ? '–' : liveSymbols}
-                  </span>
-                </button>
-                <button type="button" className="fn-score" onClick={onShowHelp} aria-label="How scoring works">
-                  <span className="nl-screen-label">Par</span>
-                  <span className="fn-score-n">{par ?? '–'}</span>
-                </button>
-              </div>
-            </>
+            record.hintsUsed > 0 && hints.length > 0 && !finished ? (
+              <ol className="fn-hints" aria-label="Hints">
+                {hints.slice(0, record.hintsUsed).map((hint, index) => (
+                  <li key={hint.label}>
+                    <span className="fn-hint-n">H{index + 1}</span>
+                    <span>
+                      {index === 2 ? (
+                        <>
+                          Shape: <span className="fn-hint-shape">{hint.text}</span>
+                        </>
+                      ) : (
+                        hint.text
+                      )}
+                    </span>
+                  </li>
+                ))}
+              </ol>
+            ) : undefined
           }
         />
 

@@ -5,8 +5,8 @@ interface HelpSheetProps {
   onClose: () => void;
 }
 
-const Key = ({ children, digit = false }: { children: React.ReactNode; digit?: boolean }) => (
-  <span className={`nl-keycap${digit ? ' nl-keycap--digit' : ''}`}>{children}</span>
+const Key = ({ children, digit = false, op = false }: { children: React.ReactNode; digit?: boolean; op?: boolean }) => (
+  <span className={`nl-keycap${digit ? ' nl-keycap--digit' : ''}${op ? ' nl-keycap--op' : ''}`}>{children}</span>
 );
 
 export const HelpSheet = ({ open, onClose }: HelpSheetProps) => (
@@ -36,7 +36,7 @@ export const HelpSheet = ({ open, onClose }: HelpSheetProps) => (
       <h3 className="fn-help-h">The keys</h3>
       <ul className="fn-help-keys">
         <li>
-          <Key>+</Key> <Key>−</Key> <Key>×</Key> <Key>÷</Key> <span>the usual four</span>
+          <Key op>+</Key> <Key op>−</Key> <Key op>×</Key> <Key op>÷</Key> <span>the usual four</span>
         </li>
         <li>
           <Key>(</Key> <Key>)</Key> <span>group things; order of operations applies</span>

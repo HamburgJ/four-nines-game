@@ -5,7 +5,8 @@ import type { ReactNode } from 'react';
 // (Calculator.tsx). Kept out of the component file so React fast
 // refresh keeps working.
 
-export type KeyKind = 'op' | 'digit' | 'util' | 'hint' | 'danger';
+/** op: gray + − × ÷ · fn: light keys ( ) . √ ! ^ % · util: dark AC ⌫ */
+export type KeyKind = 'op' | 'fn' | 'digit' | 'util' | 'hint' | 'danger';
 
 export interface KeySpec {
   /** raw token inserted on press (e.g. '9', '+', 'sqrt(') */
@@ -68,8 +69,8 @@ export const prettyExpression = (raw: string, { spaced = false }: { spaced?: boo
  */
 export const digitKeypad = (digit: number, { advanced = true }: { advanced?: boolean } = {}): KeySpec[] => [
   { action: 'clear', label: 'AC', kind: 'util', ariaLabel: 'Clear' },
-  { token: '(', label: '(', ariaLabel: 'Open parenthesis' },
-  { token: ')', label: ')', ariaLabel: 'Close parenthesis' },
+  { token: '(', label: '(', ariaLabel: 'Open parenthesis', kind: 'fn' },
+  { token: ')', label: ')', ariaLabel: 'Close parenthesis', kind: 'fn' },
   { action: 'back', label: '⌫', kind: 'util', ariaLabel: 'Backspace' },
   { token: '+', label: '+', ariaLabel: 'Plus' },
   { token: '-', label: '−', ariaLabel: 'Minus' },
@@ -77,14 +78,14 @@ export const digitKeypad = (digit: number, { advanced = true }: { advanced?: boo
   { token: '/', label: '÷', ariaLabel: 'Divided by' },
   ...(advanced
     ? ([
-        { token: 'sqrt(', label: '√', ariaLabel: 'Square root' },
-        { token: '!', label: 'x!', ariaLabel: 'Factorial' },
-        { token: '^', label: 'xʸ', ariaLabel: 'Power' },
-        { token: '.', label: '.', ariaLabel: 'Decimal point' },
+        { token: 'sqrt(', label: '√', ariaLabel: 'Square root', kind: 'fn' },
+        { token: '!', label: 'x!', ariaLabel: 'Factorial', kind: 'fn' },
+        { token: '^', label: 'xʸ', ariaLabel: 'Power', kind: 'fn' },
+        { token: '.', label: '.', ariaLabel: 'Decimal point', kind: 'fn' },
         { token: String(digit), label: digit, kind: 'digit', span: 4, ariaLabel: `Digit ${digit}` },
       ] as KeySpec[])
     : ([
-        { token: '.', label: '.', ariaLabel: 'Decimal point' },
+        { token: '.', label: '.', ariaLabel: 'Decimal point', kind: 'fn' },
         { token: String(digit), label: digit, kind: 'digit', span: 3, ariaLabel: `Digit ${digit}` },
       ] as KeySpec[])),
 ];
