@@ -1,5 +1,5 @@
 /*
- * The Number Lab design system: a black calculator on a white page.
+ * The Number Lab design system: a physical desk calculator on a white page.
  *
  * Shared by /four-nines/, /four-fours/, /make-24/ and every solver / target
  * page. THIS FILE is the game's copy of burgerfun's
@@ -870,6 +870,10 @@
   color: inherit;
   text-decoration: none;
   transition: border-color 120ms ease, transform 120ms ease;
+}
+
+.nl-card-link.nl-card--ink {
+  color: #ffffff;
 }
 
 .nl-card-link:hover {
