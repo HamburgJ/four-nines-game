@@ -11,15 +11,18 @@ interface SheetProps {
 /**
  * Inert everything in the app except the sheet and shared site chrome
  * ([data-burger-ui], e.g. burgerfun.ca's logo), the way showModal() would.
+ * The logo's slot is kept even while empty: the site script can insert the
+ * logo after a sheet has opened, and an inert ancestor would freeze it.
  * Returns the undo.
  */
 const inertAround = (keep: Element[]): (() => void) => {
   const changed: HTMLElement[] = [];
-  const kept = (element: Element) => keep.includes(element) || element.hasAttribute('data-burger-ui');
+  const SITE_CHROME = '[data-burger-ui], [data-burger-brand-slot]';
+  const kept = (element: Element) => keep.includes(element) || element.matches(SITE_CHROME);
   const walk = (parent: Element) => {
     for (const child of Array.from(parent.children)) {
       if (kept(child)) continue;
-      if (keep.some((element) => child.contains(element)) || child.querySelector('[data-burger-ui]')) walk(child);
+      if (keep.some((element) => child.contains(element)) || child.querySelector(SITE_CHROME)) walk(child);
       else if (child instanceof HTMLElement && !child.inert) {
         child.inert = true;
         changed.push(child);

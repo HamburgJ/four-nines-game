@@ -574,6 +574,13 @@ input {
   color: var(--nl-gray-600);
 }
 
+/* burgerfun.ca's "Next up" row, which replaces the strip above on the site.
+   The slot has no box until the site fills it, so the rule appears with it. */
+.fn-nextup:has(> burger-next-cards[shown]) {
+  margin-top: 28px;
+  border-top: 1px solid var(--nl-gray-200);
+}
+
 /* ------------------------------------------------------------------------ */
 /* Sheets (dialogs)                                                         */
 /* ------------------------------------------------------------------------ */

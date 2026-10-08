@@ -36,8 +36,9 @@ import {
 } from '../utils/analytics';
 import { DigitPips, ExpressionCalculator, SevenSegment } from '../components/Calculator';
 import { type KeySpec, prettyExpression } from '../components/expression';
-import { CrossPromo } from '../components/CrossPromo';
+import { SetCompleteMore } from '../components/SetCompleteMore';
 import { Sheet } from '../components/Sheet';
+import { announcePause, announceResume, finishKind } from '../utils/nextUp';
 
 const LANE_TONE: Record<DailyDifficulty, 'green' | 'yellow' | 'red'> = {
   easy: 'green',
@@ -168,6 +169,14 @@ export const Play = ({ onShowStats, onShowHelp }: PlayProps) => {
     return () => window.clearInterval(interval);
   }, [finished, isArchive]);
 
+  // Opening an unfinished puzzle, or moving from a finished lane to an open one, is play again.
+  // That includes arriving from the archive after a finished lane, which remounts this page.
+  const wasFinished = useRef<boolean | null>(null);
+  useEffect(() => {
+    if (!finished && wasFinished.current !== false) announceResume();
+    wasFinished.current = finished;
+  }, [finished]);
+
   // Bring the freshly printed tape into view on short screens.
   useEffect(() => {
     if (!justFinished) return;
@@ -176,6 +185,14 @@ export const Play = ({ onShowStats, onShowHelp }: PlayProps) => {
     }, 380);
     return () => window.clearTimeout(timer);
   }, [justFinished]);
+
+  // A lane just finished. The one that closes today's set is the daily solve.
+  const announceFinish = () => {
+    const othersDone = puzzleSet.every(
+      (candidate) => candidate.id === puzzle.id || statusOf(getRecord(candidate.id)) !== 'open',
+    );
+    announcePause(finishKind(isArchive, othersDone));
+  };
 
   const updateRecord = (patch: Partial<DayRecord>) => {
     setRecord((current) => {
@@ -213,6 +230,7 @@ export const Play = ({ onShowStats, onShowHelp }: PlayProps) => {
       timeMs: startedAt !== undefined ? Date.now() - startedAt : undefined,
     });
     logPuzzleSolved(context, symbols, record.hintsUsed);
+    announceFinish();
     setJustFinished(true);
   };
 
@@ -238,6 +256,7 @@ export const Play = ({ onShowStats, onShowHelp }: PlayProps) => {
     setConfirmGiveUp(false);
     updateRecord({ gaveUp: true, solved: false, live: !isArchive, par: parInfo?.par });
     logGiveUp(context, record.hintsUsed);
+    announceFinish();
     setJustFinished(true);
   };
 
@@ -575,7 +594,7 @@ export const Play = ({ onShowStats, onShowHelp }: PlayProps) => {
                 </button>
               </div>
             </div>
-            {!isArchive && setComplete && <CrossPromo dateStr={puzzle.date} />}
+            {!isArchive && setComplete && <SetCompleteMore dateStr={puzzle.date} />}
           </div>
         )}
       </div>
