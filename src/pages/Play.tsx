@@ -169,10 +169,11 @@ export const Play = ({ onShowStats, onShowHelp }: PlayProps) => {
     return () => window.clearInterval(interval);
   }, [finished, isArchive]);
 
-  // Moving from a finished lane to an open one restarts play.
-  const wasFinished = useRef(finished);
+  // Opening an unfinished puzzle, or moving from a finished lane to an open one, is play again.
+  // That includes arriving from the archive after a finished lane, which remounts this page.
+  const wasFinished = useRef<boolean | null>(null);
   useEffect(() => {
-    if (wasFinished.current && !finished) announceResume();
+    if (!finished && wasFinished.current !== false) announceResume();
     wasFinished.current = finished;
   }, [finished]);
 
