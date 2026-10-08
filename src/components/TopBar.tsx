@@ -15,6 +15,8 @@ export const TopBar = ({ onHelp, onStats }: TopBarProps) => {
 
   return (
     <header className="fn-topbar">
+      {/* burgerfun.ca's shared logo moves in here; empty (and hidden) anywhere else. */}
+      <span className="fn-brand-slot" data-burger-brand-slot="" />
       <a className="fn-wordmark" href={LANDING_URL} aria-label="Four Nines home">
         <span className="fn-wordmark-text">Four Nines</span>
       </a>
