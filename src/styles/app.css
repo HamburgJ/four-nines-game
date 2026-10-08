@@ -45,9 +45,82 @@ input {
 }
 
 .fn-wordmark {
+  margin-right: auto;
   color: var(--nl-ink);
   text-decoration: none;
   white-space: nowrap;
+}
+
+/* burgerfun.ca moves its shared logo into .fn-brand-slot (TopBar.tsx); it is
+   empty and hidden anywhere else. Phones: the slot leads the bar, which
+   tightens up and, on the narrowest screens, drops its buttons to a second
+   row; the logo stays pinned there when a result scrolls the bar away.
+   Wider: the logo keeps the page's top-left corner and the bar makes room
+   for it. Either way it stays above sheets and their scrim. */
+.fn-brand-slot {
+  position: relative;
+  z-index: 22;
+}
+
+.fn-brand-slot:empty {
+  display: none;
+}
+
+@media (max-width: 799px) {
+  .fn-topbar:has(.fn-brand-slot:not(:empty)) {
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .fn-topbar:has(.fn-brand-slot:not(:empty)) .fn-topnav {
+    margin-left: auto;
+    gap: 4px;
+  }
+
+  .fn-topbar:has(.fn-brand-slot:not(:empty)) .fn-topbtn:not(.fn-topbtn--icon) {
+    padding: 0 9px;
+  }
+}
+
+@media (max-width: 460px) {
+  .fn-topbar:has(.fn-brand-slot:not(:empty)) {
+    padding-inline: 12px;
+  }
+
+  .fn-topbar:has(.fn-brand-slot:not(:empty)) .fn-wordmark-text {
+    font-size: 18px;
+  }
+
+  .fn-brand-slot:not(:empty) {
+    width: 44px;
+    height: 44px;
+    margin-right: 8px;
+  }
+
+  .fn-brand-slot > burger-fun-logo {
+    position: fixed;
+    top: max(14px, env(safe-area-inset-top));
+    left: max(12px, env(safe-area-inset-left));
+  }
+}
+
+@media (min-width: 461px) {
+  .fn-brand-slot {
+    position: fixed;
+    top: max(14px, env(safe-area-inset-top));
+    left: max(14px, env(safe-area-inset-left));
+  }
+
+  /* Clear the 44px logo, or from 601px its 145px pill. */
+  .fn-topbar:has(.fn-brand-slot:not(:empty)) {
+    padding-left: max(16px, 78px - (100vw - 460px) / 2);
+  }
+}
+
+@media (min-width: 601px) {
+  .fn-topbar:has(.fn-brand-slot:not(:empty)) {
+    padding-left: max(16px, 180px - (100vw - 460px) / 2);
+  }
 }
 
 .fn-wordmark-text {
@@ -505,10 +578,23 @@ input {
 /* Sheets (dialogs)                                                         */
 /* ------------------------------------------------------------------------ */
 
+/* Non-modal (Sheet.tsx), so the layers are ours: scrim, then sheet, then the
+   site logo's slot in the top bar. Sheets stop short of the logo corner. */
+.fn-sheet-scrim {
+  position: fixed;
+  inset: 0;
+  z-index: 20;
+  background: rgba(0, 0, 0, 0.45);
+}
+
 .fn-sheet {
+  --fn-sheet-max-height: min(88vh, 100vh - 112px);
+  position: fixed;
+  inset: 0;
+  z-index: 21;
   width: 100%;
   max-width: 520px;
-  max-height: 88vh;
+  max-height: var(--fn-sheet-max-height);
   margin: auto auto 0;
   padding: 0;
   border: 0;
@@ -521,10 +607,6 @@ input {
 
 .fn-sheet[open] {
   animation: fn-sheet-up 260ms cubic-bezier(0.2, 0.8, 0.2, 1) both;
-}
-
-.fn-sheet::backdrop {
-  background: rgba(0, 0, 0, 0.45);
 }
 
 @keyframes fn-sheet-up {
@@ -542,7 +624,7 @@ input {
 .fn-sheet-inner {
   display: flex;
   flex-direction: column;
-  max-height: 88vh;
+  max-height: var(--fn-sheet-max-height);
   padding: 20px 22px 22px;
 }
 
